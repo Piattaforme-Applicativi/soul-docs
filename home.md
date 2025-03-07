@@ -2,13 +2,13 @@
 title: System for Open-source Unified development Leap
 description: 
 published: true
-date: 2025-03-07T10:21:34.652Z
+date: 2025-03-07T10:22:32.253Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-07T10:09:10.798Z
 ---
 
-# Cos'è SOUL? [TEST]
+# Cos'è SOUL? [TEST sdfasdf]
 
 SOUL (System for Open-source Unified development Leap) è un framework/ambiente di sviluppo open-source progettato per standardizzare e unificare lo sviluppo di applicativi web all'interno dell'Ateneo di Padova. Il nostro obiettivo è creare un ecosistema di sviluppo coerente, efficiente e riutilizzabile, basato sulle migliori pratiche e tecnologie moderne.
 
