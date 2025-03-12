@@ -2,7 +2,7 @@
 title: Installazione
 description: Installare l'ambiente e iniziare a sviluppare con lo Starter Kit
 published: true
-date: 2025-03-12T15:26:44.131Z
+date: 2025-03-12T15:29:03.039Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T14:40:30.089Z
@@ -106,7 +106,7 @@ cd $myapp
 docker compose up
 ```
 
-Il primo avvio si può considerare concluso quando nella terminale compare questa sequenza di istruzioni
+Il primo avvio si può considerare concluso quando nel terminale compare questa sequenza di istruzioni
 
 ```bash
 npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
