@@ -2,7 +2,7 @@
 title: Installazione
 description: Installare l'ambiente e iniziare a sviluppare con lo Starter Kit
 published: true
-date: 2025-03-12T15:39:26.321Z
+date: 2025-03-12T15:40:03.766Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T14:40:30.089Z
@@ -24,9 +24,9 @@ La comunità SOUL mette a disposizione uno [Starter Kit](https://github.com/Piat
 
 Di seguito riportiamo gli strumenti per sviluppare con il framework SOUL:
 
-- Un terminale con shell bash, zsh oppure sh
+- Terminale con shell bash, zsh oppure sh
 - Docker: https://www.docker.com/community-edition#/download
-- GIT: https://git-scm.com/downloads
+- Client GIT: https://git-scm.com/downloads
 - GitHub Desktop Client: https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop (Opzionale)
 
 ### Download dello Starter Kit 
