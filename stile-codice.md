@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-03-12T19:32:05.421Z
+date: 2025-03-12T20:22:44.672Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -119,7 +119,7 @@ La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https:
 * API REST (Like) - semplificano la scrittura del codice  per l'interazione con il server nelle componenti React di tipo client;
 * Funzioni di recupero dati - le funzioni che eseguono data fetch possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (in modo simultaneo - [async concurrency](https://en.wikipedia.org/wiki/Concurrency_(computer_science)))
 
-L'utilizzo delle **server actions** lato server risolve i problemi di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità "API". PEr garantire un buon grado di riusabilità delle funzioni di recupero dati è quindi sufficiente svilupparle  come server actions. 
+L'utilizzo delle **server actions** lato server risolve i problemi di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità "API". Per garantire un buon grado di riusabilità delle funzioni di recupero dati, è sufficiente sviluppare le nuove funzioni come server actions. 
 
 ![Interazione tra client e server](/diagrammi/client-server.png)
 
