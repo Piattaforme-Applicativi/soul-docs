@@ -2,7 +2,7 @@
 title: Installazione
 description: Installare l'ambiente e iniziare a sviluppare con lo Starter Kit
 published: true
-date: 2025-03-12T15:29:03.039Z
+date: 2025-03-12T15:30:18.284Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T14:40:30.089Z
@@ -133,7 +133,7 @@ myapp-nextjs    |
 
 Avviato l'ambiente l'applicativo è raggiungibile all'indirizzo http://localhost. Accedendo a questo indirizzo la prima volta, verrà presentata la maschera di configurazione dell'ambiente NextJS (questo quando manca il file *.env* all'interno della sottocartella nextjs). 
 
-La pagina di configurazione del'ambiente NextJS è pensata per guidare lo sviluppatore nella configurazione iniziale dell'ambiente. Se hai seguito questa guida, il paramento **Descrittore della fonte dati *** deve essere modificato in *postgresql://\$myapp:\$myapp@postgres/\$myapp*.
+La pagina di configurazione del'ambiente NextJS è pensata per guidare lo sviluppatore nella configurazione iniziale dell'ambiente. Se hai seguito questa guida, il paramento **Descrittore della fonte dati** deve essere modificato in *postgresql://\$myapp:\$myapp@postgres/\$myapp*.
 
 Una volta salvata la configurazione l'ambiente deve essere riavviato per caricare le variabili d'ambiente
 
