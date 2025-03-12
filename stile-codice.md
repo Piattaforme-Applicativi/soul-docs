@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-03-12T20:22:44.672Z
+date: 2025-03-12T20:24:16.618Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -123,7 +123,7 @@ L'utilizzo delle **server actions** lato server risolve i problemi di sicronizza
 
 ![Interazione tra client e server](/diagrammi/client-server.png)
 
-Lato server nextjs esegue le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client lo scenario sequenziale capitacon maggiore frequenza (eg. l'utente non è in grado di cliccare i "bottoni" uno alla volta). 
+Lato server nextjs esegue le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client lo scenario sequenziale/serializzato capita con maggiore frequenza (questo perchè l'utente non è in grado di cliccare più pulsanti contemporaneamente). 
 
 Come convenzione scegliamo di salvare le server actions in un file **actions.ts** che raccoglie le funzioni di lettura e scrittura per tutte le componenti di uno stesso tipo
 
