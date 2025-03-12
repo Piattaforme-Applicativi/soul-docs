@@ -20,16 +20,22 @@ Per raggiungere questi obiettivi il framework è stato progettato a micro-serviz
 
 La comunità SOUL mette a disposizione uno [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) per iniziare a sviluppare con queste tecnologie. 
 
-### Prerequisiti
+## Requisiti di sistema
+
+* 16 GB RAM (consigliato)
+* 4 GB di spazio libero su disco (circa 800 MB per l'applicazione)
+* Sistema operativo con supporto per Docker v27 (MacOS, GNU/Linux, Windows)
+
+## Requisiti software
 
 Di seguito riportiamo gli strumenti per sviluppare con il framework SOUL:
 
 - Terminale con shell bash, zsh oppure sh
 - Docker: https://www.docker.com/community-edition#/download
 - Client GIT: https://git-scm.com/downloads
-- GitHub Desktop Client: https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop (Opzionale)
+- GitHub Desktop Client: https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop (opzionale)
 
-### Download dello Starter Kit 
+## Download dello Starter Kit 
 
 Dopo aver installato l'ambiente [Docker](https://www.docker.com/get-started/) è sufficiente clonare lo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) utilizzando un client GIT come [GitHub Desktop](https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop).
 
