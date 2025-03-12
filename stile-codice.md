@@ -114,19 +114,73 @@ export default function NewStudent({ notify }: NewProps) {
 
 ### Backend for frontend
 
-La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). La convenzione per la scrittura del codice sorgente del backend del sistema è di utilizzare le server-actions. Cercheremo di illustrare brevemente i vantagggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
+La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). Convenzione per la scrittura del codice sorgente del backend è utilizzare le server-actions. Cercheremo di illustrare brevemente i vantagggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
 
 * API REST (Like) - semplificano la scrittura del codice  per l'interazione con il server nelle componenti React di tipo client;
 * Funzioni di recupero dati - le funzioni che eseguono data fetch possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (in modo simultaneo - [async concurrency](https://en.wikipedia.org/wiki/Concurrency_(computer_science)))
 
+L'utilizzo delle **server actions** lato server risolve i problemi di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità "API". PEr garantire un buon grado di riusabilità delle funzioni di recupero dati è quindi sufficiente svilupparle  come server actions. 
+
 ![Interazione tra client e server](/diagrammi/client-server.png)
 
-Parlare anche di:
+Lato server nextjs esegue le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client lo scenario sequenziale capitacon maggiore frequenza (eg. l'utente non è in grado di cliccare i "bottoni" uno alla volta). 
 
-* esecuzione asincrona e parallela server side NextJS
-* problema del primo caricamento in React
+Come convenzione scegliamo di salvare le server actions in un file **actions.ts** che raccoglie le funzioni di lettura e scrittura per tutte le componenti di uno stesso tipo
 
+```typescript
+// component/student/actions.ts
+export async function listStudents(): Promise<Student[]> {
+  // ...
+}
 
+export async function save(formData: Partial<Student>): Promise<Student> {
+  // ...
+}
+```
+
+quando possibile è preferibile caricare i dati durante il **primo caricamento** della pagina per le ragioni illustrate in precedenza
+
+```react
+// app/student/page.tsx
+import { NewStudent } from "@/components/student/new";
+import { listStudents } from "@/components/student/actions";
+
+export default async function Page() {
+  const students = await listStudents();
+  return <>
+    <h1>A new student</h1>
+    <NewStudent students={students} />
+   </>
+}
+```
+
+lato client vanno invece richiamate le server actions quando sono in presenza di un'azione scatenata dall'utente
+
+```react
+// components/student/new
+import { save } from "@/components/student/actions";
+
+type NewProps = {
+  students: Students[];
+};
+
+export default function NewStudent({ students }: NewProps) { 
+  const onSave = async (formData: Partial<Student>) => {
+    await save(formData);
+  }
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    onSave(formData);
+  }
+  return (
+    <form onSubmit={onSubmit}>
+    	<select>{students.map(s => <option value={s}>s</option>)}</select>
+      <input type="submit" value="Salva" />
+    </form>
+  );
+};
+```
 
 ### CSS
 
