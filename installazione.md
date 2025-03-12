@@ -1,8 +1,8 @@
 ---
 title: Installare e configurare l'ambiente
-description: Installare l'ambiente e iniziare a sviluppare con lo Starter Kit
+description: Installare e configurare l'ambiente con l'aiuto dello Starter Kit
 published: true
-date: 2025-03-12T15:41:06.094Z
+date: 2025-03-12T15:42:01.189Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T14:40:30.089Z
