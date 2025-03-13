@@ -14,7 +14,7 @@ I file e le directory dell'applicazione sviluppata con NextJS versione 14, sono 
 
 * **Navigazione**: la cartella *nextjs/app/* contiene gli elementi struttura di interfaccia utente per la navigazione. Gli elementi a questo livello sono gli unici a poter essere elencati in una sitemap (§UNAV, §DNAV);
 * **Componenti React (Client e Server)** (riusabili): la cartella *nextjs/components/* contiene lo strato di interfaccia per l'iterazione con l'utente finale;
-* **Interfacce di classe**: la cartella  *nextjs/types/* contiene le interfacce di classe per le classi e gli oggetti condivisi da API REST e componenti React;
+* **Interfacce di classe**: la cartella  *nextjs/types/* contiene le interfacce di classe per le classi e gli oggetti condivisi da server-actions e componenti React (client);
 * **Object relation mapper**:  la cartella  *nextjs/prisma/* contiene le definizioni per gli schemi (SQL o NoSQL) e gli script per il versionamento della base dati.
 
 Il codice sorgente del sistema è scritto in **lingua inglese**. E' pertanto necessario un meccanismo di localizzazione linguistica (i18n) per la presentazione delle informazioni nelle interfacce utente.
@@ -116,10 +116,10 @@ export default function NewStudent({ notify }: NewProps) {
 
 La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). Convenzione per la scrittura del codice sorgente del backend è utilizzare le server-actions. Cercheremo di illustrare brevemente i vantagggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
 
-* API REST (Like) - semplificano la scrittura del codice  per l'interazione con il server nelle componenti React di tipo client;
-* Funzioni di recupero dati - le funzioni che eseguono data fetch possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (in modo simultaneo - [async concurrency](https://en.wikipedia.org/wiki/Concurrency_(computer_science)))
+* **Endpoint HTTP** - semplificano la scrittura del codice per l'interazione con il server nelle componenti React di tipo client;
+* Funzioni di recupero dati - le funzioni che eseguono data fetch possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (in modo simultaneo sfruttando [l'esecuzione concorrente](https://en.wikipedia.org/wiki/Concurrent_computing))
 
-L'utilizzo delle **server actions** lato server risolve i problemi di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità "API". Per garantire un buon grado di riusabilità delle funzioni di recupero dati, è sufficiente sviluppare le nuove funzioni come server actions. 
+L'utilizzo delle **server actions** lato server semplifica l'attività di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità **Endopint HTTP**. Per garantire un buon grado di riusabilità delle funzioni di recupero dati, è sufficiente sviluppare le nuove funzioni come server actions. 
 
 ![Interazione tra client e server](/diagrammi/client-server.png)
 
@@ -129,7 +129,11 @@ Come convenzione scegliamo di salvare le server actions in un file **actions.ts*
 
 ```typescript
 // component/student/actions.ts
-export async function listStudents(): Promise<Student[]> {
+export async function listCourses(): Promise<Course[]> {
+  // ...
+}
+
+export async function listEconomicAids(): Promise<EconomicAid[]> {
   // ...
 }
 
@@ -143,13 +147,14 @@ quando possibile è preferibile caricare i dati durante il **primo caricamento**
 ```jsx
 // app/student/page.tsx
 import { NewStudent } from "@/components/student/new";
-import { listStudents } from "@/components/student/actions";
+import { listCourses, listEconomicAids } from "@/components/student/actions";
 
 export default async function Page() {
-  const students = await listStudents();
+  // Utilizzo delle server-action in modo simultaneo per migliorare le performance
+  const [courses, aids] = await Primise.all([listCourses(), listEconomicAids()]);
   return <>
     <h1>A new student</h1>
-    <NewStudent students={students} />
+    <NewStudent courses={courses} aids={aids} />
    </>
 }
 ```
@@ -161,7 +166,8 @@ lato client vanno invece richiamate le server actions quando sono in presenza di
 import { save } from "@/components/student/actions";
 
 type NewProps = {
-  students: Students[];
+  courses: Course[];
+  aids: EconomicAid[];
 };
 
 export default function NewStudent({ students }: NewProps) { 
@@ -175,7 +181,8 @@ export default function NewStudent({ students }: NewProps) {
   }
   return (
     <form onSubmit={onSubmit}>
-    	<select>{students.map(s => <option value={s}>s</option>)}</select>
+    	<select>{courses.map(c => <option value={c}>c</option>)}</select>
+    	<select>{aids.map(a => <option value={a}>a</option>)}</select>
       <input type="submit" value="Salva" />
     </form>
   );
