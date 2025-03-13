@@ -116,14 +116,14 @@ export default function NewStudent({ notify }: NewProps) {
 
 La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). Convenzione per la scrittura del codice sorgente del backend è utilizzare le server-actions. Cercheremo di illustrare brevemente i vantagggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
 
-* **Endpoint HTTP** - semplificano la scrittura del codice per l'interazione con il server nelle componenti React di tipo client;
-* Funzioni di recupero dati - le funzioni che eseguono data fetch possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (in modo simultaneo sfruttando [l'esecuzione concorrente](https://en.wikipedia.org/wiki/Concurrent_computing))
+* **Endpoint HTTP** - semplificano la scrittura del codice che descrive l'interazione dele richieste fatte componenti React di tipo client verso il server NextJS (trasmissione dati in formato JSON);
+* **Funzioni di recupero dati** - eseguono il recupero dei dati lato server, possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (eg. in modo simultaneo sfruttando [l'esecuzione concorrente](https://en.wikipedia.org/wiki/Concurrent_computing))
 
-L'utilizzo delle **server actions** lato server semplifica l'attività di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità **Endopint HTTP**. Per garantire un buon grado di riusabilità delle funzioni di recupero dati, è sufficiente sviluppare le nuove funzioni come server actions. 
+L'utilizzo delle **server actions** lato server semplifica l'attività di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità **Endpoint HTTP**.
 
 ![Interazione tra client e server](/diagrammi/client-server.png)
 
-Lato server nextjs esegue le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client lo scenario sequenziale/serializzato capita con maggiore frequenza (questo perchè l'utente non è in grado di cliccare più pulsanti contemporaneamente). 
+Lato server NextJS può eseguire le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client l'utente non è in grado di scatenare eventi in modo simultaneo, pertanto l'esecuzione simultanea delle server actions è meno frequente. E' pertanto preferibile evitare l'esecuzione simultanea delle server actions per non incorrere in scenari che riducono la leggibilità del codice sorgente (necessità di sicncronizzare risposte simultanee).
 
 Come convenzione scegliamo di salvare le server actions in un file **actions.ts** che raccoglie le funzioni di lettura e scrittura per tutte le componenti di uno stesso tipo
 
@@ -151,7 +151,7 @@ import { listCourses, listEconomicAids } from "@/components/student/actions";
 
 export default async function Page() {
   // Utilizzo delle server-action in modo simultaneo per migliorare le performance
-  const [courses, aids] = await Primise.all([listCourses(), listEconomicAids()]);
+  const [courses, aids] = await Promise.all([listCourses(), listEconomicAids()]);
   return <>
     <h1>A new student</h1>
     <NewStudent courses={courses} aids={aids} />
