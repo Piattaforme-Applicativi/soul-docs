@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-03-12T20:24:16.618Z
+date: 2025-03-13T08:07:58.605Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -98,7 +98,7 @@ export default interface IStudent {
 
 Si preferisce adottare lo  stile delle componenti React funzionale alle componenti a classe. Per le componenti riusabili è necessario utilizzare i descrittori di tipo per decrivere la segnatura delle funzioni/componenti. I nomi dei component react deve essere in **PascalCase**. I nomi degli attributi, dei metodi  e delle variabili deve essere in **camelCase**. 
 
-```react
+```jsx
 type NewProps = {
   notify: () => void;
 };
@@ -140,7 +140,7 @@ export async function save(formData: Partial<Student>): Promise<Student> {
 
 quando possibile è preferibile caricare i dati durante il **primo caricamento** della pagina per le ragioni illustrate in precedenza
 
-```react
+```jsx
 // app/student/page.tsx
 import { NewStudent } from "@/components/student/new";
 import { listStudents } from "@/components/student/actions";
@@ -156,7 +156,7 @@ export default async function Page() {
 
 lato client vanno invece richiamate le server actions quando sono in presenza di un'azione scatenata dall'utente
 
-```react
+```jsx
 // components/student/new
 import { save } from "@/components/student/actions";
 
