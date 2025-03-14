@@ -123,6 +123,8 @@ L'utilizzo delle **server actions** lato server semplifica l'attività di sicron
 
 ![Utilizzo delle server-actions lato server](/diagrammi/client-server-1.png)
 
+![Utilizzo delle server-actions lato client](/diagrammi/client-server-2.png)
+
 Lato server NextJS può eseguire le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client l'utente non è in grado di scatenare eventi in modo simultaneo, pertanto l'esecuzione simultanea delle server actions è meno frequente. E' pertanto preferibile evitare l'esecuzione simultanea delle server actions per non incorrere in scenari che riducono la leggibilità del codice sorgente (necessità di sicncronizzare risposte simultanee).
 
 Come convenzione scegliamo di salvare le server actions in un file **actions.ts** che raccoglie le funzioni di lettura e scrittura per tutte le componenti di uno stesso tipo
