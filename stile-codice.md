@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-03-13T08:07:58.605Z
+date: 2025-03-14T13:07:46.580Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -133,7 +133,7 @@ export async function listCourses(): Promise<Course[]> {
   // ...
 }
 
-export async function listEconomicAids(): Promise<EconomicAid[]> {
+export async function listBenefits(): Promise<Benefit[]> {
   // ...
 }
 
@@ -147,14 +147,14 @@ quando possibile è preferibile caricare i dati durante il **primo caricamento**
 ```jsx
 // app/student/page.tsx
 import { NewStudent } from "@/components/student/new";
-import { listCourses, listEconomicAids } from "@/components/student/actions";
+import { listCourses, listBenefits } from "@/components/student/actions";
 
 export default async function Page() {
   // Utilizzo delle server-action in modo simultaneo per migliorare le performance
-  const [courses, aids] = await Promise.all([listCourses(), listEconomicAids()]);
+  const [courses, benefits] = await Promise.all([listCourses(), listBenefits()]);
   return <>
     <h1>A new student</h1>
-    <NewStudent courses={courses} aids={aids} />
+    <NewStudent courses={courses} benefits={benefits} />
    </>
 }
 ```
@@ -167,7 +167,7 @@ import { save } from "@/components/student/actions";
 
 type NewProps = {
   courses: Course[];
-  aids: EconomicAid[];
+  benefits: Benefit[];
 };
 
 export default function NewStudent({ students }: NewProps) { 
@@ -182,7 +182,7 @@ export default function NewStudent({ students }: NewProps) {
   return (
     <form onSubmit={onSubmit}>
     	<select>{courses.map(c => <option value={c}>c</option>)}</select>
-    	<select>{aids.map(a => <option value={a}>a</option>)}</select>
+    	<select>{benefits.map(b => <option value={b}>b</option>)}</select>
       <input type="submit" value="Salva" />
     </form>
   );
