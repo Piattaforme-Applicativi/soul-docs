@@ -121,7 +121,7 @@ La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https:
 
 L'utilizzo delle **server actions** lato server semplifica l'attività di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità **Endpoint HTTP**.
 
-![Interazione tra client e server](/diagrammi/client-server.png)
+![Utilizzo delle server-actions lato server](/diagrammi/client-server-1.png)
 
 Lato server NextJS può eseguire le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client l'utente non è in grado di scatenare eventi in modo simultaneo, pertanto l'esecuzione simultanea delle server actions è meno frequente. E' pertanto preferibile evitare l'esecuzione simultanea delle server actions per non incorrere in scenari che riducono la leggibilità del codice sorgente (necessità di sicncronizzare risposte simultanee).
 
