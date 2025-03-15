@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-03-14T13:07:46.580Z
+date: 2025-03-15T12:46:41.182Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -121,9 +121,9 @@ La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https:
 
 L'utilizzo delle **server actions** lato server semplifica l'attività di sicronizzazione delle risposte nella fase del primo caricamento della pagina. Le successive richieste di aggiornamento di componenti e blocchi della pagina richieste dall'utente utilizzano le server action in modalità **Endpoint HTTP**.
 
-![Utilizzo delle server-actions lato server](/diagrammi/client-server-1.png)
+![Utilizzo delle server-actions lato server](/diagrammi/client-server-1.svg)
 
-![Utilizzo delle server-actions lato client](/diagrammi/client-server-2.png)
+![Utilizzo delle server-actions lato client](/diagrammi/client-server-2.svg)
 
 Lato server NextJS può eseguire le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client l'utente non è in grado di scatenare eventi in modo simultaneo, pertanto l'esecuzione simultanea delle server actions è meno frequente. E' pertanto preferibile evitare l'esecuzione simultanea delle server actions per non incorrere in scenari che riducono la leggibilità del codice sorgente (necessità di sicncronizzare risposte simultanee).
 
