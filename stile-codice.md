@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-03-15T12:46:41.182Z
+date: 2025-04-18T12:32:55.479Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -205,7 +205,9 @@ I nomi delle classi e degli id deve essere in **kebab-case**
 Segue l'elenco delle componenti che tipicamente compongono il sistema e le librerie che è conveniente impiegare:
 
 - Obiect Relation Mapper - [Prisma.io](https://www.prisma.io/)
-- Design delle interfacce utente - [AGID React Dev Kit](https://italia.github.io/design-react-kit/?path=/story/documentazione-welcome--page)
+- Stile generale delle interfacce utente (Bootstrap Italia) - [AGID Design System Italia](https://italia.github.io/bootstrap-italia)
+- Stile e componenti per moduli/form - [React Material UI (MUI)](https://mui.com/material-ui/)
+
 
 # Glossario
 
