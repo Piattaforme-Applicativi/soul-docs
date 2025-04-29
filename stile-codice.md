@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-04-18T12:32:55.479Z
+date: 2025-04-29T13:39:12.661Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -83,7 +83,7 @@ model student {
 
 ### Classi e interfacce typescript
 
-I nomi delle classi e delle interfacce typescript deve essere in **PascalCase**. I nomi degli attributi, dei metodi e delle variabili deve essere in **camelCase**.
+I nomi delle classi e delle interfacce typescript devono essere in **PascalCase**. I nomi degli attributi, dei metodi e delle variabili devono essere in **camelCase**.
 
 ```typescript
 export default interface IStudent {
@@ -96,7 +96,7 @@ export default interface IStudent {
 
 ### Componenti React (Client)
 
-Si preferisce adottare lo  stile delle componenti React funzionale alle componenti a classe. Per le componenti riusabili è necessario utilizzare i descrittori di tipo per decrivere la segnatura delle funzioni/componenti. I nomi dei component react deve essere in **PascalCase**. I nomi degli attributi, dei metodi  e delle variabili deve essere in **camelCase**. 
+Si preferisce adottare lo  stile delle componenti React funzionale alle componenti a classe. Per le componenti riusabili è necessario utilizzare i descrittori di tipo per decrivere le firme delle funzioni, delle componenti e dei metodi. I nomi dei componenti React devono essere in **PascalCase**. I nomi degli attributi, dei metodi  e delle variabili devono essere in **camelCase**. 
 
 ```jsx
 type NewProps = {
