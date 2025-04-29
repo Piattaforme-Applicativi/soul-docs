@@ -26,6 +26,7 @@ Lo starter kit può risultare poco efficace nei casi in cui il progetto prevede:
 Lo starter kit SOUL prevede l'utlizzo di tre container:
 
 * **NextJS** - Applicazione web per l'interazione con l'utente finale;
+* **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
 * **PostgreSQL** - Database relazionale per la persistenza dei dati;
 * **Cronjob** - Sistema batch per il download programmato dei dati da fonti esterne (opzionale).
 
