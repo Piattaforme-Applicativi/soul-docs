@@ -2,13 +2,13 @@
 title: Archittettura
 description: Architettura delle applicazioni
 published: true
-date: 2025-03-31T07:59:50.309Z
+date: 2025-04-29T13:08:22.149Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
 ---
 
-# Architettura delle applicazioni
+# Architettura dei sistemi
 
 Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) ereditano un' **architettura monolitica** basata su container. L'architettura monolitica è indicata per progetti che hanno le seguenti caratteristiche:
 
