@@ -1,8 +1,8 @@
 ---
-title: Archittettura
-description: Architettura delle applicazioni
+title: Architettura dei sistemi
+description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-04-29T13:08:22.149Z
+date: 2025-04-29T13:30:26.975Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
