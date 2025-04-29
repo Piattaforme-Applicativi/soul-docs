@@ -23,7 +23,7 @@ Lo starter kit può risultare poco efficace nei casi in cui il progetto prevede:
 - Scalabilità indipendente per moduli diversi;
 - Domini complessi o con responsabilità ben separate (es. e-commerce, piattaforme SaaS multi-tenant).
 
-Lo starter kit SOUL prevede l'utlizzo di tre container:
+Lo starter kit SOUL prevede l'utlizzo di quattro container:
 
 * **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
 * **NextJS** - Applicazione web per l'interazione con l'utente finale;
