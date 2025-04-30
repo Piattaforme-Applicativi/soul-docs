@@ -28,7 +28,7 @@
       "version": 130,
       "versionNonce": 879938628,
       "isDeleted": false,
-      "boundElements": null,
+      "boundElements": [],
       "updated": 1745932838525,
       "link": null,
       "locked": false
@@ -58,7 +58,7 @@
       "version": 77,
       "versionNonce": 835152508,
       "isDeleted": false,
-      "boundElements": null,
+      "boundElements": [],
       "updated": 1745932841066,
       "link": null,
       "locked": false
@@ -88,7 +88,7 @@
       "version": 127,
       "versionNonce": 997148740,
       "isDeleted": false,
-      "boundElements": null,
+      "boundElements": [],
       "updated": 1745932848007,
       "link": null,
       "locked": false
@@ -1481,7 +1481,7 @@
       "width": 359.9321986607141,
       "height": 95.59322857432318,
       "angle": 0,
-      "strokeColor": "#2f9e44",
+      "strokeColor": "#b2f2bb",
       "backgroundColor": "#ffec99",
       "fillStyle": "solid",
       "strokeWidth": 4,
@@ -1495,8 +1495,8 @@
         "type": 2
       },
       "seed": 2038335100,
-      "version": 1517,
-      "versionNonce": 1580231164,
+      "version": 1532,
+      "versionNonce": 927047236,
       "isDeleted": false,
       "boundElements": [
         {
@@ -1504,7 +1504,7 @@
           "id": "4eOpGJb0_MRtSzR76EIYO"
         }
       ],
-      "updated": 1745932872542,
+      "updated": 1745994097136,
       "link": null,
       "locked": false,
       "points": [
@@ -1540,11 +1540,11 @@
       "id": "4eOpGJb0_MRtSzR76EIYO",
       "type": "text",
       "x": 645.4811172485352,
-      "y": 241.9296875,
+      "y": 242.046875,
       "width": 69.77995300292969,
       "height": 25,
       "angle": 0,
-      "strokeColor": "#2f9e44",
+      "strokeColor": "#0c8599",
       "backgroundColor": "#ffec99",
       "fillStyle": "solid",
       "strokeWidth": 4,
@@ -1556,11 +1556,11 @@
       "index": "b1O",
       "roundness": null,
       "seed": 1515196284,
-      "version": 38,
-      "versionNonce": 719340484,
+      "version": 56,
+      "versionNonce": 766109436,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1745932872542,
+      "updated": 1745994096267,
       "link": null,
       "locked": false,
       "text": "/home/",
