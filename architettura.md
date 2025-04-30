@@ -10,7 +10,18 @@ dateCreated: 2025-03-31T07:59:50.309Z
 
 # Architettura dei sistemi
 
-Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) ereditano un' **architettura monolitica** basata su container. L'architettura monolitica è indicata per progetti che hanno le seguenti caratteristiche:
+Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) ereditano uno stile di architettura a microservizi basata su Docker container.  Lo starter kit SOUL prevede l'impiego di quattro container:
+
+* **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
+* **NextJS** - Applicazione web per l'interazione con l'utente finale;
+* **PostgreSQL** - Database relazionale per la persistenza dei dati;
+* **Cronjob** - Sistema batch per il download programmato dei dati da fonti esterne (opzionale).
+
+![Componenti pila software SOUL](/diagrammi/componenti-architettura.svg)
+
+## NextJS
+
+Gli applicativi creati a partire Starter Kit hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto del suo tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS ha uno stile architetturale monolitico ed è **indicato per progetti** che hanno le seguenti caratteristiche:
 
 - MVP (Minimum Viable Product), prototipi o app con team piccoli;
 - Progetti interni, CRUD semplici, gestionali;
@@ -23,20 +34,7 @@ Lo starter kit può risultare poco efficace nei casi in cui il progetto prevede:
 - Scalabilità indipendente per moduli diversi;
 - Domini complessi o con responsabilità ben separate (es. e-commerce, piattaforme SaaS multi-tenant).
 
-Lo starter kit SOUL prevede l'utlizzo di quattro container:
-
-* **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
-* **NextJS** - Applicazione web per l'interazione con l'utente finale;
-* **PostgreSQL** - Database relazionale per la persistenza dei dati;
-* **Cronjob** - Sistema batch per il download programmato dei dati da fonti esterne (opzionale).
-
-![Componenti pila software SOUL](/diagrammi/componenti-architettura.svg)
-
-
-
-## NextJS
-
-Gli applicativi web sviluppati con il framework NextJS versione 14 (App Router), permettono di costruire sistemi con architettura di tipo client-server e multi tier. 
+Gli applicativi web sviluppati con il framework NextJS versione 14 (App Router), permettono di costruire applicativi con design pattern architetturale di tipo **client-server e multi tier**. 
 
 Il framework eredita le funzionalità di React, pertanto è possibile utilizzare i componenti React lato client e lato server. Gli applicativi web sviluppati con questa tecnologia sono di tipo client-server e prevedono che l'utente interagisca con l'applicazione dispiegata nel server Node/NextJS attraverso il browser.
 
