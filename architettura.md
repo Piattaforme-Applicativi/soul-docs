@@ -10,7 +10,9 @@ dateCreated: 2025-03-31T07:59:50.309Z
 
 # Architettura dei sistemi
 
-Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) ereditano uno stile di architettura a microservizi basata su Docker container.  Lo starter kit SOUL prevede l'impiego di quattro container:
+Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) ereditano uno stile di architettura a microservizi basata su Docker container.  Lo Starter Kit è progettato per il deployment in ambienti cloud moderni che adottano modelli PaaS (Platform as a Service) e infrastrutture ephemeral, ovvero temporanee e ricreate a ogni deploy. Questo approccio semplifica l'integrazione continua (CI) e la distribuzione continua (CD) negli ambienti di staging e produzione.
+
+Lo Starter Kit prevede l'impiego di quattro container:
 
 * **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
 * **NextJS** - Applicazione web per l'interazione con l'utente finale;
