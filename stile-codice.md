@@ -144,7 +144,7 @@ export async function save(formData: Partial<Student>): Promise<Student> {
 }
 ```
 
-quando possibile è preferibile caricare i dati durante il **primo caricamento** della pagina per le ragioni illustrate in precedenza
+Le pagine utilizzate per la navigazione dell'utente (§LP) deveono obbligatoriamente essere dei React Server Components (§RSC) per ragioni di sicurezza. Inoltre quando possibile è preferibile caricare i dati durante il **primo caricamento** della pagina per le ragioni illustrate in precedenza. 
 
 ```jsx
 // app/student/page.tsx
@@ -191,6 +191,8 @@ export default function NewStudent({ students }: NewProps) {
 };
 ```
 
+E' importante far notare che, per le componenti React NextJS non strettamente utilizzate per la navigazione (§LP), è necessario marcare la componente con la direttiva **'use client'** quando ci sono istruzioni che devono essere eseguite lato client (§RCC, §RSP).
+
 ### CSS
 
 I nomi delle classi e degli id deve essere in **kebab-case**
@@ -232,4 +234,5 @@ Segue l'elenco delle componenti che tipicamente compongono il sistema e le libre
 - ORM - [Prisma ORM](https://www.prisma.io/)](https://www.robinwieruch.de/react-function-component/), ultima visita 15/3/2024
 - RCC - [React Client Components](https://nextjs.org/docs/app/building-your-application/rendering/client-components), ultima visita 06/05/2025
 - RSC - [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components), ultima visita 06/05/2025
+- LP - [Routing e Layout](https://nextjs.org/docs/app/getting-started/layouts-and-pages), ultima visita 06/05/2025
 
