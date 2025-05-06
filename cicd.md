@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-06T08:33:27.707Z
+date: 2025-05-06T09:22:30.963Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -20,10 +20,10 @@ Il processo di sviluppo nasce su iniziativa del team di sviliuppo che chiede ai 
 
 ### Scelta dei nomi dei domini e dei repository
 
-Nella fase iniziale del progetto di sviluppo è necessario scegliere il nome del repository GIT e dei nomi a dominio per raggiungere via browser gli ambienti di staging e di produzione. E' una convezione interna scegliere il nome del repository GIT secondo il formato Kebab case. Per quanto riguarda i nomi a dominio vanno rispettate le [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini). Per ragioni di gestione, se possibile, è preferibile scegliere i nomi a dominio per gli ambienti di staging in produzione in questo modo:
+Nella fase iniziale del progetto di sviluppo è necessario scegliere il nome del repository GIT e dei nomi a dominio per raggiungere via browser gli ambienti di staging e di produzione. E' una convezione interna scegliere il nome del repository GIT secondo il formato [Kebab case](/stile-codice#glossario). Per quanto riguarda i nomi a dominio vanno rispettate le [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini). Per ragioni di gestione, se possibile, è preferibile scegliere i nomi a dominio per gli ambienti di staging in produzione in questo modo:
 
-* **staging** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato Kebab case deve essere seguito dal suffisso *-staging.ict.unipd.it*  (eg. {nuovo-software}-staging.ict.unipd.it)
-* **produzione** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato Kebab case deve essere seguito dal suffisso *.ict.unipd.it*  (eg. {nuovo-software}.ict.unipd.it)
+* **staging** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/stile-codice#glossario) deve essere seguito dal suffisso *-staging.ict.unipd.it*  (eg. {nuovo-software}-staging.ict.unipd.it)
+* **produzione** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/stile-codice#glossario) deve essere seguito dal suffisso *.ict.unipd.it*  (eg. {nuovo-software}.ict.unipd.it)
 
 La scelta dei nomi a dominio è rilevante per la fase di integrazione dell'applicativo con l'Identity Provider di Ateneo.
 
