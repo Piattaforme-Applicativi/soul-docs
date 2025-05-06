@@ -18,14 +18,23 @@ Il processo di sviluppo nasce su iniziativa del team di sviliuppo che chiede ai 
 
 ![Diagramma del ciclo di vita](/diagrammi/sviluppo-e-dispiegamento.svg)
 
+### Scelta dei nomi dei domini e dei repository
+
+Nella fase iniziale del progetto di sviluppo è necessario scegliere il nome del repository GIT e dei nomi a dominio per raggiungere via browser gli ambienti di staging e di produzione. E' una convezione interna scegliere il nome del repository GIT secondo il formato Kebab case. Per quanto riguarda i nomi a dominio vanno rispettate le [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini). Per ragioni di gestione, se possibile, è preferibile scegliere i nomi a dominio per gli ambienti di staging in produzione in questo modo:
+
+* **staging** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato Kebab case deve essere seguito dal suffisso *-staging.ict.unipd.it*  (eg. {nuovo-software}-staging.ict.unipd.it)
+* **produzione** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato Kebab case deve essere seguito dal suffisso *.ict.unipd.it*  (eg. {nuovo-software}.ict.unipd.it)
+
+La scelta dei nomi a dominio è rilevante per la fase di integrazione dell'applicativo con l'Identity Provider di Ateneo.
+
 ### Compiti dello sviluppatore
 
 Segue l'elenco dei compiti che lo sviluppatore deve svolgere per rilasciare un nuovo applicativo in  negli ambienti di staging e produzione nel cloud di Ateneo.
 
 | Codice | Nome del processo                                 | Descrizione del processo                                     |
 | :----: | ------------------------------------------------- | ------------------------------------------------------------ |
-|   S1   | Richiesta nuovo repository                        | Lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( il gestore dei repository ), chiedendo di creare un repository per il nuovo progetto/prodotto software. All'interno della comunicazione vanno riportati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nelle [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini) (eg. \${nuovo-software}-staging.ict.unipd.it, \${nuovo-software}.ict.unipd.it.). |
-|   S2   | Preparazione ambiente locale di sviluppo          | A seguito della ricezione della **comunicazione di conferma di crezione del nuovo repository** da parte del gestore dei repository, lo sviluppatore può installare e configurare l'ambiente di lavoro locale[installazione](/installazione) |
+|   S1   | Richiesta nuovo repository                        | Lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( il gestore dei repository ), chiedendo di creare un repository per il nuovo progetto/prodotto software. All'interno della comunicazione vanno riportati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nella sezione [scelta dei nomi dei domini e dei repository](#scelta-dei-nomi-dei-domini-e-dei-repository) |
+|   S2   | Preparazione ambiente locale di sviluppo          | A seguito della ricezione della **comunicazione di conferma di crezione del nuovo repository** da parte del gestore dei repository, lo sviluppatore può [installare e configurare l'ambiente di lavoro locale](/installazione) |
 |   S3   | Sviluppo software                                 | Lo sviluppatore implementa una nuova versione del sistema per rispondere ai requisiti o per correggere dei difetti del prodotto software |
 |   S4   | Rilascio nuova versione in ambiente di test       | Lo sviluppatore esegue il GIT PUSH dei COMMIT nel **branch sviluppo**. Se tutte le modificano superano i test automatici di verifica e validazione, la nuova versione del prodotto software viene dispiegata nell'ambiente di **staging** |
 |   S5   | Beta testing                                      | Lo sviluppatore esegue una verifica della nuova versione dell'applicativo Insieme agli utenti finali e raccoglie feedback |
@@ -34,7 +43,7 @@ Segue l'elenco dei compiti che lo sviluppatore deve svolgere per rilasciare un n
 
 ### Sviluppatori interni all'Ateneo
 
-Gli sviluppatori che fanno parte dello staff di Ateneo, possono decidere di creare in autonomia i repository dei progetti software basati su [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL. Per fare questo lo sviluppatore in staff all'Ateneo può mandare una comunicazione all'indirizzo soul.applicativi@unipd.it , chiedendo l'autorizzazione a creare nuovi repository per i nuovi progetti software. A seguito dell'autorizzazione da parte del gestore dei repository di Ateneo, lo sviluppatore può creare nuovi repository come fork dello [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL. **Prima di rilasciare il prodotto** negli ambienti di staging e di produzione, lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( gestore dei repository ) per richiedere l'attiviazione della CI/CD per il nuovo prodotto software. Nella comunicazione devono essere indicati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nelle [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini) (eg. \${nuovo-software}-staging.ict.unipd.it, \${nuovo-software}.ict.unipd.it.). 
+Gli sviluppatori che fanno parte dello staff di Ateneo, possono decidere di creare in autonomia i repository dei progetti software basati su [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL. Per fare questo lo sviluppatore in staff all'Ateneo può mandare una comunicazione all'indirizzo soul.applicativi@unipd.it , chiedendo l'autorizzazione a creare nuovi repository per i nuovi progetti software. A seguito dell'autorizzazione da parte del gestore dei repository di Ateneo, lo sviluppatore può creare nuovi repository come fork dello [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL. **Prima di rilasciare il prodotto** negli ambienti di staging e di produzione, lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( gestore dei repository ) per richiedere l'attiviazione della CI/CD per il nuovo prodotto software. Nella comunicazione devono essere indicati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nella sezione [scelta dei nomi dei domini e dei repository](#scelta-dei-nomi-dei-domini-e-dei-repository). 
 
 ## Rilascio delle nuove versioni 
 
