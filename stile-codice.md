@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-05-06T08:37:03.821Z
+date: 2025-05-06T08:37:38.662Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
