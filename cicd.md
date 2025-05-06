@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-06T09:56:17.171Z
+date: 2025-05-06T09:58:07.374Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -14,7 +14,7 @@ Le applicazioni sviluppate con lo [Starter Kit](https://github.com/Piattaforme-A
 
 ## Ciclo di vita
 
-Il processo di sviluppo ha inizio con la richiesta del team di sviluppo. Il team di sviluppo richiede la creazione di un nuovo repository, per i sorgenti del prodotto software, ai gestori dei repository di Ateneo. Dopo aver scelto il nome del repository insieme al fornitore, i gestori dei repository creano il nuovo repository come fork dello [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit)  e preparano le procedure per la CI/CD per dispiegare l'applicativo negli ambienti cloud. Quando la CI/CD è pronta lo sviluppatore riceve una notifica e può clonare il repository per iniziare lo sviluppo del nuovo prodotto software. Da questo momento lo sviluppatore può rilasciare le nuove funzionalità del software eseguendo il PUSH nel repository remoto. Effettuando il PUSH nel **branch develop** il prodotto viene dispiegato nell'ambiente di staging. Il prodotto software può essere mostrato al cliente finale per raccogliere feedback. A seguito delle indicazioni dell'utente finale lo sviluppatore può decidere se ritornare all fase dello sviluppo o rilasciare la nuove versione del software nell'ambiente produzione effetuando il PUSH nel **branch main**. 
+Il processo di sviluppo ha inizio con la richiesta del team di sviluppo. Il team di sviluppo richiede la creazione di un nuovo repository, per i sorgenti del prodotto software, ai gestori dei repository di Ateneo. Dopo aver scelto il nome del repository insieme al fornitore, i gestori dei repository creano il nuovo repository come fork dello [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) e preparano le procedure per la CI/CD per dispiegare l'applicativo negli ambienti cloud. Quando la CI/CD è pronta il team di sviluppato riceve una notifica e può clonare il repository per dare inizio alla fase di implementazione del nuovo prodotto software. Da questo momento il team di sviluppo può rilasciare le nuove funzionalità del software eseguendo il PUSH nel repository remoto. Effettuando il PUSH nel **branch develop** il prodotto viene dispiegato nell'ambiente di staging. Il prodotto software può essere mostrato al cliente finale per raccogliere feedback. A seguito delle indicazioni dell'utente finale il team di sviluppo può decidere se ritornare alla fase dello sviluppo o rilasciare la nuova versione del software nell'ambiente produzione effetuando il PUSH nel **branch main**. 
 
 ![Diagramma del ciclo di vita](/diagrammi/sviluppo-e-dispiegamento.svg)
 
