@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_171ucsg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.6.1">
+  <bpmn:collaboration id="Collaboration_1y002nx">
+    <bpmn:participant id="Participant_0phsbnz" name="Sviluppatore" processRef="Process_0fl8bl4" />
+    <bpmn:textAnnotation id="TextAnnotation_0vbjb6m">
+      <bpmn:text>Localizzazione linguistica</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1iwx30g">
+      <bpmn:text>Pre verifica e validazione per minimizzare probemi esecuzione delle GitHub actions</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1yn68q1">
+      <bpmn:text>Modifica dei file di configurazione .env e package.json</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0qpd8b3" associationDirection="None" sourceRef="Activity_1p57ml4" targetRef="TextAnnotation_0vbjb6m" />
+    <bpmn:association id="Association_1926rox" associationDirection="None" sourceRef="Activity_1fzk5d9" targetRef="TextAnnotation_1iwx30g" />
+    <bpmn:association id="Association_1n5a29y" associationDirection="None" sourceRef="Activity_00ncxmr" targetRef="TextAnnotation_1yn68q1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_0fl8bl4" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_0vhtygk">
+      <bpmn:outgoing>Flow_1xjeitj</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_1p57ml4" name="R1 - Traduzione di label e messaggi">
+      <bpmn:incoming>Flow_1xjeitj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1x3g2lw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1fzk5d9" name="R2 - Build standalone di NextJS">
+      <bpmn:incoming>Flow_1x3g2lw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rvy2pb</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_00ncxmr" name="R3 - Avanzamento versione">
+      <bpmn:incoming>Flow_1rvy2pb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jbs98t</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0vllwfz" name="R4 - Rilascio in staging o produzione">
+      <bpmn:incoming>Flow_0jbs98t</bpmn:incoming>
+      <bpmn:outgoing>Flow_13tivtz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1xjeitj" sourceRef="StartEvent_0vhtygk" targetRef="Activity_1p57ml4" />
+    <bpmn:sequenceFlow id="Flow_1x3g2lw" sourceRef="Activity_1p57ml4" targetRef="Activity_1fzk5d9" />
+    <bpmn:sequenceFlow id="Flow_1rvy2pb" sourceRef="Activity_1fzk5d9" targetRef="Activity_00ncxmr" />
+    <bpmn:sequenceFlow id="Flow_0jbs98t" sourceRef="Activity_00ncxmr" targetRef="Activity_0vllwfz" />
+    <bpmn:sequenceFlow id="Flow_13tivtz" sourceRef="Activity_0vllwfz" targetRef="Event_1uy6jyi" />
+    <bpmn:endEvent id="Event_1uy6jyi">
+      <bpmn:incoming>Flow_13tivtz</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1y002nx">
+      <bpmndi:BPMNShape id="Participant_0phsbnz_di" bpmnElement="Participant_0phsbnz" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="890" height="310" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_0vhtygk">
+        <dc:Bounds x="236" y="230" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ot4fqm_di" bpmnElement="Activity_1p57ml4">
+        <dc:Bounds x="330" y="208" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06gd9ho_di" bpmnElement="Activity_1fzk5d9">
+        <dc:Bounds x="490" y="208" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0esxzoq_di" bpmnElement="Activity_00ncxmr">
+        <dc:Bounds x="650" y="208" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0eiv1du_di" bpmnElement="Activity_0vllwfz">
+        <dc:Bounds x="810" y="208" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1uy6jyi_di" bpmnElement="Event_1uy6jyi">
+        <dc:Bounds x="962" y="230" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1xjeitj_di" bpmnElement="Flow_1xjeitj">
+        <di:waypoint x="272" y="248" />
+        <di:waypoint x="330" y="248" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1x3g2lw_di" bpmnElement="Flow_1x3g2lw">
+        <di:waypoint x="430" y="248" />
+        <di:waypoint x="490" y="248" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rvy2pb_di" bpmnElement="Flow_1rvy2pb">
+        <di:waypoint x="590" y="248" />
+        <di:waypoint x="650" y="248" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jbs98t_di" bpmnElement="Flow_0jbs98t">
+        <di:waypoint x="750" y="248" />
+        <di:waypoint x="810" y="248" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13tivtz_di" bpmnElement="Flow_13tivtz">
+        <di:waypoint x="910" y="248" />
+        <di:waypoint x="962" y="248" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0qpd8b3_di" bpmnElement="Association_0qpd8b3">
+        <di:waypoint x="380" y="208" />
+        <di:waypoint x="380" y="158" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1926rox_di" bpmnElement="Association_1926rox">
+        <di:waypoint x="533" y="208" />
+        <di:waypoint x="527" y="165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1n5a29y_di" bpmnElement="Association_1n5a29y">
+        <di:waypoint x="713" y="208" />
+        <di:waypoint x="727" y="165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0vbjb6m_di" bpmnElement="TextAnnotation_0vbjb6m">
+        <dc:Bounds x="330" y="117" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1iwx30g_di" bpmnElement="TextAnnotation_1iwx30g">
+        <dc:Bounds x="470" y="110" width="207" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1yn68q1_di" bpmnElement="TextAnnotation_1yn68q1">
+        <dc:Bounds x="690" y="110" width="130" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
