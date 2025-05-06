@@ -1,8 +1,8 @@
 ---
-title: CI/CD
-description: Integrazione, consegna e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
+title: Sviluppo, versionamento e dispiegamento
+description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-04-30T07:00:29.308Z
+date: 2025-05-06T08:32:10.222Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
