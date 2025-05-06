@@ -82,9 +82,7 @@ Per aggiornare la versione del software è necessario modificare i due file:
 * .env - incremento della versione del sistema, quando almeno uno dei micorservizi è stato modificato;
 * nextjs/package.json - quando si sviluppano nuove funzionalità o nel caso di BUGFIX, nel microservizio NextJS.
 
-La convenzione adottata per il verionamento è qualle descritta a seguire:
-
-Dato un numero di versione espresso nel formato MAJOR.MINOR.PATCH, l'incremento di versione è :
+Seguono le convenzioni adottate per l'annotazione dei rilasci di nuove versioni del prodotto software. Dato un numero di versione espresso nel formato MAJOR.MINOR.PATCH, l'incremento di versione è :
 
 - MAJOR quando vengono fatte delle manutenzioni che modificano in comportamento delle API (integrazioni offerte da questo sistema ad altri sistemi);
 - MINOR quando vengono aggiunte dell funzionalità in maniera retrocompatibile (senza side effects rispetto ad altri sistemi che si integrano con il nostro sistema);
