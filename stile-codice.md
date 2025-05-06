@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-05-06T08:36:52.449Z
+date: 2025-05-06T08:37:03.821Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -231,5 +231,5 @@ Segue l'elenco delle componenti che tipicamente compongono il sistema e le libre
 - RF - [React Function Components](https://www.robinwieruch.de/react-function-component/), ultima visita 15/3/2024
 - ORM - [Prisma ORM](https://www.prisma.io/)](https://www.robinwieruch.de/react-function-component/), ultima visita 15/3/2024
 - RCC - [React Client Components](https://nextjs.org/docs/app/building-your-application/rendering/client-components), ultima visita 06/05/2025
-- RSC - React Server Components - [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components), ultima visita 06/05/2025
+- RSC - [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components), ultima visita 06/05/2025
 
