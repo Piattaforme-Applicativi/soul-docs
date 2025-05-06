@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-06T09:58:07.374Z
+date: 2025-05-06T10:02:24.536Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -35,11 +35,11 @@ Segue l'elenco dei compiti che lo sviluppatore deve svolgere per rilasciare un n
 | :----: | ------------------------------------------------- | ------------------------------------------------------------ |
 |   S1   | Richiesta nuovo repository                        | Lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( il gestore dei repository ), chiedendo di creare un repository per il nuovo progetto/prodotto software. All'interno della comunicazione vanno riportati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nella sezione [scelta dei nomi dei domini e dei repository](#scelta-dei-nomi-dei-domini-e-dei-repository) |
 |   S2   | Preparazione ambiente locale di sviluppo          | A seguito della ricezione della **comunicazione di conferma di crezione del nuovo repository** da parte del gestore dei repository, lo sviluppatore può [installare e configurare l'ambiente di lavoro locale](/installazione) |
-|   S3   | Sviluppo software                                 | Lo sviluppatore implementa una nuova versione del sistema per rispondere ai requisiti o per correggere dei difetti del prodotto software |
-|   S4   | Rilascio nuova versione in ambiente di test       | Lo sviluppatore esegue il GIT PUSH dei COMMIT nel **branch sviluppo**. Se tutte le modificano superano i test automatici di verifica e validazione, la nuova versione del prodotto software viene dispiegata nell'ambiente di **staging** |
+|   S3   | Sviluppo software                                 | Lo sviluppatore implementa una [nuova versione del sistema](#annotazione-nuova-versione) per rispondere ai requisiti o per correggere dei difetti del prodotto software |
+|   S4   | Rilascio nuova versione in ambiente di test       | Lo sviluppatore esegue il GIT PUSH dei COMMIT nel **branch sviluppo**. Se tutte le modificano superano i test automatici di verifica e validazione, la [nuova versione](#annotazione-nuova-versione) del prodotto software viene dispiegata nell'ambiente di **staging** |
 |   S5   | Beta testing                                      | Lo sviluppatore esegue una verifica della nuova versione dell'applicativo Insieme agli utenti finali e raccoglie feedback |
-|   S6   | Raccolta dei feedback                             | A fronte dei feedback raccolti, lo sviluppatore insieme all'utente finale decide se la nuova versione del sistema può essere rilasciata in produzione |
-|   S7   | Rilascio nuova versione in ambiente di produzione | Lo sviluppatore esegue il GIT PUSH dei COMMIT nel **branch main**. Se tutte le modificano superano i test automatici di verifica e validazione, la nuova versione del prodotto software viene dispiegata nell'ambiente di **produzione** |
+|   S6   | Raccolta dei feedback                             | A fronte dei feedback raccolti, lo sviluppatore insieme all'utente finale decide se la [nuova versione](#annotazione-nuova-versione) del sistema può essere rilasciata in produzione |
+|   S7   | Rilascio nuova versione in ambiente di produzione | Lo sviluppatore esegue il GIT PUSH dei COMMIT nel **branch main**. Se tutte le modificano superano i test automatici di verifica e validazione, la [nuova versione](#annotazione-nuova-versione) del prodotto software viene dispiegata nell'ambiente di **produzione** |
 
 ### Sviluppatori interni all'Ateneo
 
