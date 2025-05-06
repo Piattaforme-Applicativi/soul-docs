@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-06T10:02:24.536Z
+date: 2025-05-06T13:06:24.001Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -31,7 +31,7 @@ La scelta dei nomi a dominio è rilevante per la fase di integrazione dell'appli
 
 Segue l'elenco dei compiti che lo sviluppatore deve svolgere per rilasciare un nuovo applicativo in  negli ambienti di staging e produzione nel cloud di Ateneo.
 
-| Codice | Nome del processo                                 | Descrizione del processo                                     |
+| Codice | Nome del compito                                 | Descrizione del compito                                     |
 | :----: | ------------------------------------------------- | ------------------------------------------------------------ |
 |   S1   | Richiesta nuovo repository                        | Lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( il gestore dei repository ), chiedendo di creare un repository per il nuovo progetto/prodotto software. All'interno della comunicazione vanno riportati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nella sezione [scelta dei nomi dei domini e dei repository](#scelta-dei-nomi-dei-domini-e-dei-repository) |
 |   S2   | Preparazione ambiente locale di sviluppo          | A seguito della ricezione della **comunicazione di conferma di crezione del nuovo repository** da parte del gestore dei repository, lo sviluppatore può [installare e configurare l'ambiente di lavoro locale](/installazione) |
