@@ -2,7 +2,7 @@
 title: Architettura dei sistemi
 description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-05-08T12:36:15.113Z
+date: 2025-05-08T12:37:22.461Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
@@ -23,7 +23,7 @@ Le applicazioni SOUL create a partire dallo [Starter Kit](https://github.com/Pia
 
 ## NextJS
 
-Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto del suo tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS ha uno stile architetturale monolitico ed è **indicato per progetti** che hanno le seguenti caratteristiche:
+Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto del suo tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS ha uno stile architetturale **monolitico** ed è indicato per progetti che hanno le seguenti caratteristiche:
 
 - MVP (Minimum Viable Product), prototipi o app con team piccoli;
 - Progetti interni, CRUD semplici, gestionali;
