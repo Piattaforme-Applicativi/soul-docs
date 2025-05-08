@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T12:11:42.655Z
+date: 2025-05-08T12:50:27.979Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
@@ -165,6 +165,8 @@ npx prisma generate
 Segue un'esempio di utilizzo di prisma per il nuovo oggetto request
 
 ```typescript
+import Request from "@/types/request";
+
 export async function listRequests(): Promise<Request[]> {
   try {
     return (
@@ -180,7 +182,6 @@ export async function listRequests(): Promise<Request[]> {
         resourceType: r.resourceType,
         bookingDate: r.bookingDate,
         bookingSlot: r.bookingSlot,
-        deletable: r.deletable,
         createdAt: r.createdAt
       };
     });
