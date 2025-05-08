@@ -48,3 +48,147 @@ npx prisma db pull
 # S4 - Generazione prisma client
 npx prisma generate
 ```
+
+## Esempio di modellazione
+
+Riportiamo di seguito un esempio di modellazione per un nuovo modulo software. Utilizziamo come esempio un generico modulo software per una domanda di prenotazione di un mezzo di trasporto. Dal punto di vista del dominio, in una domanda di prenotazione di un mezzo l'utente che sottopone una domanda deve indicare: il proprio indirizzo email; la tipologia di risorsa che deve essere prenotata (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa. La data di presentazione della domanda deve essere assegnata automaticamente dal databse al omento del salvataggio. Un giornata può essere rappresentata dal momento temporale in slot temporali di 1.5 ore. Gli slot sono così definiti:
+
+* Slot 1: 8:00 - 9:30
+* Slot 2: 9:30 - 11:00
+* Slot 3: 12:30 - 14:00
+* Slot 4: 14:00 - 15:30
+* Slot 5: 15:30 - 17:00
+* Slot 6: 17:00 - 18:30
+
+Il tempo di utilizzo della risorsa può essere indicato a giornata, riportando la data della prenotazione. In alternativa l'utente potrà indicare in quali slot desidera utilizzare la risorsa nell'arco di una giornata (eg: Giovedì 8 settembre 2025 negli slot 1,2,3).
+
+Dovendo aggiungere una nuova funzionalità per la raccolta delle domande degli utenti possiamo creare un nuovo file per la migrazione/incremento funzionale dell'istanza del database.
+
+```bash
+# Accedo all'istanza nextjs
+docker exec -it todo-nextjs sh
+
+# S2 - Aggiornamento istanza RDBMS 
+npx prisma migrate dev --create-only --name request
+# new file: nextjs/prisma/migrations/20250501100000_request/migration.sql
+```
+
+Una volta creato il file .sql, aggiorniamo il contenuto con le modifiche da riportare nell'istanza del database locale.
+
+```sql
+-- Edit: nextjs/prisma/migrations/20250501100000_request/migration.sql
+
+-- Tipologia risorsa: enum
+CREATE TYPE resource_type AS ENUM ('car', 'bike', 'electric scooter');
+
+-- Tabella delle richieste
+CREATE TABLE request (
+    id SERIAL PRIMARY KEY,
+    created_by VARCHAR(255) NOT NULL, -- email dell'utente che invia la domanda
+    resource_type resource_type NOT NULL,
+    booking_date DATE NOT NULL,
+    booking_slot VARCHAR(11), -- ammessi valori separati da virgola 1,2,3,4,5,6, se NULL si indende prenotazione a giornata
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  	updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  	CHECK (booking_slot ~* '^(?:[1-6]|[1-6](?:,[1-6]){1,5})$')
+);
+```
+
+Dopo che ho definito quali sono i DDL che devono essere eseguiti in PostgresSQL per aggiornare l'istanza del database, posso usare il client prisma per aggiornare il database dell'ambiente di sviluppo (locale) e posso poi riportare le differenze generate dalla migrazione nello schema.prisma.
+
+```bash
+# S2 - Aggiornamento istanza RDBMS (locale)
+npx prisma migrate deploy
+
+# S3 - Aggiornamento schema Prisma ORM
+npx prisma db pull
+```
+
+Una volta estratti i descrittori nel file schema.prima devo aggiornare il contenuto per adegure lo stile del codice previsto per gli applicativi basati su Typescript/Javascript. 
+
+```sql
+# nextjs/schema.prisma
+
+enum ResourceType {
+  car
+  bike
+  electric_scooter
+}
+
+model Request {
+  id            Int           @id @default(autoincrement())
+  created_by    String        @db.VarChar(255)
+  resource_type ResourceType
+  booking_date  DateTime      @db.Date
+  booking_slot  String?       @db.VarChar(11) // opzionale, perché può mancare per uso giornaliero
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @default(now())
+
+  @@check(booking_slot ~* '^(?:[1-6]|[1-6](?:,[1-6]){1,5})$')
+}
+```
+
+A seguito dell'adeguamento lo schema.prisma riporterà i nomi dei campi e delle tabelle in **camelCase**
+
+```sql
+# nextjs/schema.prisma
+
+enum resourceType {
+  car
+  bike
+  electricScooter @map("electric_scooter")
+
+  @@map("resource_type")
+}
+
+model request {
+  id            Int           @id @default(autoincrement())
+  createdBy     String        @db.VarChar(255) @map("created_by")
+  resourceType  resourceType  
+  bookingDate   DateTime      @db.Date @map("booking_date")
+  bookingSlot   String?       @db.VarChar(11) @map("booking_slot")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @map("updated_at")
+
+  @@check(bookingSlot ~* '^(?:[1-6]|[1-6](?:,[1-6]){1,5})$')
+  
+}
+```
+
+L'ambiente di sviluppo và poi aggiornato per consentire alle componenti server-side React di utilizzare i nuovo oggetti pirma in formato Typescript/Javascript. 
+
+```bash
+# S4 - Generazione prisma client
+npx prisma generate
+```
+
+Segue un'esempio di utilizzo di prisma per il nuovo oggetto request
+
+```typescript
+export async function listRequests(): Promise<Request[]> {
+  try {
+    return (
+      await prisma.requuest.findMany({
+        orderBy: {
+          createdBy: "desc",
+        }
+      })
+    ).map((r) => {
+      return {
+        id: r.id,
+        createdBy: r.createdBy,
+        resourceType: r.resourceType,
+        bookingDate: r.bookingDate,
+        bookingSlot: r.bookingSlot,
+        deletable: r.deletable,
+        createdAt: r.createdAt
+      };
+    });
+  } catch (e) {
+    console.error(`Failed to find the request: ${e}`);
+    return [];
+  }
+}
+
+```
+
