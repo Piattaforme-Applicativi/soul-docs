@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T12:09:51.024Z
+date: 2025-05-08T12:11:42.655Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
@@ -15,7 +15,7 @@ Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piat
 
 A fronte della fase di analisi il team di sviluppo è in possesso di suffcienti informazioni per disegnare il modello Entità Relazione che descrive il dominio dell'applicazione. Dopo aver descritto il modello concettuale, il team di sviluppo traduce il modello astratto in un modello reale nella base dati RDBMS PostgresSQL. Per aggiornare l'istanza del database, il team di sviluppo genera i file con estensione .sql da eseguire in sequenza per migrare ad una versione successiva dello schema PostgresSQL. All'aggiornamento dell'istanza PostgreSQL segue l'aggiornamento del file descrittore di Prisma ORM.  A seguito dell'aggiornamento dello schema prisma, è utile generare nuovamente il client prisma nell'ambiente di sviluppo per propagare le modifiche in NextJS.
 
-![](diagrammi/er.svg)
+![Modellazione della base dati](diagrammi/er.svg)
 
 ### Compiti dello sviluppatore
 
