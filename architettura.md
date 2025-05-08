@@ -2,7 +2,7 @@
 title: Architettura dei sistemi
 description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-05-08T12:32:44.750Z
+date: 2025-05-08T12:36:15.113Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
@@ -12,7 +12,7 @@ dateCreated: 2025-03-31T07:59:50.309Z
 
 Le applicazioni SOUL hanno un stile architetturale a microservizi e sono realizzate con i container Docker.  Le applicazioni SOUL devono essere progettate per il dispiegamento in ambienti cloud moderni che adottano modelli PaaS (Platform as a Service) e infrastrutture ephemeral, ovvero temporanee e ricreate a ogni deploy. Questo approccio semplifica l'integrazione continua (CI) e la distribuzione continua (CD) negli ambienti di staging e produzione.
 
-Lo Starter Kit prevede l'impiego di quattro container:
+Le applicazioni SOUL create a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) prevedono l'impiego di quattro container:
 
 * **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
 * **NextJS** - Applicazione web per l'interazione con l'utente finale;
@@ -23,18 +23,12 @@ Lo Starter Kit prevede l'impiego di quattro container:
 
 ## NextJS
 
-Gli applicativi creati a partire Starter Kit hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto del suo tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS ha uno stile architetturale monolitico ed è **indicato per progetti** che hanno le seguenti caratteristiche:
+Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto del suo tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS ha uno stile architetturale monolitico ed è **indicato per progetti** che hanno le seguenti caratteristiche:
 
 - MVP (Minimum Viable Product), prototipi o app con team piccoli;
 - Progetti interni, CRUD semplici, gestionali;
 - Quando serve velocità di sviluppo e facilità di deploy;
 - Se il dominio non è ancora ben definito (adottando l'architettura monolitica, non è necessario prevedere e implementare forme di astrazione per accettare nuovi cambiamenti).
-
-Lo starter kit può risultare poco efficace nei casi in cui il progetto prevede:
-
-- Team grandi e distribuiti;
-- Scalabilità indipendente per moduli diversi;
-- Domini complessi o con responsabilità ben separate (es. e-commerce, piattaforme SaaS multi-tenant).
 
 Gli applicativi web sviluppati con il framework NextJS versione 14 (App Router), permettono di costruire applicativi con design pattern architetturale di tipo **client-server e multi tier**. 
 
