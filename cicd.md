@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-08T12:11:59.750Z
+date: 2025-05-08T12:12:28.289Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -53,7 +53,7 @@ Prima di ogni rilascio delle applicazioni basate su [Starter Kit](https://github
 * Eseguire il pre-build delle sorgenti NextJS nel proprio computer per minimizzare o eliminare gli errori di CI/CD;
 * Annotare la nuova versione del sistema, semplificando l'attività di verifica di aggiornamenti degli ambienti di staging e produzione.
 
-![Rilasciare un nuova versione dell'applicativo](/diagrammi/versionamento.svg)
+![Rilasciare un nuova versione dell'applicativo](diagrammi/versionamento.svg)
 
 ### Pre-build delle sorgenti NextJS
 
