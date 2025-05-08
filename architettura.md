@@ -2,7 +2,7 @@
 title: Architettura dei sistemi
 description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-05-08T12:37:22.461Z
+date: 2025-05-08T12:37:59.610Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
@@ -27,7 +27,7 @@ Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. I
 
 - MVP (Minimum Viable Product), prototipi o app con team piccoli;
 - Progetti interni, CRUD semplici, gestionali;
-- Quando serve velocità di sviluppo e facilità di deploy;
+- Progetti per i quali serve velocità di sviluppo e facilità di deploy;
 - Se il dominio non è ancora ben definito (adottando l'architettura monolitica, non è necessario prevedere e implementare forme di astrazione per accettare nuovi cambiamenti).
 
 Gli applicativi web sviluppati con il framework NextJS versione 14 (App Router), permettono di costruire applicativi con design pattern architetturale di tipo **client-server e multi tier**. 
