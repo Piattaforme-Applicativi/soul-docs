@@ -2,7 +2,7 @@
 title: Architettura dei sistemi
 description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-04-29T13:30:26.975Z
+date: 2025-05-08T12:13:17.769Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
@@ -19,7 +19,7 @@ Lo Starter Kit prevede l'impiego di quattro container:
 * **PostgreSQL** - Database relazionale per la persistenza dei dati;
 * **Cronjob** - Sistema batch per il download programmato dei dati da fonti esterne (opzionale).
 
-![Componenti pila software SOUL](/diagrammi/componenti-architettura.svg)
+![Componenti pila software SOUL](diagrammi/componenti-architettura.svg)
 
 ## NextJS
 
@@ -47,7 +47,7 @@ L'archittettura standard di un'applicazione SOUL è organizzata a **due livelli*
 * Nel **primo livello** sono gestite: le richieste che l'utente invia al server; la presentazione del codice HTML restituito dal sever; le operazioni che modificano l'interfaccia utente lato client (browser);
 * Nel **secondo livello** sono gestite: l'esecuzione del codice Javascript lato server; la logica di presentazione e la logica di business; la comunicazione con il database attraverso un ORM.
 
-![Design pattern architetturale standard](/diagrammi/two-tier.svg)
+![Design pattern architetturale standard](diagrammi/two-tier.svg)
 
 ### Architettura a tre livelli
 
@@ -59,7 +59,7 @@ Al fine di perseguire qualità del prodotto finale quali affidabilità, efficien
 
 In questi casi è necessario prevedere un'architettura a tre livelli. Il terzo livello ha il compito di fornire accesso alle risorse esterne via API o preferibilemente via API Gateway.
 
-![Design pattern architetturale a tre livelli](/diagrammi/three-tier.svg)
+![Design pattern architetturale a tre livelli](diagrammi/three-tier.svg)
 
 
 
