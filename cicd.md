@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-08T12:22:35.512Z
+date: 2025-05-08T12:23:22.819Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -10,7 +10,7 @@ dateCreated: 2025-04-30T07:00:29.308Z
 
 # Rilascio e versionamento
 
-Le applicazioni sviluppate con lo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL prevedono una **prima fase di sviluppo** che avviene  localmente nel proprio computer e una **seconda fase di dispiegamento** negli ambienti cloud di Ateneo. Il tipo di modello di sviluppo adottato è iterativo e ha l'obiettivo di migliorare il prodotto software raccogliendo i feedback degli utenti ad ogni iterazione. La parte di dispiegamento negli ambienti di staging e produzione è automatizzata, utilizzando le [GitHub Actions](https://docs.github.com/en/actions) ovvero la CI/CD di GitHub. E' importante annotare la versione del prodotto software che viene rilasciato negli ambienti di staging e produzione per verificare il corretto rilascio della nuova versione del sistema nei diversi ambienti.
+Le applicazioni sviluppate con lo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL prevedono una **prima fase di sviluppo** che avviene  localmente nel proprio computer e una **seconda fase di dispiegamento** negli ambienti cloud di Ateneo. Il tipo di modello di sviluppo adottato è iterativo e ha l'obiettivo di migliorare il prodotto software raccogliendo i feedback degli utenti ad ogni iterazione. La parte di dispiegamento negli ambienti di staging e produzione è automatizzata, utilizzando le [GitHub Actions](https://docs.github.com/en/actions) ovvero la CI/CD di GitHub. E' importante annotare la versione del prodotto software che viene rilasciato negli ambienti di staging e produzione, per verificare il corretto rilascio della nuova versione del sistema nei diversi ambienti.
 
 ## Ciclo di vita
 
