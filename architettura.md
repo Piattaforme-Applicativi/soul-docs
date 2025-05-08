@@ -2,7 +2,7 @@
 title: Architettura dei sistemi
 description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-05-08T12:37:59.610Z
+date: 2025-05-08T15:10:47.505Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
@@ -10,7 +10,7 @@ dateCreated: 2025-03-31T07:59:50.309Z
 
 # Architettura dei sistemi
 
-Le applicazioni SOUL hanno un stile architetturale a microservizi e sono realizzate con i container Docker.  Le applicazioni SOUL devono essere progettate per il dispiegamento in ambienti cloud moderni che adottano modelli PaaS (Platform as a Service) e infrastrutture ephemeral, ovvero temporanee e ricreate a ogni deploy. Questo approccio semplifica l'integrazione continua (CI) e la distribuzione continua (CD) negli ambienti di staging e produzione.
+Le applicazioni SOUL hanno un stile architetturale a **microservizi** e sono realizzate con i container Docker.  Le applicazioni SOUL devono essere progettate per il dispiegamento in ambienti cloud moderni che adottano modelli PaaS (Platform as a Service) e infrastrutture ephemeral, ovvero temporanee e ricreate a ogni deploy. Questo approccio semplifica l'integrazione continua (CI) e la distribuzione continua (CD) negli ambienti di staging e produzione.
 
 Le applicazioni SOUL create a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) prevedono l'impiego di quattro container:
 
