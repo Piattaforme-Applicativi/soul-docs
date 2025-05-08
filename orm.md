@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T12:06:54.121Z
+date: 2025-05-08T12:07:39.877Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
@@ -104,7 +104,7 @@ npx prisma migrate deploy
 npx prisma db pull
 ```
 
-Segue la porzione di schem prisma produtta dal comando di pull
+Segue la porzione di schema prisma che descrive il nuovo modulo applicativo
 
 ```sql
 # nextjs/schema.prisma
