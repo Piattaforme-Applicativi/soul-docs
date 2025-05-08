@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T12:07:39.877Z
+date: 2025-05-08T12:09:51.024Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
@@ -170,7 +170,7 @@ export async function listRequests(): Promise<Request[]> {
     return (
       await prisma.requuest.findMany({
         orderBy: {
-          createdBy: "desc",
+          createdAt: "desc",
         }
       })
     ).map((r) => {
