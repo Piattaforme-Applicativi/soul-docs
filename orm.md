@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T12:50:27.979Z
+date: 2025-05-08T12:52:08.880Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
@@ -79,7 +79,7 @@ Una volta creato il file .sql, aggiorniamo il contenuto con le modifiche da ripo
 -- Edit: nextjs/prisma/migrations/20250501100000_request/migration.sql
 
 -- Tipologia risorsa: enum
-CREATE TYPE resource_type AS ENUM ('car', 'bike', 'electric scooter');
+CREATE TYPE resource_type AS ENUM ('car', 'bike', 'electric_scooter');
 
 -- Tabella delle richieste
 CREATE TABLE request (
