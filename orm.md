@@ -2,14 +2,14 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T12:52:08.880Z
+date: 2025-05-08T13:00:31.878Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
 ---
 
 # Dati dell'applicazione
-Le applicazioni sviluppate a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) devono gestire i dati dell'utente. Per i casi in cui è necessario dare garanzie di **A**tomicità, **C**oerenza, **I**solamento e **D**urabilità è possibile utilizzare l'RDBMS PostgreSQL. Adottando PostgreSQL è necessario prevedere una fase iniziale di modellazione della base dati. Lo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) offre un meccanismo di versionamento della banca dati, che dà allo sviluppatore la possibilità di perfezionare il modello per ampliare del dominio durante i successivi rilasci del prodotto software. Prisma ORM è la libreria Typescript adottata per comunicare con la banca dati e gestirne il versionamento. 
+Le applicazioni SOUL devono gestire i dati dell'utente. Per i casi in cui è necessario dare garanzie di **A**tomicità, **C**oerenza, **I**solamento e **D**urabilità è possibile utilizzare l'RDBMS PostgreSQL. Adottando PostgreSQL è necessario prevedere una fase iniziale di modellazione della base dati. Lo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) offre un meccanismo di versionamento della banca dati, che dà allo sviluppatore la possibilità di perfezionare il modello per ampliare del dominio durante i successivi rilasci del prodotto software. Prisma ORM è la libreria Typescript adottata per comunicare con la banca dati e gestirne il versionamento. 
 
 ## Flusso di lavoro
 
