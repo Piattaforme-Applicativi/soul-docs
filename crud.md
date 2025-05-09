@@ -63,7 +63,7 @@ export default interface Request {
 
 La nuova pagina che presenta l'interfaccia web all'utente che elenca le richieste, sarà raggiungibile all'indirizzo */request/*. Per creare la nuova rotta va creato un nuovo **React Server Component** nella posizione *nextjs/app/secure/request/page.tsx*
 
-```react
+```jsx
 // nextjs/app/secure/request/page.tsx
 ...
 import { permissionType } from "@prisma/client";
@@ -85,7 +85,7 @@ export default async function Page() {
 
 Deve essere creata poi la server action che recupera le requests dal database. 
 
-```react
+```jsx
 // nextjs/components/request/actions.ts
 
 import Request from "@/types/request";
