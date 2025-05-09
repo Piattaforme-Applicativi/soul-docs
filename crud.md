@@ -2,7 +2,7 @@
 title: Prima app CRUD
 description: Creare una prima applicazione CRUD
 published: true
-date: 2025-05-08T10:00:14.105Z
+date: 2025-05-09T14:32:36.129Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-08T09:59:51.833Z
@@ -49,13 +49,13 @@ Le interfacce di classe e i tipi dato sono necessari a migliorare la leggibilit√
 import { resourceType } from "@prisma/client";
 
 export default interface Request {
-  readonly id: number;
+  id: number;
   createdBy: String;
   resourceType: resourceType;
   bookingDate: Date;
   bookingSlot?:  String;
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 ```
 
