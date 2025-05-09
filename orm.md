@@ -164,7 +164,7 @@ npx prisma generate
 
 Segue un'esempio di utilizzo di prisma per il nuovo oggetto request
 
-```typescript
+```jsx
 import Request from "@/types/request";
 
 export async function listRequests(): Promise<Request[]> {
