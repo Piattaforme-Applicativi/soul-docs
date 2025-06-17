@@ -82,8 +82,14 @@ export default async function Page() {
       {!isAuthorized(user, permissionType.requestRead) ? (
           <UserNotAuthorized />
         ) : (
-    			<!-- Linee guida di scrittura del codice: Tutti i dati sono caricati lato server per massimizzare il numero di informazioni resituite durante primo caricamento. 
-						In questo momento è possibile usare Promise.all([...]) lato server, per sfruttare la capacità di recuperare dati in modo "simultaneo"... -->
+    			<!-- 
+						Linee guida di scrittura del codice: 
+						Tutti i dati sono caricati lato server per massimizzare 
+						il numero di informazioni resituite durante primo caricamento. 
+						In questo momento è possibile usare Promise.all([...]) lato server, 
+						per sfruttare la capacità di recuperare 
+						dati in modo "simultaneo"... 
+					-->
           <MyRequests requests={myRequests()} / >
         )}
     </>
@@ -138,7 +144,10 @@ export default function MyRequests({ requests }: MyRequestsProps) {
 
   return (
     <section className={"mt-3"}>
-			<!-- Ogni elemento è accompagnato da un pulsante di cancellazione e modifica ... -->
+			<!-- 
+				Ogni elemento è accompagnato da 
+				un pulsante di cancellazione e modifica ... 
+			-->
     </section>);
 }
 ```
@@ -162,7 +171,6 @@ export default async function Page() {
   return (
     <>
       // ...  
-			<h1>{t`New request`}</h1>
       {!isAuthorized(user, permissionType.requestCreate) ? (
           <UserNotAuthorized />
         ) : (
@@ -186,7 +194,18 @@ const prisma = Global.prisma.client;
 
 // ... myRequests, deleteRequests
 
-// In fase di creazione la richiesta non ha tutti i campi richiesti dall'interfaccia Request (nextjs/types/request.ts). Usando Partial<Request> possiamo decidere di riportare solo i campi necessari per l'operazione di inserimento, completando gli attributi mancanti che possono o devono essere recuperati lato server (eg. createdBy: mail dell'utente autenticato)
+/*** 
+	In fase di creazione la richiesta non ha tutti
+	gli attributi richiesti dall'interfaccia 
+	Request (nextjs/types/request.ts). 
+	Usando Partial<Request> 
+	possiamo decidere di riportare solo 
+  gli attributi necessari per l'operazione di inserimento, 
+  completando gli attributi mancanti 
+  che possono o devono essere recuperati 
+  lato server 
+  (eg. createdBy: mail dell'utente autenticato) 
+*/
 export async function createRequest(request: Partial<Request>): Promise<Request> {
   // ...
 }
@@ -327,7 +346,8 @@ import Request from "@/types/request";
 
 const prisma = Global.prisma.client;
 
-// ... myRequests, deleteRequests, createRequest, createRequestAndGotoDetail
+// ... myRequests, deleteRequests, 
+// createRequest, createRequestAndGotoDetail
 export async function findById(id: number): Promise<Request> {
   // ...
 }
@@ -412,7 +432,8 @@ import Request from "@/types/request";
 
 const prisma = Global.prisma.client;
 
-// ... myRequests, deleteRequests, createRequest, createRequestAndGotoDetail, findById
+// ... myRequests, deleteRequests, 
+// createRequest, createRequestAndGotoDetail, findById
 export async function updateRequest(request: Request): Promise<Request> {
   // ...
 }
@@ -439,7 +460,11 @@ export default function UpdateRequest({ request }: UpdateProps) {
   
   return (
     <>
-    	<!-- Simile a nuova form, ma presenta una notifica al termine dell'operazione ... -->
+    	<!-- 
+				Simile alla form di inserimento, 
+				ma presenta notifica sull'esito
+ 				dell'operazione ... 
+			-->
     </>
   );
 }
