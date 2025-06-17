@@ -37,11 +37,11 @@ Un nuovo modulo CRUD prevede la creazione di nuovi componenti e rotte NextJS, co
 
 # Esempio di implementazione di un nuovo modulo
 
-L'esempio di creazione del nuovo modulo CRUD viene fatta a partire dalla modellazione dei dati già presentata alla sezione [esempio di modellazione della base dati](/orm#esempio-di-modellazione). Il nuovo modulo dell'applicativo tratterà una domanda di prenotazione di un mezzo. La nuova domanda di prenotazione di risorsa presentata da un utente conterrà: l' indirizzo email dell'utente; la tipologia di risorsa che deve essere prenotata  (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa.
+L'esempio di creazione del nuovo modulo CRUD viene fatta a partire dalla modellazione dei dati già presentata alla sezione [esempio di modellazione della base dati](/orm#esempio-di-modellazione) . Il nuovo modulo dell'applicativo tratterà una domanda di prenotazione di un mezzo. La nuova domanda di prenotazione di risorsa presentata da un utente conterrà: l' indirizzo email dell'utente; la tipologia di risorsa che deve essere prenotata  (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa.
 
 ## Tipi e interfacce di classe
 
-Le interfacce di classe e i tipi dato sono necessari a migliorare la leggibilità del codice. Inoltre l'eseprienza di sviluppo è migliorata per gli IDE di nuova generazione dotati di analizzatori di codice statico e di meccanismi di autosuggerimento.
+Le interfacce di classe e i tipi dato sono necessari a migliorare la leggibilità del codice. L'esperienza di sviluppo è migliorata per gli IDE di nuova generazione dotati di analizzatori di codice statico e di meccanismi di autosuggerimento.
 
 ```typescript
 // nextjs/types/request.ts
@@ -59,50 +59,378 @@ export default interface Request {
 }
 ```
 
-## Lista degli elementi
+## Lista degli elementi ed eliminazione di un elemento
 
-La nuova pagina che presenta l'interfaccia web all'utente che elenca le richieste, sarà raggiungibile all'indirizzo */request/*. Per creare la nuova rotta va creato un nuovo **React Server Component** nella posizione *nextjs/app/secure/request/page.tsx*
+La nuova pagina che presenta l'interfaccia web all'utente che elenca le **richieste di prenotazione inoltrate dall'utente finale**, sarà raggiungibile all'indirizzo */secure/request/my/*. Per creare la nuova rotta va creato un nuovo **React Server Component** nella posizione *nextjs/app/secure/request/my/page.tsx*
 
 ```jsx
 // nextjs/app/secure/request/page.tsx
-...
+
+"use server";
+
 import { permissionType } from "@prisma/client";
-import UserNotAuthorized from "@/components/common/user-not-authorized";
-import ListRequests from "@/components/request/list";
+import { isAuthorized } from "@/components/common/utils";
+import MyRequests from "@/components/request/my-requests";
+// ...
 
 export default async function Page() {
   const user = await getSessionPayload();
-	...
+  // ...
   return (
-    {!isAuthorized(user, permissionType.requestManage) ? (
-        <UserNotAuthorized />
-      ) : (
-        <ListRequests/ >
-      )}
+    <>
+      // ...
+      {!isAuthorized(user, permissionType.requestRead) ? (
+          <UserNotAuthorized />
+        ) : (
+          <MyRequests requests={myRequests()} / >
+        )}
+    </>
   );
 }
 ```
 
-Deve essere creata poi la server action che recupera le requests dal database. 
+Deve essere creata poi la server action che recupera le richieste di prenotazione dal database. 
 
 ```jsx
 // nextjs/components/request/actions.ts
 
-import Request from "@/types/request";
+"use server";
 
-export async function listRequests(): Promise<Request[]> {
+import Request from "@/types/request";
+// ...
+
+const prisma = Global.prisma.client;
+
+export async function myRequests(): Promise<Request[]> {
+  // ...
+}
+
+export async function deleteRequest(id: any): Promise<boolean> {
+  // ...
+}
+
+```
+
+Segue la modellazione dell'interfaccia utente che presenta l'elenco delle richieste all'utente finale.
+
+```jsx
+// nextjs/components/request/my-requests.ts
+
+"use client";
+
+import Request from "@/types/request";
+import { deleteRequest } from "@/components/request/actions";
+// ...
+
+type MyRequestsProps = {
+  requests: Request[];
+};
+
+export default function MyRequests({ requests }: MyRequestsProps) {
+  
+  // Visualizza messaggio di conferma e notifica esito dell'operazione
+  const removeRequest = async (id: number, e: any) => {
+    // ...
+    const response = await deleteRequest(id);
+  };
+
+  return (
+    <section className={"mt-3"}>
+			<!-- Ogni elemento è accompagnato da un pulsante di cancellazione e modifica ... -->
+    </section>);
+}
+```
+
+## Form di inserimento
+
+La pagina che consente all' **utente finale** di presentare nuove richieste di prenotazione sarà raggiungibile all'indirizzo */secure/request/new/*. Per creare la nuova rotta, va creato un nuovo **React Server Component** nella posizione *nextjs/app/secure/request/new/page.tsx*
+
+```jsx
+// nextjs/app/secure/request/new/page.tsx
+"use server";
+
+import { permissionType } from "@prisma/client";
+import { isAuthorized } from "@/components/common/utils";
+import NewRequest from "@/components/request/new";
+// ...
+
+export default async function Page() {
+  const user = await getSessionPayload();
+	// ...
+  return (
+    <>
+      // ...  
+			<h1>{t`New request`}</h1>
+      {!isAuthorized(user, permissionType.requestCreate) ? (
+          <UserNotAuthorized />
+        ) : (
+          <NewRequest / >
+        )}
+    </>
+  );
+}
+```
+
+Deve essere creata poi la server action che salva la nuova richiesta di prenotazione nel database. 
+
+```jsx
+// nextjs/components/request/actions.ts
+"use server";
+
+import Request from "@/types/request";
+// ...
+
+const prisma = Global.prisma.client;
+
+// ... myRequests, deleteRequests
+
+export async function createRequest(request: Partial<Request>): Promise<Request> {
+  // ...
+}
+
+// Se il record è stato inserito vai alla pagina di dettaglio
+export async function createRequestAndGotoDetail(data: Partial<Request>): void {
+  // ...
+  const request = await createRequest(data);
+  const url = request ? `/request/${request.id}` : "/request/new";
+  redirect(url);
+}
+
+```
+
+Segue la modellazione dell'interfaccia utente che presenta la form per presentare una nuova richiesta di prenotazione risorsa. Per i componenti di input della form, la [libreria React Mui](https://mui.com) mette a disposizione tutte le componenti di input previste dal [Material Design](https://en.wikipedia.org/wiki/Material_Design).
+
+```jsx
+// nextjs/components/request/new.tsx
+
+"use client";
+
+import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
+// ...
+
+type NewProps = {};
+
+export default function NewRequest({  }: NewProps) {
+  
+  const [valid, setValid] = useState(false);
+  const [bookingDate, setBookingDate] = useState({ valid: true, value: null });
+  // ...
+  
+  return (
+    <>
+    	<Box
+          onReset={
+        		// handle on reset
+      		}
+          onChange={() => {
+            setValid(
+            	// ...
+            );
+          }}
+          onSubmit={
+        		// handle on submit
+     	 		}
+          component="form"
+          noValidate
+        >
+      
+          <FormControl ...
+            error={!bookingDate.valid}
+            >
+            <InputLabel htmlFor="bookingDate">{t`Booking date`}</InputLabel>
+            <Input 
+              value={bookingDate.value}
+              error={!bookingDate.valid}
+              ... />
+            <FormHelperText >
+              <!-- ... -->
+            </FormHelperText>
+          </FormControl>
+
+          <!-- ... -->
+      
+          <div className="mt-3 px-2">
+            <!-- Reset button, Submit button -->
+          </div>
+      
+			</Box>
+    </>
+  );
+}
+```
+
+## Pagina di dettaglio
+
+Quando l'operazione di creazione di una nuova domanda di prenotazione risorsa termina con successo, l'utente viene rimandato alla **pagina di dettaglio della nuova richiesta**.  La pagina che consente all' **utente finale** di visualizzare i dettagli della prenotazione sarà raggiungibile all'indirizzo */secure/request/[id]/detail/*. Per creare la nuova rotta, va creato un nuovo **React Server Component** nella posizione *nextjs/app/secure/request/[id]/detail/page.tsx*
+
+```jsx
+// nextjs/app/secure/request/[id]/detail/page.tsx
+"use server";
+
+import { permissionType } from "@prisma/client";
+import { isAuthorized } from "@/components/common/utils";
+import RequestDetail from "@/components/request/detail";
+import { findById } from "@/components/request/actions";
+// ...
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const user = await getSessionPayload();
+  const id = (await params).id;
+  let request = null;
   try {
-    return (
-      await prisma.request.findMany({
-        orderBy: {
-          createdAt: "asc",
-        }
-      })
-    ).map((r) => r as Request);
+    request = await findById(parseInt(id));
   } catch (e) {
-    console.error(`Failed to find the request: ${e}`);
-    return [];
+    // pass
   }
+	// ...
+  return (
+    <>
+      {!isAuthorized(user, permissionType.requestRead) ? (
+        <UserNotAuthorized />
+      ) : request ? (
+        <RequestDetail request={request} />
+      ) : (
+        <NotFound />
+      )}
+    </>
+  );
+}
+```
+
+Deve essere creata poi la server action che trova la richiesta di prenotazione nel database. 
+
+```jsx
+// nextjs/components/request/actions.ts
+"use server";
+
+import Request from "@/types/request";
+// ...
+
+const prisma = Global.prisma.client;
+
+// ... myRequests, deleteRequests, createRequest, createRequestAndGotoDetail
+export async function findById(id: number): Promise<Request> {
+  // ...
+}
+```
+
+Segue la modellazione dell'interfaccia utente che presenta i dettagli della richiesta all'utente finale.
+
+```jsx
+// nextjs/components/request/detail.tsx
+
+"use client";
+
+import Request from "@/types/request";
+// ...
+
+type DetailProps = {
+  request: Request
+};
+
+export default function RequestDetail({  }: DetailProps) {
+  
+  // ...
+  
+  return (
+    <!-- Dettagli richiesta ... -->
+    <div className="mt-3 px-2">
+      <!-- MyRequests button, Update button -->
+    </div>
+  );
+}
+```
+
+## Form di modifica
+
+La pagina che consente all' **utente finale** di modificare le richieste di prenotazione presentate, sarà raggiungibile all'indirizzo */secure/request/[id]]/update/*. Per creare la nuova rotta, va creato un nuovo **React Server Component** nella posizione *nextjs/app/secure/request/[id]]/update/page.tsx*
+
+```jsx
+// nextjs/app/secure/request/[id]/update/page.tsx
+"use server";
+
+import { permissionType } from "@prisma/client";
+import { isAuthorized } from "@/components/common/utils";
+import UpdateRequest from "@/components/request/update";
+// ...
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const user = await getSessionPayload();
+  const id = (await params).id;
+  let request = null;
+  try {
+    request = await findById(parseInt(id));
+  } catch (e) {
+    // pass
+  }
+	// ...
+  return (
+    <>
+      {!isAuthorized(user, permissionType.requestUpdate) ? (
+        <UserNotAuthorized />
+      ) : request ? (
+        <UpdateRequest request={request} />
+      ) : (
+        <NotFound />
+      )}
+    </>
+  );
+}
+```
+
+Deve essere creata poi la server action che modifica una richiesta di prenotazione nel database. 
+
+```jsx
+// nextjs/components/request/actions.ts
+"use server";
+
+import Request from "@/types/request";
+// ...
+
+const prisma = Global.prisma.client;
+
+// ... myRequests, deleteRequests, createRequest, createRequestAndGotoDetail, findById
+export async function updateRequest(request: Request): Promise<Request> {
+  // ...
+}
+```
+
+Segue la modellazione dell'interfaccia utente che presenta la form per modificare una richiesta di prenotazione risorsa. Per i componenti di input della form, la [libreria React Mui](https://mui.com) mette a disposizione tutte le componenti di input previste dal [Material Design](https://en.wikipedia.org/wiki/Material_Design).
+
+```jsx
+// nextjs/components/request/update.tsx
+
+"use client";
+
+import Request from "@/types/request";
+// ...
+
+// La richiesta è completa anche di id
+type UpdateProps = {
+  request: Request
+};
+
+export default function UpdateRequest({ request }: UpdateProps) {
+  
+  // ...
+  
+  return (
+    <>
+    	<!-- Simile a nuova form, ma presenta una notifica al termine dell'operazione ... -->
+    </>
+  );
 }
 ```
 

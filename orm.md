@@ -170,7 +170,7 @@ import Request from "@/types/request";
 export async function listRequests(): Promise<Request[]> {
   try {
     return (
-      await prisma.requuest.findMany({
+      await prisma.request.findMany({
         orderBy: {
           createdAt: "desc",
         }
