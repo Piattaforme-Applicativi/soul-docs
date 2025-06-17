@@ -2,7 +2,7 @@
 title: Prima app CRUD
 description: Creare una prima applicazione CRUD
 published: true
-date: 2025-05-09T14:32:36.129Z
+date: 2025-06-17T18:41:34.069Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-08T09:59:51.833Z
@@ -82,14 +82,16 @@ export default async function Page() {
       {!isAuthorized(user, permissionType.requestRead) ? (
           <UserNotAuthorized />
         ) : (
-    			<!-- 
-						Linee guida di scrittura del codice: 
-						Tutti i dati sono caricati lato server per massimizzare 
-						il numero di informazioni resituite durante primo caricamento. 
-						In questo momento è possibile usare Promise.all([...]) lato server, 
-						per sfruttare la capacità di recuperare 
-						dati in modo "simultaneo"... 
-					-->
+          <!-- 
+            Linee guida di scrittura del codice: 
+            Tutti i dati sono caricati lato server 
+            per massimizzare il numero di informazioni 
+            resituite durante primo caricamento. 
+            In questo momento è possibile usare
+            Promise.all([...]) lato server, 
+            per sfruttare la capacità di recuperare 
+            dati in modo "simultaneo"... 
+          -->
           <MyRequests requests={myRequests()} / >
         )}
     </>
@@ -136,7 +138,8 @@ type MyRequestsProps = {
 
 export default function MyRequests({ requests }: MyRequestsProps) {
   
-  // Visualizza messaggio di conferma e notifica esito dell'operazione
+  // Visualizza messaggio di conferma e notifica 
+  // esito dell'operazione
   const removeRequest = async (id: number, e: any) => {
     // ...
     const response = await deleteRequest(id);
