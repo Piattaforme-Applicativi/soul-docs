@@ -2,7 +2,7 @@
 title: Prima app CRUD
 description: Creare una prima applicazione CRUD
 published: true
-date: 2025-06-17T18:44:27.947Z
+date: 2025-06-17T18:45:23.761Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-08T09:59:51.833Z
@@ -78,7 +78,7 @@ export default async function Page() {
   // ...
   return (
     <>
-    	{\* <meta /> *\}
+    	<!-- <meta /> ... -->
       {!isAuthorized(user, permissionType.requestRead) ? (
           <UserNotAuthorized />
         ) : (
