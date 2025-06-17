@@ -33,7 +33,7 @@ Per accedere ad ogni interfaccia utente è necessario realizzare un nuova rotta 
 
 ![Nuovo modulo di un applicativo SOUL](diagrammi/crud.svg)
 
-Un nuovo modulo CRUD prevede la creazione di nuovi componenti e rotte NextJS, con forma e struttura presentate nelle [linee guida per la scrittura del codice](/stile-codice).
+Un nuovo modulo CRUD prevede la creazione di nuovi componenti e rotte NextJS, con forma e struttura presentate nelle [linee guida per la scrittura del codice](/stile-codice). E' importante sottolineare che attenersi alle linee guida di scrittura del codice è fondamentale nello sviluppo di applicazioni SOUL (NextJS). Uno degli obiettivi principali dello stile di sviluppo adottato è minimizzare il numero di interazioni necessarie tra utente e sistema, ottimizzando così l’esperienza utente e le prestazioni complessive. In particolare, è essenziale **limitare le richieste al server** esclusivamente nei **momenti in cui l’utente ha bisogno di nuovi dati**, evitando richieste superflue. Quando possibile, è buona pratica restituire più dati in un’unica risposta per massimizzare il throughput lato server. Inoltre, durante il **primo caricamento della pagina** (server-side), è importante **prelevare il maggior numero di informazioni utili**, in modo da ridurre al minimo le successive interazioni con il backend e, di conseguenza, il carico complessivo sul sistema.
 
 # Esempio di implementazione di un nuovo modulo
 
@@ -82,6 +82,8 @@ export default async function Page() {
       {!isAuthorized(user, permissionType.requestRead) ? (
           <UserNotAuthorized />
         ) : (
+    			<!-- Linee guida di scrittura del codice: Tutti i dati sono caricati lato server per massimizzare il numero di informazioni resituite durante primo caricamento. 
+						In questo momento è possibile usare Promise.all([...]) lato server, per sfruttare la capacità di recuperare dati in modo "simultaneo"... -->
           <MyRequests requests={myRequests()} / >
         )}
     </>
@@ -184,11 +186,12 @@ const prisma = Global.prisma.client;
 
 // ... myRequests, deleteRequests
 
+// In fase di creazione la richiesta non ha tutti i campi richiesti dall'interfaccia Request (nextjs/types/request.ts). Usando Partial<Request> possiamo decidere di riportare solo i campi necessari per l'operazione di inserimento, completando gli attributi mancanti che possono o devono essere recuperati lato server (eg. createdBy: mail dell'utente autenticato)
 export async function createRequest(request: Partial<Request>): Promise<Request> {
   // ...
 }
 
-// Se il record è stato inserito vai alla pagina di dettaglio
+// Se la domanda è stato inserita vai alla pagina di dettaglio
 export async function createRequestAndGotoDetail(data: Partial<Request>): void {
   // ...
   const request = await createRequest(data);
@@ -245,6 +248,14 @@ export default function NewRequest({  }: NewProps) {
             <Input 
               value={bookingDate.value}
               error={!bookingDate.valid}
+              onChange={(e) => {
+								// Qui puoi controllare la validità dell'input
+                setBookingDate({
+                  valid: e.target.validity.valid,
+                  value: e.target.value
+                });
+              }}
+
               ... />
             <FormHelperText >
               <!-- ... -->
@@ -417,7 +428,7 @@ Segue la modellazione dell'interfaccia utente che presenta la form per modificar
 import Request from "@/types/request";
 // ...
 
-// La richiesta è completa anche di id
+// Una richiesta ha sempre un id
 type UpdateProps = {
   request: Request
 };
