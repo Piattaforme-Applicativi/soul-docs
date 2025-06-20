@@ -2,7 +2,7 @@
 title: Prima app CRUD
 description: Creare una prima applicazione CRUD
 published: true
-date: 2025-06-17T18:46:05.220Z
+date: 2025-06-20T08:30:33.677Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-08T09:59:51.833Z
@@ -45,7 +45,7 @@ Segue l'elenco delle attività che lo sviluppatore deve completare per implement
 
 | Codice | Nome del compito                 | Descrizione del compito                                      |
 | :----: | -------------------------------- | ------------------------------------------------------------ |
-|   S1   | Tipi e interfacce di classe      | Lo sviluppatore dichiara un interfaccia di classe Typescript per mappare gli attributi dell'entità o della collezione nella base dati. |
+|   S1   | Tipi e interfacce di classe      | Lo sviluppatore dichiara un interfaccia di classe Typescript per mappare gli attributi dell'entità o della collezione. |
 |   S2   | Lista degli elementi             | Lo sviluppatore implementa: la server action che preleva l'elenco dati;  l'interfaccia utente per elencare i dati all'utente; la rotta per accedere all'elenco. E' preferibile prevedere componenti lista diversi a seconda dei ruoli. In questo modo è possibile semplificare l'attività di sviluppo e al contempo migliorare l'usabilità, per quelle tipologie di ruolo che non hanno la necessità di consultare l'intera collezione. Ad esempio, nel caso del ruolo **utente finale** non è necessario prevedere una componente per filtrare i dati o per la paginazione. |
 |   S3   | Form di inserimento              | Lo sviluppatore implementa: la server action per il salvataggio del nuovo elemento nella collezione;  l'interfaccia utente per raccogliere l'input dell'utente; la rotta per accedere alla form di inserimento.  Nel caso limite in cui, ruoli diversi possono inserire il nuovo elemento valorizzando un sotto insieme degli attributi previsti dalla collezione, è necessario prevedere più form di inserimento organizzando la base dati in accordo con questa strategia. |
 |   S4   | Pagina di dettaglio              | Lo sviluppatore implementa: la server action per visualizzare i dettagli di un elemento della collezione;  l'interfaccia utente per visualizzare le informazioni di dettaglio; la rotta per visualizzare i dettagli dell'elemento.  L'interfaccia di dettaglio può essere utilizzata in combinazione con i permessi per presentare combinazioni di informazioni diverse ai ruoli. |
