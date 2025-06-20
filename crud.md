@@ -19,7 +19,9 @@ E' utile illustrare il processo di implementazione di un'applicazione di tipo CR
 
 ## Workflow implementazione di un nuovo modulo
 
-Il modo più efficiente per avviare lo sviluppo di un nuovo modulo software in SOUL consiste nell'implementazione iniziale delle interfacce di classe e dei tipi dato trattati dal nuovo modulo. La creazione della pagina di elenco degli elementi, consente di definire la struttura di base del modulo e di facilitare l'integrazione con le funzionalità successive.
+Il modo più efficiente per avviare lo sviluppo di un nuovo modulo software in SOUL consiste nell'implementazione iniziale delle interfacce di classe e dei tipi dato trattati dal nuovo modulo. 
+
+La creazione della pagina di elenco degli elementi, consente di definire la struttura di base del modulo e di facilitare l'integrazione con le funzionalità successive.
 
 Particolare attenzione deve essere riservata alla progettazione del form di inserimento, che rappresenta il punto in cui si concentra la maggior parte del tempo di sviluppo. È infatti essenziale curare l’esperienza utente, garantendo un’interazione fluida e un buon livello di usabilità.
 
@@ -31,9 +33,27 @@ Infine, la form di modifica viene di norma sviluppata partendo da una copia di q
 
 Per accedere ad ogni interfaccia utente è necessario realizzare un nuova rotta secondo quanto definito dalle [linee guida per la crezione di una pagina NextJS](https://nextjs.org/docs/app/getting-started/layouts-and-pages). La progettazione e il disegno di ogni interfaccia utente, è accompagnata dalla creazione di nuove [server actions NextJS che recuparano i dati dal database](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations).
 
+Definite le rotte è necessario modificare il menu di navigazione dell'applicativo per aggiungere gli hyperlink che permetteranno alle diverse tipologie di ruolo di accedere alle funzioni a loro destinate.
+
 ![Nuovo modulo di un applicativo SOUL](diagrammi/crud.svg)
 
 Un nuovo modulo CRUD prevede la creazione di nuovi componenti e rotte NextJS, con forma e struttura presentate nelle [linee guida per la scrittura del codice](/stile-codice). E' importante sottolineare che attenersi alle linee guida di scrittura del codice è fondamentale nello sviluppo di applicazioni SOUL (NextJS). Uno degli obiettivi principali dello stile di sviluppo adottato è minimizzare il numero di interazioni necessarie tra utente e sistema, ottimizzando così l’esperienza utente e le prestazioni complessive. In particolare, è essenziale **limitare le richieste al server** esclusivamente nei **momenti in cui l’utente ha bisogno di nuovi dati**, evitando richieste superflue. Quando possibile, è buona pratica restituire più dati in un’unica risposta per massimizzare il throughput lato server. Inoltre, durante il **primo caricamento della pagina** (server-side), è importante **prelevare il maggior numero di informazioni utili**, in modo da ridurre al minimo le successive interazioni con il backend e, di conseguenza, il carico complessivo sul sistema.
+
+## Compiti dello sviluppatore
+
+Segue l'elenco delle attività che lo sviluppatore deve completare per implementare un nuovo modulo del sistema. 
+
+| Codice | Nome del compito                 | Descrizione del compito                                      |
+| :----: | -------------------------------- | ------------------------------------------------------------ |
+|   S1   | Tipi e interfacce di classe      | Lo sviluppatore dichiara un interfaccia di classe Typescript per mappare gli attributi dell'entità o della collezione nella base dati. |
+|   S2   | Lista degli elementi             | Lo sviluppatore implementa: la server action che preleva l'elenco dati;  l'interfaccia utente per elencare i dati all'utente; la rotta per accedere all'elenco. E' preferibile prevedere componenti lista diversi a seconda dei ruoli. In questo modo è possibile semplificare l'attività di sviluppo e al contempo migliorare l'usabilità, per quelle tipologie di ruolo che non hanno la necessità di consultare l'intera collezione. Ad esempio, nel caso del ruolo **utente finale** non è necessario prevedere una componente per filtrare i dati o per la paginazione. |
+|   S3   | Form di inserimento              | Lo sviluppatore implementa: la server action per il salvataggio del nuovo elemento nella collezione;  l'interfaccia utente per raccogliere l'input dell'utente; la rotta per accedere alla form di inserimento.  Nel caso limite in cui, ruoli diversi possono inserire il nuovo elemento valorizzando un sotto insieme degli attributi previsti dalla collezione, è necessario prevedere più form di inserimento organizzando la base dati in accordo con questa strategia. |
+|   S4   | Pagina di dettaglio              | Lo sviluppatore implementa: la server action per visualizzare i dettagli di un elemento della collezione;  l'interfaccia utente per visualizzare le informazioni di dettaglio; la rotta per visualizzare i dettagli dell'elemento.  L'interfaccia di dettaglio può essere utilizzata in combinazione con i permessi per presentare combinazioni di informazioni diverse ai ruoli. |
+|   S5   | Eliminazione elemento            | Lo sviluppatore implementa: la server action per eliminare un elemento della collezione;  l'interfaccia utente per eliminare l'elemento (pulsante, conferma e notifica). Tipicamente il pulsante per eliminare l'elemento è una delle azioni della lista (S2). |
+|   S6   | Form di modifica                 | Lo sviluppatore implementa: la server action per modificare gli attributi di un elemento nella collezione;  l'interfaccia utente per raccogliere l'input dell'utente; la rotta per accedere alla form di modifica.  Tipicamente il pulsante per modificare l'elemento è una delle azioni della lista (S2) e una delle azioni nell'interfaccia di dettaglio (S4). |
+|   S7   | Modifica del menu di navigazione | Lo sviluppatore modifica il componente menu di navigazione aggiungendo gli hyperlink che riportano alle diverse liste (nel caso siano presenti più ruoli). |
+
+
 
 # Esempio di implementazione di un nuovo modulo
 
@@ -471,5 +491,23 @@ export default function UpdateRequest({ request }: UpdateProps) {
     </>
   );
 }
+```
+
+## Modifica del menu di navigazione
+
+Il componente menu di navigazione è il file *nextjs/compomponents/navbar.tsx*. Le rotte che caricano le interfacce utente devono essere implementate controllando se il ruolo è in possesso dei permessi per utilizzare l'interfaccia utente. E' buona pratica nascondere gli hyperlink nel menu di navigazione ai ruoli che non devono accedere alle funzioni di loro competenza.  
+
+```jsx
+// ...
+{isAuthorized(user, permissionType.requestMy) && (
+  <>
+		<!-- ... --> 
+    <a href="/secure/request/my" className={"nav-link"}>
+      {t`Show my requests`}
+    </a>
+  	<!-- ... --> 
+  </>
+)}
+// ...
 ```
 
