@@ -1,8 +1,8 @@
 ---
-title: Design System e Sicurezza
+title: Principi guida per il design system e la sicurezza
 description: Linee Guida per lo Sviluppo Software Sicuro e il Design System - ASIT UNIPD
 published: true
-date: 2025-06-27T08:59:22.984Z
+date: 2025-06-27T09:03:29.534Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-27T08:57:46.640Z
