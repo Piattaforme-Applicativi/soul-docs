@@ -2,13 +2,13 @@
 title: Principi guida per il design system e la sicurezza
 description: Linee guida per lo sviluppo di software sicuro e il design system 
 published: true
-date: 2025-06-27T09:04:27.942Z
+date: 2025-06-27T09:04:47.721Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-27T08:57:46.640Z
 ---
 
-# Principi Generali
+# Principi generali
 
 ASIT adotta una politica di sviluppo software open source basata sui principi di riuso, trasparenza ed efficienza. Questa policy è rivolta a tutti i collaboratori dell’Università di Padova che si occupano di sviluppo software, sia personale interno dell’Ateneo, sia fornitori esterni. 
 Il presente documento intende essere una linea guida ASIT, dove si esplicitano le norme adottate sia nella fase di progettazione e sviluppo dei servizi digitali, sia le indicazioni specifiche del contesto di design system UI, finalizzate a mantenere coerenza visiva e funzionale tra team di design e sviluppo (working agreements).
