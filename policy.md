@@ -2,7 +2,7 @@
 title: Design System e Sicurezza
 description: Linee Guida per lo Sviluppo Software Sicuro e il Design System - ASIT UNIPD
 published: true
-date: 2025-06-27T08:57:46.640Z
+date: 2025-06-27T08:59:22.984Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-27T08:57:46.640Z
@@ -65,7 +65,8 @@ Il software deve essere soggetto a revisioni periodiche, anche post rilascio, pe
 
 ### Pratiche operative e controlli ISO/IEC 27001
 Di seguito si dà evidenza dei riferimenti all’Allegato A della ISO/IEC 27001 per ciascun punto (rif. ISO/IEC 27001:2022 - Allegato A).
-Principi di Sicurezza Applicativa
+
+#### Principi di Sicurezza Applicativa
 [Controlli ISO: A.5.23, A.8.25, A.8.26, A.8.28]
 * Progettazione secondo principi Secure by Design e Secure by Default;
 * Accesso ai dati basato su minimo privilegio e separazione dei ruoli (A.8.2 - Identity management);
@@ -104,13 +105,13 @@ Adozione di un ciclo di sviluppo sicuro (SSDLC), comprensivo di:
 
 ## Design System UI di Unipd
 L'Università di Padova adotterà un proprio design system UI ispirato alle linee guida AgID, ma con contenuti e componenti aggiuntivi personalizzati. Questo design system garantirà:
-- Coerenza visiva e funzionale tra le applicazioni sviluppate.
-- Accessibilità e usabilità per tutti gli utenti.
+- Coerenza visiva e funzionale tra le applicazioni sviluppate;
+- Accessibilità e usabilità per tutti gli utenti;
 - Componenti riutilizzabili e documentati per velocizzare lo sviluppo.
 Design System per dotare ASIT UNIPD di un proprio linguaggio visivo, aderente alle linee guida di identità visiva prodotte da ACOM
 
-Piano di Implementazione e Revisione
-- Definizione di un piano di implementazione graduale della policy.
-- Revisione periodica della policy per adattarla alle nuove esigenze e tecnologie.
+## Piano di Implementazione e Revisione
+- Definizione di un piano di implementazione graduale della policy;
+- Revisione periodica della policy per adattarla alle nuove esigenze e tecnologie;
 - Coinvolgimento attivo di tutto il personale tecnico-amministrativo e docente nel processo di miglioramento.
 
