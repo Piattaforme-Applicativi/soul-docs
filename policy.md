@@ -1,8 +1,8 @@
 ---
 title: Principi guida per il design system e la sicurezza
-description: Linee guida per lo sviluppo di software sicuro e il design system 
+description: Principi guida per il design system e la sicurezza delle applicazioni rilasciate in Unipd
 published: true
-date: 2025-06-27T09:04:47.721Z
+date: 2025-06-27T09:06:17.087Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-27T08:57:46.640Z
