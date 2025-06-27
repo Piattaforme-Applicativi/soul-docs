@@ -1,8 +1,8 @@
 ---
 title: Principi guida per lo sviluppo
-description: Principi guida per il design system e la sicurezza delle applicazioni rilasciate in Unipd
+description: Principi guida per lo sviluppo delle applicazioni rilasciate in Unipd
 published: true
-date: 2025-06-27T09:07:57.246Z
+date: 2025-06-27T09:08:19.402Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-27T08:57:46.640Z
