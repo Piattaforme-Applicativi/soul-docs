@@ -2,7 +2,7 @@
 title: Autenticazione e autorizzazione
 description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-07-01T13:21:49.286Z
+date: 2025-07-01T13:38:35.844Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
@@ -113,7 +113,7 @@ L'identità dell'utente è utile in quegli scenari nei quali è necessario limit
 ```jsx
 "use server";
 // ....
-import { Payload } from "@/types/session";
+import { Session } from "@/types/session";
 import { AuthUser } from "@/types/auth-user";
 // ....
 
