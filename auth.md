@@ -41,6 +41,12 @@ Dal punto di vista dello sviluppatore, è fondamentale implementare  controlli r
 Segue il riferimento agli attributi che devono essere restituiti dall'IdP in linguaggio SAML per realizzare l'autenticazione. 
 
 ```xml
+<!--
+	Questo file è stato adattato a partire dal file attribute-map.xml.
+	Per avere l'elenco completo degli attributi presenti nel file attribute-map.xml
+ 	e messi a disposizione dall'IdP, va fatta richiesta al team che gestisce l'IdP.
+-->
+
 <Attributes xmlns="urn:mace:shibboleth:2.0:attribute-map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <!-- c'è sempre per utenze interne e IDEM, non per SPID/CIE -->
     <Attribute name="urn:oid:2.5.4.42" id="shib_givenname"/> <!-- SOUL: firstName -->
