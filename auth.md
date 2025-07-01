@@ -1,8 +1,8 @@
 ---
 title: Autenticazione e autorizzazione
-description: Autenticazione con Identity Provider di Ateneo 
+description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-06-30T07:20:00.495Z
+date: 2025-07-01T13:21:49.286Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
@@ -38,7 +38,7 @@ Dal punto di vista dello sviluppatore, è fondamentale implementare  controlli r
 
 ![Tiplogie di identità di utenti restituite dal SSO](diagrammi/auth-identity-types.svg)
 
-Segue il riferimento agli attributi che devonoe essere restituiti dall'IdP in linguaggio SAML per realizzare l'autenticazione. 
+Segue il riferimento agli attributi che devono essere restituiti dall'IdP in linguaggio SAML per realizzare l'autenticazione. 
 
 ```xml
 <Attributes xmlns="urn:mace:shibboleth:2.0:attribute-map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
