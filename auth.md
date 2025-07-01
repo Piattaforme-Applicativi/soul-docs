@@ -2,7 +2,7 @@
 title: Autenticazione e autorizzazione
 description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-07-01T13:40:49.479Z
+date: 2025-07-01T13:42:50.905Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
@@ -129,12 +129,14 @@ I permessi vengono utilizzati per limitare l'accesso ai dati. I permessi vengono
 
 "use server";
 
+import { getSessionPayload } from "@/components/user/actions";
+import { AuthUser } from "@/types/auth-user";
 import { permissionType } from "@prisma/client";
 import { isAuthorized } from "@/components/common/utils";
 // ...
 
 export default async function Page() {
-  const user = await getSessionPayload();
+  const user: AuthUser | null = await getSessionPayload();
   // ...
   return (
     <>
