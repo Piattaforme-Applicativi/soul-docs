@@ -1,0 +1,60 @@
+---
+title: Tipi di identità
+---
+classDiagram
+direction TB
+    class Idem {
+	    +String shib_esi
+	    +String shib_mail
+    }
+    class ExternalAuthSource {
+	    SPID
+	    CIE
+    }
+    class IdentitaNazionale {
+	    +String spid_spidCode
+	    +String spid_email ~~ PKEY ~~
+	    +String spid_fiscalNumber
+	    +String spid_ivaCode
+	    +ExternalAuthSource shib_authsource
+    }
+    class UnipdUser {
+	    +String shib_extid
+	    +String shib_id
+	    +String shib_codicefiscale
+	    +String shib_mail  ~~ PKEY ~~
+	    +String shib_givenname
+	    +String shib_sn
+    }
+    class Studente {
+	    +String shib_authsource = 'LOCAL'
+    }
+    class Staff {
+	    +String shib_authsource = 'LOCAL'
+    }
+    class ExternalAccess {
+    }
+
+	<<enumeration>> ExternalAuthSource
+	<<Abstract>> UnipdUser
+
+	note for Studente "shib_mail must match /^[\\w.-]+\@studenti.unipd.it$/"
+	note for Staff "shib_mail must match /^[\\w.-]+\@unipd.it$/"
+
+    UnipdUser <|-- Studente
+    UnipdUser <|-- Staff
+    UnipdUser <|-- ExternalAccess
+    ExternalAccess --o Idem : isAllowedToAccess
+    ExternalAccess --o IdentitaNazionale : isRegisteredInUnipd
+
+	class Idem:::Aqua
+	class Idem:::Pine
+	class Idem:::Peach
+	class IdentitaNazionale:::Peach
+	class Studente:::Rose
+	class Staff:::Rose
+
+	classDef Aqua :, stroke-width:1px, stroke-dasharray:none, stroke:#46EDC8, fill:#DEFFF8, color:#378E7A
+	classDef Pine :, stroke-width:1px, stroke-dasharray:none, stroke:#254336, fill:#27654A, color:#FFFFFF
+	classDef Peach :, stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
+	classDef Rose :,stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
