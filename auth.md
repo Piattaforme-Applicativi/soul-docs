@@ -77,7 +77,7 @@ All'interno dello [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-
 
 Dopo aver creato correttamente il file `.env`, si può procedere con il dispiegamento del sistema sia in ambiente di staging che in produzione. Una volta che il sistema è operativo e raggiungibile tramite l'indirizzo configurato in `BASE_URL`, è possibile scaricare il file di metadata che identifica l'SP accedendo al path `/saml/metadata`.
 
-A questo punto, con il file di metadata disponibile, è possibile completare la registrazione del nuovo SP presso l'IdP di Ateneo. Prima di accedere alla [pagina di richiesta di accreditamento Single Sign On di Ateneo](https://registrazionisp.ict.unipd.it/form/richiestesso), è necessario riceve un nuovo codice di invito (**Invitation Code**) scrivendo alla [coda ticket di Ateneo](https://helpdesk.ammcentr.unipd.it/otrs/customer.pl?OTRSCustomerInterface=oBbwZal2mXfTD3xE9GABt7nCH0MNaaPD).
+A questo punto, con il file di metadata disponibile, è possibile completare la registrazione del nuovo SP presso l'IdP di Ateneo. Prima di accedere alla [pagina di richiesta di accreditamento Single Sign On di Ateneo](https://registrazionisp.ict.unipd.it/form/richiestesso), è necessario ricevere un nuovo codice di invito (**Invitation Code**) scrivendo alla [coda ticket di Ateneo](https://helpdesk.ammcentr.unipd.it/otrs/customer.pl?OTRSCustomerInterface=oBbwZal2mXfTD3xE9GABt7nCH0MNaaPD).
 
 ![Worflow di integrazione per un nuovo Service Provider in staging o produzione](diagrammi/auth-integration-workflow.svg)
 
@@ -97,7 +97,7 @@ Segue l'elenco delle attività che lo sviluppatore deve portare a termine per in
 | Codice | Nome del compito                                             | Descrizione del compito                                      |
 | :----: | ------------------------------------------------------------ | ------------------------------------------------------------ |
 |   S1   | Dispiegamento applicativo in ambiente di staging e produzione | Lo sviluppatore crea un nuovo file  `.env`  per gli ambienti di produzione o di staging. Lo sviluppatore dispiega il nuovo applicativo negli ambienti di staging o di produzione. |
-|   S2   | Nuovo ticket registrazione SP                                | Lo sviluppatore richiede un **Invitation Code** per completare la richiesta di accreditamento Single Sign On di Ateneo nella **coda ticket _Single Sign On** dell'Ateneo. |
+|   A1   | Nuovo ticket registrazione SP                                | Il personale ASIT richiede un **Invitation Code** per completare la richiesta di accreditamento Single Sign On di Ateneo nella **coda ticket _Single Sign On** dell'Ateneo. |
 |   S3   | Registrazione nuovo SP                                       | Lo sviluppatore scarica dal nuovo applicativo dispiegato in staging o produzione il file `/saml/metadata` che identifica l' applicativo come SP.  Lo sviluppatore in possesso di **Invitation Code** e del file XML che identifica il nuovo applicativo / SP, invia una nuova  richiesta di accreditamento. |
 
 #### S3 - Registrazione di un nuovo SP
