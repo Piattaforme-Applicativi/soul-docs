@@ -2,7 +2,7 @@
 title: Autenticazione e autorizzazione
 description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-07-02T08:29:22.051Z
+date: 2025-07-02T08:32:28.755Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
@@ -24,7 +24,7 @@ Per entrare nel dettaglio del **flusso di autenticazione**, quando un utente ten
 
 A ogni richiesta verso una rotta protetta, il middleware lato server di Next.js intercetta la richiesta, estrae il JWT dal cookie e ne verifica la firma. Se la firma nel token è valida, il middleware consente l’accesso alla  risorsa. Se la firma nel token è assente, scaduta o non valida, l’utente viene  reindirizzato ad una pagina di errore o al login. Lato client il coookie di sessione non può essere letto (`HttpOnly`) . Di conseguenza le informazioni utente possono essere recuperate unicamente lato server. Le informazioni ricavate dal JWT consentono di personalizzare l’interfaccia utente in base al profilo autenticato.
 
-Il vantaggio di questo approccio è che il riconoscimento dell'utente è delegato ad un IdP esterno. L’uso di cookie di sessione consente un’architettura stateless,  scalabile e facilmente integrabile con altri servizi. Inoltre, l’intero  flusso è compatibile con standard enterprise come SAML e può essere  esteso per supportare OAuth2 o OpenID Connect. Questo modello è  particolarmente adatto per applicazioni moderne che richiedono  sicurezza, modularità e interoperabilità con sistemi di identità aziendali.
+Il riconoscimento dell'utente è delegato ad un IdP esterno. L’uso di cookie di sessione è prerequisito per un’architettura stateless, scalabile e facilmente integrabile con altri servizi. L’intero  flusso è compatibile con lo standard SAML e può essere esteso per supportare OAuth2 o OpenID Connect. Questo modello è  particolarmente adatto per applicazioni moderne che richiedono  sicurezza, modularità e interoperabilità con sistemi di identità aziendali.
 
 ![Autenticazione con SAML e sessione con JWT](diagrammi/auth.svg)
 
