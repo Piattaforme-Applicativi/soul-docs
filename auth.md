@@ -2,7 +2,7 @@
 title: Autenticazione e autorizzazione
 description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-07-02T08:27:48.727Z
+date: 2025-07-02T08:28:01.233Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
@@ -88,7 +88,7 @@ Un possibile messaggio per chiedere l'Invitation Code nella coda ticket _Single 
 > stò completando l'attività di integrazione dell'ambiente staging per il nuovo
 > sistema "xxx" con l'Identity Provider SAML di Ateneo.
 >
-> Mi servirebbe Invitation Code per formulare la domanda online "Richieste
+> Mi servirebbe l'Invitation Code per formulare la domanda online "Richieste
 > accreditamento Single Sign-On di Ateneo - UniPD"
 >
 > Un caro saluto
