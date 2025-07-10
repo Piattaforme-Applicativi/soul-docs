@@ -2,7 +2,7 @@
 title: Autenticazione e autorizzazione
 description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-07-10T12:34:48.468Z
+date: 2025-07-10T12:36:12.708Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
@@ -30,7 +30,7 @@ Il riconoscimento dell'utente è delegato all'IdP. L’uso di cookie di sessione
 
 ### Tipi di identità restituite dall'IdP
 
-Il processo di autenticazione SSO all’Università degli Studi di Padova si basa su un IdP conforme a SAML 2.0, che fornisce un insieme di  attributi specifici a seconda della tipologia dell’utente e della modalità con cui si autentica nel SP. Gli utenti possono essere interni  (studenti o dipendenti) oppure esterni (autenticati tramite: SPID; CIE; IDEM). Gli utenti interni si autenticano all’IdP locale e ricevono un insieme di attributi che include identificatori esterni e interni (`shib_extid`, `shib_id`), codice fiscale (`shib_codicefiscale`), nome e cognome (`shib_givenname`, `shib_sn`) e soprattutto l’**indirizzo email** (`shib_mail`), che funge da identificatore univoco. Un attributo utile a distinguere le diverse tipologie di utente è `shib_authsource`, che in questo caso è sempre valorizzato a `LOCAL`. Per distinguere tra studenti e dipendenti, è necessario analizzare il  dominio dell’indirizzo email: gli studenti hanno email che terminano con `@studenti.unipd.it`, mentre i dipendenti usano `@unipd.it`. Questo permette di classificare correttamente l’utente e applicare le relative regole di accesso.
+Il processo di autenticazione SSO all’Università degli Studi di Padova si basa su un IdP conforme a SAML 2.0, che fornisce un insieme di  attributi specifici a seconda della tipologia dell’utente e della modalità con cui si autentica nel SP. Gli utenti possono essere interni  (studenti o dipendenti) oppure esterni (autenticati tramite: SPID; CIE; IDEM). Gli utenti interni si autenticano all’IdP locale e ricevono un insieme di attributi che include identificatori esterni e interni (`shib_extid`, `shib_id`), codice fiscale (`shib_codicefiscale`), nome e cognome (`shib_givenname`, `shib_sn`) e soprattutto l’**indirizzo email** (`shib_mail`), che funge da identificatore univoco. Un attributo utile a distinguere il tipo di di utente è `shib_authsource`, che in questo caso è sempre valorizzato a `LOCAL`. Per distinguere tra studenti e dipendenti, è necessario analizzare il  dominio dell’indirizzo email: gli studenti hanno email che terminano con `@studenti.unipd.it`, mentre i dipendenti usano `@unipd.it`. Questo permette di classificare correttamente l’utente e applicare le relative regole di accesso.
 
 Gli utenti esterni, invece, si autenticano tramite sistemi federati con l'Ateneo come: SPID; CIE; Idem. In questi casi, l’IdP fornisce un set di attributi  differente a seconda della federazione. Nel caso della deferazione con il sistema nazionale di identità digitale italiano, in fase di risposta l'IdP include un codice identificativo SPID (`spid_spidCode`), il codice fiscale (`spid_fiscalNumber`), un eventuale codice IVA (`spid_ivaCode`) e l’indirizzo email (`spid_email`), che anche qui funge da identificatore univoco. L’attributo `shib_authsource` è valorizzato rispettivamente a `SPID` o `CIE`, a seconda del metodo utilizzato.  Se l'utente è registrato nel sistema nazionale di identità digitale italiano e anche nei sistemi dell'Ateneo, allora l'IdP ritorna anche gli attributi personali memorizzati dai sistemi di identità dell'Ateneo.
 
