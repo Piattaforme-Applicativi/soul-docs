@@ -2,7 +2,7 @@
 title: Invio mail
 description: Innviare notifiche agli utenti via mail (SMTP)
 published: true
-date: 2025-07-15T10:24:34.305Z
+date: 2025-07-16T08:53:08.634Z
 tags: 
 editor: markdown
 dateCreated: 2025-07-15T10:24:34.305Z
@@ -21,7 +21,7 @@ Per questo motivo, lo sviluppatore è invitato a non basare logiche critiche o v
 
 ## Workflow di integrazione
 
-Per integrare correttamente il sistema, lo sviluppatore deve inviare una richiesta di integrazione con il sistema di notifica via Mail ai gestori dell'infrastruttura cloud di Ateneo. I gestori dell'infrastruttura generano un nuovo utente per l'invio delle mail e ritornano allo sviluppatore i parametri per configurare l'integrazione.
+Per integrare correttamente il sistema, lo sviluppatore deve inviare ai gestori dell'infrastruttura cloud di Ateneo una richiesta per l'integrazione con il sistema di invio Mail . I gestori dell'infrastruttura generano un nuovo utente e ritornano allo sviluppatore i parametri per configurare l'ambiente di sviluppo.
 
 Ricevuti i parametri lo sviluppatore crea un nuovo file `.env`, che contiene le configurazioni essenziali. Gli attributi da modificare sono:
 
