@@ -2,7 +2,7 @@
 title: Invio mail
 description: Innviare notifiche agli utenti via mail (SMTP)
 published: true
-date: 2025-07-16T08:53:08.634Z
+date: 2025-07-16T08:53:21.889Z
 tags: 
 editor: markdown
 dateCreated: 2025-07-15T10:24:34.305Z
@@ -23,7 +23,7 @@ Per questo motivo, lo sviluppatore è invitato a non basare logiche critiche o v
 
 Per integrare correttamente il sistema, lo sviluppatore deve inviare ai gestori dell'infrastruttura cloud di Ateneo una richiesta per l'integrazione con il sistema di invio Mail . I gestori dell'infrastruttura generano un nuovo utente e ritornano allo sviluppatore i parametri per configurare l'ambiente di sviluppo.
 
-Ricevuti i parametri lo sviluppatore crea un nuovo file `.env`, che contiene le configurazioni essenziali. Gli attributi da modificare sono:
+Ricevuti i parametri lo sviluppatore crea un nuovo file `.env`, che contiene le configurazioni necessarie. Gli attributi da modificare sono:
 
 * **MAILER_FROM_ADDRESS**, `noreply.applicativi@unipd.it` è l'indirizzo mittente dei messaggi inviati agli utenti. Il mittente non è modificabile e il suo indirizzo deve suggerire all'utente finale che non è possibile rispondere alla mail inviata;
 * **MAILER_HOST**, in ambiente di sviluppo è previsto l'utilizzo dell'SMTP `smtprelay-production.unipd.cloud`. Al momento del dispiegamento in staging e produzione, l'hostname viene modificato dai gestori dell'infrastruttura cloud;
