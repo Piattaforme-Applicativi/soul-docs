@@ -26,6 +26,7 @@ Per integrare correttamente il sistema, lo sviluppatore deve inviare ai gestori 
 Ricevuti i parametri lo sviluppatore crea un nuovo file `.env`, che contiene le configurazioni necessarie. Gli attributi da modificare sono:
 
 * **MAILER_FROM_ADDRESS**, `noreply.applicativi@unipd.it` è l'indirizzo mittente dei messaggi inviati agli utenti. Il mittente non è modificabile e il suo indirizzo deve suggerire all'utente finale che non è possibile rispondere alla mail inviata;
+* **MAILER_TO_ADDRESS**, è l'indirizzo del destinatario quando dobbiamo simulare l'invio di messaggi. E' una buona pratica impostare l'indirizzo nella configurazione degli ambienti di test e sviluppo.;
 * **MAILER_HOST**, in ambiente di sviluppo è previsto l'utilizzo dell'SMTP `smtprelay-production.unipd.cloud`. Al momento del dispiegamento in staging e produzione, l'hostname viene modificato dai gestori dell'infrastruttura cloud;
 * **MAILER_SECURE**, di base è impostato a `true` e stà ad indicare che il canale di comunicazione tra applicativo e SMTP server e sicuro;
 * **MAILER_PORT**, la porta default in caso di SMTP server e sicuro è `465`
@@ -65,7 +66,7 @@ import { t } from "@lingui/macro";
 export async function notify(): Promise<boolean> {
 	const mailMessage: MailMessage = {
     from: Global.config.mailerFromAddress as string, // noreply.applicativi@unipd.it
-    to: 'mario.rossi@company.com',
+    to: 'mario.rossi@company.com', // invia a MAILER_TO_ADDRESS di default quando impostato nella configurazione
     subject: t`Approval is required`,
     message: `${t`Dear`} Mario Rossi, ${t`your approval is required`}<br/>
 ${t`For the request to be valid you need to approve it.`}<br/><br/>
