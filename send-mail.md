@@ -2,7 +2,7 @@
 title: Invio mail
 description: Innviare notifiche agli utenti via mail (SMTP)
 published: true
-date: 2025-07-16T08:53:21.889Z
+date: 2025-09-22T07:29:59.715Z
 tags: 
 editor: markdown
 dateCreated: 2025-07-15T10:24:34.305Z
