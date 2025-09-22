@@ -2,7 +2,7 @@
 title: Architettura dei sistemi
 description: Come sono progettate le applicazioni basate sul framework SOUL a seguito della clonazione del repository Starter Kit
 published: true
-date: 2025-05-08T15:18:39.088Z
+date: 2025-09-22T07:26:46.378Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-31T07:59:50.309Z
