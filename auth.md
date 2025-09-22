@@ -2,7 +2,7 @@
 title: Autenticazione e autorizzazione
 description: Autenticazione con Identity Provider di Ateneo
 published: true
-date: 2025-07-10T12:42:56.918Z
+date: 2025-09-22T07:29:27.676Z
 tags: 
 editor: markdown
 dateCreated: 2025-06-30T07:20:00.495Z
