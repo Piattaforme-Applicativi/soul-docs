@@ -2,7 +2,7 @@
 title: Corsi di Formazione
 description: Corsi di Formazione selezionati per l'apprendimento delle tecnologie dello stack tecnologico di SOUL mediante la piattaforma di e-learning Udemy.
 published: true
-date: 2025-03-14T09:42:27.398Z
+date: 2025-09-22T07:30:25.198Z
 tags: formazione, udemy, corsi
 editor: markdown
 dateCreated: 2025-03-14T09:42:27.398Z
