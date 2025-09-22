@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-05-08T12:27:43.365Z
+date: 2025-09-22T07:27:09.862Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
