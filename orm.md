@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-05-08T13:00:31.878Z
+date: 2025-09-22T07:27:55.130Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
