@@ -2,7 +2,7 @@
 title: Ruoli e permessi
 description: Aggiunta di nuovi ruoli e permessi per un nuovo modulo
 published: true
-date: 2025-05-09T12:48:00.843Z
+date: 2025-09-22T07:28:12.110Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-09T12:48:00.843Z
