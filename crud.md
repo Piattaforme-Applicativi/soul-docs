@@ -2,7 +2,7 @@
 title: Prima app CRUD
 description: Creare una prima applicazione CRUD
 published: true
-date: 2025-09-22T07:28:21.583Z
+date: 2025-09-22T07:28:32.196Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-08T09:59:51.833Z
