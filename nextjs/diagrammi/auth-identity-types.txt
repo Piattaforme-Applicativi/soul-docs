@@ -2,59 +2,83 @@
 title: Tipi di identità
 ---
 classDiagram
-direction TB
-    class Idem {
-	    +String shib_esi
-	    +String shib_mail
+direction LR
+    class AuthUser {
+    	<<Interface>>
+    } 
+    class UnipdUser {
+    	<<Abstract>>
+	    +String shib_extid
+	    +String shib_id ~~ PKEY ~~
+	    +String shib_codicefiscale
+	    +String shib_givenname
+	    +String shib_sn
+	    +String shib_authsource = 'LOCAL'    	
     }
-    class ExternalAuthSource {
-	    SPID
-	    CIE
-    }
-    class IdentitaNazionale {
-	    +String spid_spidCode
+    class Federation {
+    	<<Interface>>
+    } 
+    class Citizen {
+    	<<Abstract>>
+    	+String spid_spidCode
 	    +String spid_email ~~ PKEY ~~
 	    +String spid_fiscalNumber
 	    +String spid_ivaCode
-	    +ExternalAuthSource shib_authsource
+    } 
+    class ActiveUser {
+    	+String shib_mail
     }
-    class UnipdUser {
-	    +String shib_extid
-	    +String shib_id
-	    +String shib_codicefiscale
-	    +String shib_mail  ~~ PKEY ~~
-	    +String shib_givenname
-	    +String shib_sn
+    class Alumni {
+    	+String[] shib_edupersonscopedaffiliation = [ 'alum@unipd.it' ]
     }
-    class Studente {
-	    +String shib_authsource = 'LOCAL'
+    class Student {
+	    +String[] shib_edupersonscopedaffiliation = [ 'member@unipd.it', 'student@unipd.it' ]
     }
     class Staff {
-	    +String shib_authsource = 'LOCAL'
+    	+String[] shib_edupersonscopedaffiliation = [ 'member@unipd.it', 'staff@unipd.it' ]
     }
-    class ExternalAccess {
+    class External {}
+
+    class Idem {	    
+    	+String shib_esi
+	    +String shib_mail
+    }
+    class SPID {
+	    +String shib_authsource = 'SPID'
+    }
+    class CIE {
+	    +String shib_authsource = 'CIE'
     }
 
-	<<enumeration>> ExternalAuthSource
-	<<Abstract>> UnipdUser
+    note for Student "shib_id must match /^[\\w.-]+\@studenti.unipd.it$/"
+    note for Alumni "shib_id must match /^[\\w.-]+\@studenti.unipd.it$/"
+	note for Staff "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
+	note for External "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
 
-	note for Studente "shib_mail must match /^[\\w.-]+\@studenti.unipd.it$/"
-	note for Staff "shib_mail must match /^[\\w.-]+\@unipd.it$/"
+    AuthUser <|.. Federation
+    AuthUser <|.. UnipdUser
 
-    UnipdUser <|-- Studente
-    UnipdUser <|-- Staff
-    UnipdUser <|-- ExternalAccess
-    ExternalAccess --o Idem : isAllowedToAccess
-    ExternalAccess --o IdentitaNazionale : isRegisteredInUnipd
 
-	class Idem:::Aqua
-	class Idem:::Pine
-	class Idem:::Peach
-	class IdentitaNazionale:::Peach
-	class Studente:::Rose
-	class Staff:::Rose
+    Federation <|.. Idem
+    Federation <|.. Citizen
+    Citizen <|-- SPID
+    Citizen <|-- CIE
 
-	classDef Aqua :, stroke-width:1px, stroke-dasharray:none, stroke:#46EDC8, fill:#DEFFF8, color:#378E7A
-	classDef Pine :, stroke-width:1px, stroke-dasharray:none, stroke:#254336, fill:#27654A, color:#FFFFFF
-	classDef Peach :, stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
+
+    UnipdUser <|-- Alumni
+    UnipdUser <|-- ActiveUser
+    ActiveUser <|-- Student
+    ActiveUser <|-- Staff
+    ActiveUser <|-- External
+
+
+	class Alumni:::Rose
+	class Student:::Unipd
+	class Staff:::Unipd
+	class External:::Unipd
+	class SPID:::Citizen
+	class CIE:::Citizen
+
 	classDef Rose :,stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
+	classDef Unipd :,stroke-width:1px, stroke-dasharray:none, stroke:#FFFFFF, fill:#880000, color:#FFFFFF
+	classDef Citizen :,stroke-width:1px, stroke-dasharray:none, stroke:#FFFFFF, fill:#0066cc, color:#FFFFFF

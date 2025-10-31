@@ -30,7 +30,7 @@ Il riconoscimento dell'utente è delegato all'IdP. L’uso di cookie di sessione
 
 ### Tipi di identità restituite dall'IdP
 
-Il processo di autenticazione SSO all’Università degli Studi di Padova si basa su un IdP conforme a SAML 2.0, che fornisce un insieme di  attributi specifici a seconda della tipologia dell’utente e della modalità con cui si autentica nel SP. Gli utenti possono essere interni  (studenti o dipendenti) oppure esterni (autenticati tramite: SPID; CIE; IDEM). Gli utenti interni si autenticano all’IdP locale e ricevono un insieme di attributi che include identificatori esterni e interni (`shib_extid`, `shib_id`), codice fiscale (`shib_codicefiscale`), nome e cognome (`shib_givenname`, `shib_sn`) e soprattutto l’**indirizzo email** (`shib_mail`), che funge da identificatore univoco. Un attributo utile a distinguere il tipo di di utente è `shib_authsource`, che ha valore `LOCAL` quando l'utente è registrato in Ateneo. Per distinguere tra studenti e dipendenti, è necessario analizzare il  dominio dell’indirizzo email: gli studenti hanno email che terminano con `@studenti.unipd.it`, mentre i dipendenti usano `@unipd.it`. Questo permette di classificare correttamente l’utente e applicare le relative regole di accesso.
+Il processo di autenticazione SSO all’Università degli Studi di Padova si basa su un IdP conforme a SAML 2.0, che fornisce un insieme di  attributi specifici a seconda della tipologia dell’utente e della modalità con cui si autentica nel SP. Gli utenti possono essere interni  (studenti o dipendenti) oppure esterni (autenticati tramite: SPID; CIE; IDEM). Gli utenti interni si autenticano all’IdP locale e ricevono un insieme di attributi che include identificatori esterni e interni (`shib_extid`, `shib_id`), codice fiscale (`shib_codicefiscale`), nome e cognome (`shib_givenname`, `shib_sn`) e l’indirizzo email (`shib_mail`). L'affiliazione all'Ateneo (`shib_edupersonscopedaffiliation`)  è opzionale e multivalore. Può quindi contentere uno o più elementi nell'insieme `[ 'member@unipd.it', 'staff@unipd.it', 'alum@unipd.it' ]`  . Un attributo utile a distinguere il tipo di di utente è `shib_authsource`, che ha valore `LOCAL` quando l'utente è registrato in Ateneo. Per distinguere tra studenti e dipendenti, è necessario analizzare il  dominio dell’indirizzo email: gli studenti hanno email che terminano con `@studenti.unipd.it`, mentre i dipendenti usano `@unipd.it`. Questo permette di classificare correttamente l’utente e applicare le relative regole di accesso.
 
 Gli utenti esterni si autenticano tramite sistemi federati con l'Ateneo come: SPID; CIE; Idem. In questi casi, l’IdP trasmette un set di attributi che sono tipici dell'organizzazione federata. 
 Per fare un esempio, nel caso di federazione con il sistema nazionale di identità digitale italiano, in fase di risposta l'IdP include un codice identificativo SPID (`spid_spidCode`), il codice fiscale (`spid_fiscalNumber`), un eventuale codice IVA (`spid_ivaCode`) e l’indirizzo email (`spid_email`), che anche qui funge da identificatore univoco. L’attributo `shib_authsource` è valorizzato rispettivamente a `SPID` o `CIE`, a seconda del metodo utilizzato.  Se l'utente è registrato nel sistema nazionale di identità digitale italiano e anche nei sistemi dell'Ateneo, allora l'IdP ritorna **anche** gli attributi personali registrati nel sistema di identità dell'Ateneo.
@@ -56,6 +56,14 @@ Segue il riferimento agli attributi che devono essere restituiti dall'IdP in lin
     <!-- .... -->
     <!-- c'è sempre per utenze interne e IDEM, non per SPID/CIE -->
     <Attribute name="urn:oid:0.9.2342.19200300.100.1.3" id="shib_mail"/> <!-- SOUL: mail, SOUL: id -->
+  	<!-- .... -->
+    <!-- descrive il rapporto (affiliazione) di una persona con un’istituzione, “scopato” da un dominio (cioè legato a un dominio dell’organizzazione). 
+		Esempio di valore ritornato: 'member@unipd.it', 'staff@unipd.it', 'alum@unipd.it'
+
+		La parte prima della @ (es. member, alum, staff) indica il tipo di affiliazione.
+		La parte dopo la @ (es. unipd.it) indica il dominio dell’organizzazione.
+		-->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.9" id="shib_edupersonscopedaffiliation"/> 
     <!-- .... -->
   	<Attribute name="https://www.cca.unipd.it/sso/attributes/codicefiscale" id="shib_codicefiscale"/> <!-- SOUL: codiceFiscale -->
   	<!-- .... -->
@@ -63,6 +71,80 @@ Segue il riferimento agli attributi che devono essere restituiti dall'IdP in lin
   	<!-- .... -->
   
  </Attributes>
+```
+
+Segue un esempio di pseudo codice per riconoscere e classificare le diverse tipologie di utente dopo il Single Sign-On
+
+```
+INIZIO
+  FUNZIONE estrai_dominio(email = NON DEFINITO, id = NON DEFINITO)
+
+      // Se entrambi email e id non sono definiti, ritorna NON DEFINITO
+      SE email E' NON DEFINITO E id E' NON DEFINITO ALLORA
+          RITORNA NON DEFINITO
+      FINE SE
+
+      // Se email non definito, usa id
+      DICHIARA mail = SE email E' NON DEFINITO ALLORA id ALTRIMENTI email
+
+      // Trova la posizione del simbolo '@'
+      DICHIARA posizione_arroba = TROVA_POSIZIONE(mail, "@")
+
+      // Se non c'è '@', ritorna NON DEFINITO
+      SE posizione_arroba = NON TROVATO ALLORA
+          RITORNA NON DEFINITO
+      FINE SE
+
+      // Estrai la parte dopo '@'
+      DICHIARA dominio = SOTTOSTRINGA(mail, posizione_arroba + 1, FINE)
+
+      RITORNA dominio
+
+  FINE FUNZIONE
+
+
+    FUNZIONE tipo_utente(mail = NON DEFINITO, id = NON DEFINITO, tipo_utente = NON DEFINITO, sorgente = "LOCAL")
+
+        // Se l'utente non compare tra gli utenti dell'Ateneo può essere una federazione SPID o CIE
+        SE sorgente E' UGUALE a "CIE" O sorgente E' UGUALE a "SPID" ALLORA
+            RITORNA CITIZEN
+        FINE SE
+
+        // Altro tipo di federazione per il momento non gestita
+        SE sorgente E' DIVERSO da "LOCAL" ALLORA
+            RITORNA NON DEFINITO
+        FINE SE
+
+				// Se non conosco il dominio di provenienza dell'utente 
+				// non posso dire null
+				DICHIARA dominio = estrai_dominio(mail, id)
+				SE dominio E' NON DEFINITO ALLORA
+            RITORNA NON DEFINITO
+        FINE SE
+
+        // Se il dominio è studenti.unipd.it
+        SE dominio E' UGUALE A 'studenti.unipd.it' E 'alum@unipd.it' E' IN tipo_utente ALLORA
+            SE mail E' NON DEFINITO ALLORA
+                RITORNA ALUMNI
+            ALTRIMENTI
+                RITORNA STUDENT
+            FINE SE
+
+        // Se il dominio è unipd.it
+        ALTRIMENTI SE dominio E' UGUALE A 'unipd.it' ALLORA
+            SE tipo_utente E' NON DEFINITO ALLORA
+                RITORNA EXTERNAL
+            ALTRIMENTI SE 'staff@unipd.it' E' IN tipo_utente ALLORA
+                RITORNA STAFF
+            FINE SE
+        FINE SE
+
+        // Se nessuna condizione è soddisfatta
+        RITORNA NON DEFINITO
+
+    FINE FUNZIONE
+FINE
+
 ```
 
 ## Workflow di integrazione
@@ -107,8 +189,113 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 
 * **Invitation Code**: ottenuto al passo S2;
 * **Metadata SP**: è il file XML che può essere scaricato dal path `/saml/metadata`  dell'istanza dell'applicazione;
-* **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: shib_codicefiscale, shib_extid, shib_sn, shib_givenname, shib_mail;
+* **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
+
+# Esempio di riconoscimento del tipo di utente
+
+Il riconoscimento della tipologia di utente è utile per assegnare permessi a classi di utenti. Segue la stesura dello pseudo codice di classificazione delle diverse tipologie di utenza. 
+
+```typescript
+import { userType } from "@prisma/client";
+import { AuthUser } from "@/types/auth-user";
+
+// ---------------------------
+// Helper function
+// ---------------------------
+
+function extractDomain(email?: string, id?: string): string | undefined {
+  const mail = email ?? id;
+  if (!mail) return undefined;
+
+  const atPos = mail.indexOf("@");
+  if (atPos === -1) return undefined;
+
+  return mail.substring(atPos + 1);
+}
+
+// ---------------------------
+// Interfaccia Strategy
+// ---------------------------
+
+interface UserTypeStrategy {
+  isApplicable(user: AuthUser): boolean;
+  resolveUserType(): UserType | undefined;
+}
+
+// ---------------------------
+// Strategie concrete
+// ---------------------------
+
+
+const strategies: UserTypeStrategy[] = [
+  // Utente federato SPID o CIE → CITIZEN
+  {
+    isApplicable: user => user.authSource === "CIE" || user.authSource === "SPID",
+    resolveUserType: () => UserType.citizen,
+  },
+
+  // Federazione non gestita → NON DEFINITO
+  {
+    isApplicable: user =>
+      user.authSource !== "LOCAL" &&
+      user.authSource !== "CIE" &&
+      user.authSource !== "SPID",
+    resolveUserType: () => undefined,
+  },
+
+  // Studente alumni (senza mail) → ALUMNI
+  {
+    isApplicable: user => {
+      const domain = extractDomain(user.mail, user.id);
+      return domain === "studenti.unipd.it" &&
+             user.affiliation?.includes("alum@unipd.it") &&
+             !user.mail;
+    },
+    resolveUserType: () => UserType.alumni,
+  },
+
+  // Studente regolare (con mail) → STUDENT
+  {
+    isApplicable: user => {
+      const domain = extractDomain(user.mail, user.id);
+      return domain === "studenti.unipd.it" &&
+             user.affiliation?.includes("alum@unipd.it") &&
+             !!user.mail;
+    },
+    resolveUserType: () => UserType.student,
+  },
+
+  // Membro dello staff → STAFF
+  {
+    isApplicable: user => {
+      const domain = extractDomain(user.mail, user.id);
+      return domain === "unipd.it" &&
+             user.affiliation?.includes("staff@unipd.it");
+    },
+    resolveUserType: () => UserType.staff,
+  },
+
+  // Utente esterno (nessuna affiliation) → EXTERNAL
+  {
+    isApplicable: user => {
+      const domain = extractDomain(user.mail, user.id);
+      return domain === "unipd.it" && !user.affiliation;
+    },
+    resolveUserType: () => UserType.external,
+  },
+];
+
+
+// ---------------------------
+// Funzione principale
+// ---------------------------
+
+export const getUserType = (user: AuthUser): UserType | undefined =>
+  strategies.find(s => s.isApplicable(user))?.resolveUserType();
+```
+
+L'algoritmo permette di ritornare una tra le classi di utente: Alumno, Studente, Staff, Collaboratore esterno, Cittadino autenticato con SPID o CIE. Questa classificazione può essere utile per associare un ruolo ad tipo di utente evitando l'assegnazione dei singoli utenti e semplificando la gestione dei ruoli e dei permessi negli applicativi costruti a partire dallo Starter Kit.
 
 # Esempio di utilizzo di identità e permessi 
 
