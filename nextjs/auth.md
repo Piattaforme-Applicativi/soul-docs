@@ -43,6 +43,12 @@ Per fare un esempio, nel caso di federazione con SPID, l'IdP SPID include: il co
 
 Dal punto di vista dello sviluppatore, è fondamentale implementare  controlli robusti sugli attributi ricevuti dall' IdP. In particolare, è necessario verifica il valore di `shib_authsource` per determinare la provenienza dell'utente e classificare l’utente come interno o esterno.  Questo approccio consente di gestire in modo sicuro e  coerente l’accesso ai servizi digitali dell’Ateneo, garantendo al  contempo flessibilità nell’integrazione con fonti di identità esterne.
 
+Alcune regole per classificare le diverse tipologie di utente:
+
+* Studenti che frequentano e personale: sono considerati affiliati all'Ateneo; hanno una casella di posta @unipd.it oppure @studenti.unipd.it;
+* Quando gli **alumni** non sono più parte dell'organizzazione non hanno più diritto al **servizio di posta**, tuttavia conservano l'accesso con il loro account (nome.cognome@studenti.unipd.it);
+* I collaboratori esterni hanno una casella mail che ha indirizzo nome.cognome@unipd.it ma non hanno affiliazione con l'organizzazione Ateneo.
+
 ![Tiplogie di identità di utenti restituite dal SSO](diagrammi/auth-identity-types.svg)
 
 Segue il riferimento agli attributi che devono essere restituiti dall'IdP in linguaggio SAML per realizzare l'autenticazione. 
