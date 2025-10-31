@@ -259,9 +259,8 @@ const strategies: UserTypeStrategy[] = [
   {
     isApplicable: user => {
       const domain = extractDomain(user.mail, user.id);
-      return domain === "studenti.unipd.it" &&
-             user.affiliation?.includes("alum@unipd.it") &&
-             !!user.mail;
+      return user.mail && domain === "studenti.unipd.it" &&
+             user.affiliation?.includes("alum@unipd.it");
     },
     resolveUserType: () => UserType.student,
   },
