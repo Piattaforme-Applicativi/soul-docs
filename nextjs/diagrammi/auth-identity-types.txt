@@ -4,65 +4,63 @@ title: Tipi di identità
 classDiagram
 direction LR
     class AuthUser {
-    	<<Interface>>
+        <<Interface>>
+        +shib_authsource: String 
     } 
     class UnipdUser {
-    	<<Abstract>>
-	    +String shib_extid
-	    +String shib_id ~~ PKEY ~~
-	    +String shib_codicefiscale
-	    +String shib_givenname
-	    +String shib_sn
-	    +String shib_authsource = 'LOCAL'    	
+        <<Abstract>>
+        +shib_extid: String 
+        +shib_id: String ~~ PKEY ~~
+        +shib_codicefiscale: String 
+        +shib_givenname: String 
+        +shib_sn: String 
+        +shib_authsource: String = 'LOCAL'      
     }
-    class Federation {
-    	<<Interface>>
-    } 
-    class Citizen {
-    	<<Abstract>>
-    	+String spid_spidCode
-	    +String spid_email ~~ PKEY ~~
-	    +String spid_fiscalNumber
-	    +String spid_ivaCode
-    } 
     class ActiveUser {
-    	+String shib_mail
+        <<Abstract>>
+        +shib_mail: String
     }
     class Alumni {
-    	+String[] shib_edupersonscopedaffiliation = [ 'alum@unipd.it' ]
+        +shib_edupersonscopedaffiliation: String[] = ['alum@unipd.it]
     }
     class Student {
-	    +String[] shib_edupersonscopedaffiliation = [ 'member@unipd.it', 'student@unipd.it' ]
+        +shib_edupersonscopedaffiliation: String[] = ['member@unipd.it', 'student@unipd.it']
     }
     class Staff {
-    	+String[] shib_edupersonscopedaffiliation = [ 'member@unipd.it', 'staff@unipd.it' ]
+        +shib_edupersonscopedaffiliation: String[] = ['member@unipd.it', 'staff@unipd.it']
     }
     class External {}
 
-    class Idem {	    
-    	+String shib_esi
-	    +String shib_mail
+    class Idem {        
+        +shib_esi: String
+        +shib_mail: String
     }
-    class SPID {
-	    +String shib_authsource = 'SPID'
+    class SPID {        
+        +spid_spidCode: String ~~ PKEY ~~
+        +spid_email: String 
+        +spid_fiscalNumber: String
+        +spid_ivaCode: String
+        +shib_authsource:String = 'SPID'
     }
     class CIE {
-	    +String shib_authsource = 'CIE'
+        +spid_spidCode: String ~~ PKEY ~~
+        +spid_email: String 
+        +spid_fiscalNumber: String
+        +spid_ivaCode: String
+        +shib_authsource:String = 'CIE'
     }
 
     note for Student "shib_id must match /^[\\w.-]+\@studenti.unipd.it$/"
     note for Alumni "shib_id must match /^[\\w.-]+\@studenti.unipd.it$/"
-	note for Staff "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
-	note for External "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
+    note for Staff "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
+    note for External "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
+    note for Idem "?????"
 
-    AuthUser <|.. Federation
     AuthUser <|.. UnipdUser
 
 
-    Federation <|.. Idem
-    Federation <|.. Citizen
-    Citizen <|-- SPID
-    Citizen <|-- CIE
+    AuthUser <|.. SPID
+    AuthUser <|.. CIE
 
 
     UnipdUser <|-- Alumni
@@ -72,13 +70,15 @@ direction LR
     ActiveUser <|-- External
 
 
-	class Alumni:::Rose
-	class Student:::Unipd
-	class Staff:::Unipd
-	class External:::Unipd
-	class SPID:::Citizen
-	class CIE:::Citizen
+    class Alumni:::Rose
+    class Student:::Unipd
+    class Staff:::Unipd
+    class External:::Unipd
+    class SPID:::Citizen
+    class CIE:::Citizen
+    class Idem:::Dunno
 
-	classDef Rose :,stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
-	classDef Unipd :,stroke-width:1px, stroke-dasharray:none, stroke:#FFFFFF, fill:#880000, color:#FFFFFF
-	classDef Citizen :,stroke-width:1px, stroke-dasharray:none, stroke:#FFFFFF, fill:#0066cc, color:#FFFFFF
+    classDef Rose :,stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
+    classDef Unipd :,stroke-width:1px, stroke-dasharray:none, stroke:#FFFFFF, fill:#880000, color:#FFFFFF
+    classDef Citizen :,stroke-width:1px, stroke-dasharray:none, stroke:#FFFFFF, fill:#0066cc, color:#FFFFFF
+    classDef Dunno :,stroke-width:1px, stroke-dasharray:5 5, stroke:#FFFFFF, fill:#333333, color:#FFFFFF
