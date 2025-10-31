@@ -77,6 +77,7 @@ Segue un esempio di pseudo codice per riconoscere e classificare le diverse tipo
 
 ```
 INIZIO
+
   FUNZIONE estrai_dominio(email = NON DEFINITO, id = NON DEFINITO)
 
       // Se entrambi email e id non sono definiti, ritorna NON DEFINITO
@@ -103,46 +104,46 @@ INIZIO
   FINE FUNZIONE
 
 
-    FUNZIONE tipo_utente(mail = NON DEFINITO, id = NON DEFINITO, tipo_utente = NON DEFINITO, sorgente = "LOCAL")
+  FUNZIONE tipo_utente(mail = NON DEFINITO, id = NON DEFINITO, tipo_utente = NON DEFINITO, sorgente = "LOCAL")
 
-        // Se l'utente non compare tra gli utenti dell'Ateneo può essere una federazione SPID o CIE
-        SE sorgente E' UGUALE a "CIE" O sorgente E' UGUALE a "SPID" ALLORA
-            RITORNA CITIZEN
-        FINE SE
+      // Se l'utente non compare tra gli utenti dell'Ateneo può essere una federazione SPID o CIE
+      SE sorgente E' UGUALE a "CIE" O sorgente E' UGUALE a "SPID" ALLORA
+          RITORNA CITIZEN
+      FINE SE
 
-        // Altro tipo di federazione per il momento non gestita
-        SE sorgente E' DIVERSO da "LOCAL" ALLORA
-            RITORNA NON DEFINITO
-        FINE SE
+      // Altro tipo di federazione per il momento non gestita
+      SE sorgente E' DIVERSO da "LOCAL" ALLORA
+          RITORNA NON DEFINITO
+      FINE SE
 
-				// Se non conosco il dominio di provenienza dell'utente 
-				// non posso dire null
-				DICHIARA dominio = estrai_dominio(mail, id)
-				SE dominio E' NON DEFINITO ALLORA
-            RITORNA NON DEFINITO
-        FINE SE
+      // Se non conosco il dominio di provenienza dell'utente non posso dire nulla
+      DICHIARA dominio = estrai_dominio(mail, id)
+      SE dominio E' NON DEFINITO ALLORA
+          RITORNA NON DEFINITO
+      FINE SE
 
-        // Se il dominio è studenti.unipd.it
-        SE dominio E' UGUALE A 'studenti.unipd.it' E 'alum@unipd.it' E' IN tipo_utente ALLORA
-            SE mail E' NON DEFINITO ALLORA
-                RITORNA ALUMNI
-            ALTRIMENTI
-                RITORNA STUDENT
-            FINE SE
+      // Se il dominio è studenti.unipd.it
+      SE dominio E' UGUALE A 'studenti.unipd.it' E 'alum@unipd.it' E' IN tipo_utente ALLORA
+          SE mail E' NON DEFINITO ALLORA
+              RITORNA ALUMNI
+          ALTRIMENTI
+              RITORNA STUDENT
+          FINE SE
 
-        // Se il dominio è unipd.it
-        ALTRIMENTI SE dominio E' UGUALE A 'unipd.it' ALLORA
-            SE tipo_utente E' NON DEFINITO ALLORA
-                RITORNA EXTERNAL
-            ALTRIMENTI SE 'staff@unipd.it' E' IN tipo_utente ALLORA
-                RITORNA STAFF
-            FINE SE
-        FINE SE
+      // Se il dominio è unipd.it
+      ALTRIMENTI SE dominio E' UGUALE A 'unipd.it' ALLORA
+          SE tipo_utente E' NON DEFINITO ALLORA
+              RITORNA EXTERNAL
+          ALTRIMENTI SE 'staff@unipd.it' E' IN tipo_utente ALLORA
+              RITORNA STAFF
+          FINE SE
+      FINE SE
 
-        // Se nessuna condizione è soddisfatta
-        RITORNA NON DEFINITO
+      // Se nessuna condizione è soddisfatta
+      RITORNA NON DEFINITO
 
-    FINE FUNZIONE
+  FINE FUNZIONE
+
 FINE
 
 ```
