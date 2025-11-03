@@ -119,8 +119,12 @@ INIZIO
   FUNZIONE tipo_utente(mail = NON DEFINITO, id = NON DEFINITO, tipo_utente = NON DEFINITO, sorgente = "LOCAL")
 
       // Se l'utente non compare tra gli utenti dell'Ateneo può essere una federazione SPID o CIE
-      SE sorgente E' UGUALE a "CIE" O sorgente E' UGUALE a "SPID" ALLORA
-          RITORNA CITIZEN
+      SE sorgente E' UGUALE a "CIE" ALLORA
+          RITORNA CIE
+      FINE SE
+      
+      SE sorgente E' UGUALE a "SPID" ALLORA
+          RITORNA SPID
       FINE SE
 
       // Altro tipo di federazione per il momento non gestita
@@ -242,11 +246,6 @@ interface UserTypeStrategy {
 
 
 const strategies: UserTypeStrategy[] = [
-  // Utente federato SPID o CIE → CITIZEN
-  {
-    isApplicable: user => user.authSource === "CIE" || user.authSource === "SPID",
-    resolveUserType: () => UserType.citizen,
-  },
 
   // Federazione non gestita → NON DEFINITO
   {
@@ -257,6 +256,17 @@ const strategies: UserTypeStrategy[] = [
     resolveUserType: () => undefined,
   },
 
+  // Utente federato SPID o CIE 
+  {
+    isApplicable: user => user.authSource === "CIE" ,
+    resolveUserType: () => UserType.cie,
+  },
+  
+  {
+    isApplicable: user => user.authSource === "SPID",
+    resolveUserType: () => UserType.spid,
+  }, 
+  
   // Studente alumni (senza mail) → ALUMNI
   {
     isApplicable: user => {
