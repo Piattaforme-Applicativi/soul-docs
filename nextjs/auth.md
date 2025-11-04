@@ -81,6 +81,10 @@ Segue il riferimento agli attributi che devono essere restituiti dall'IdP in lin
   	<!-- .... -->
   	<Attribute name="www.cca.unipd.it/sso/attributes/externalid" id="shib_extid"/>   <!-- SOUL: externalId -->
   	<!-- .... -->
+  	
+  <!-- shib_id: evitarne l'uso se possibile, perche' dipende dal metodo di autenticazione: nel tempo può cambiare -->
+    <Attribute name="https://www.cca.unipd.it/shib_id" id="shib_id"/>
+  	<!-- .... -->
   
  </Attributes>
 ```
@@ -208,116 +212,6 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 * **Metadata SP**: è il file XML che può essere scaricato dal path `/saml/metadata`  dell'istanza dell'applicazione;
 * **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
-
-# Esempio di riconoscimento del tipo di utente
-
-Il riconoscimento della tipologia di utente è utile per assegnare permessi a classi di utenti. Segue la stesura dello pseudo codice di classificazione delle diverse tipologie di utenza. 
-
-```typescript
-import { userType } from "@prisma/client";
-import { AuthUser } from "@/types/auth-user";
-
-// ---------------------------
-// Helper function
-// ---------------------------
-
-function extractDomain(email?: string, id?: string): string | undefined {
-  const mail = email ?? id;
-  if (!mail) return undefined;
-
-  const atPos = mail.indexOf("@");
-  if (atPos === -1) return undefined;
-
-  return mail.substring(atPos + 1);
-}
-
-// ---------------------------
-// Interfaccia Strategy
-// ---------------------------
-
-interface UserTypeStrategy {
-  isApplicable(user: AuthUser): boolean;
-  resolveUserType(): UserType | undefined;
-}
-
-// ---------------------------
-// Strategie concrete
-// ---------------------------
-
-
-const strategies: UserTypeStrategy[] = [
-
-  // Federazione non gestita → NON DEFINITO
-  {
-    isApplicable: user =>
-      user.authSource !== "LOCAL" &&
-      user.authSource !== "CIE" &&
-      user.authSource !== "SPID",
-    resolveUserType: () => undefined,
-  },
-
-  // Utente federato SPID o CIE 
-  {
-    isApplicable: user => user.authSource === "CIE" ,
-    resolveUserType: () => UserType.cie,
-  },
-  
-  {
-    isApplicable: user => user.authSource === "SPID",
-    resolveUserType: () => UserType.spid,
-  }, 
-  
-  // Studente alumni (senza mail) → ALUMNI
-  {
-    isApplicable: user => {
-      const domain = extractDomain(user.mail, user.id);
-      return domain === "studenti.unipd.it" &&
-             user.affiliation?.includes("alum@unipd.it") &&
-             !user.mail;
-    },
-    resolveUserType: () => UserType.alumni,
-  },
-
-  // Studente regolare (con mail) → STUDENT
-  {
-    isApplicable: user => {
-      const domain = extractDomain(user.mail, user.id);
-      return user.mail && domain === "studenti.unipd.it" &&
-             user.affiliation?.includes("alum@unipd.it");
-    },
-    resolveUserType: () => UserType.student,
-  },
-
-  // Membro dello staff → STAFF
-  {
-    isApplicable: user => {
-      const domain = extractDomain(user.mail, user.id);
-      return domain === "unipd.it" &&
-             user.affiliation?.includes("staff@unipd.it");
-    },
-    resolveUserType: () => UserType.staff,
-  },
-
-  // Utente esterno (nessuna affiliation) → EXTERNAL
-  {
-    isApplicable: user => {
-      const domain = extractDomain(user.mail, user.id);
-      return domain === "unipd.it" && !user.affiliation;
-    },
-    resolveUserType: () => UserType.external,
-  },
-];
-
-
-// ---------------------------
-// Funzione principale
-// ---------------------------
-
-export const getUserType = (user: AuthUser): UserType | undefined =>
-  strategies.find(s => s.isApplicable(user))?.resolveUserType();
-```
-
-L'algoritmo permette di ritornare una tra le classi di utente: Alumno, Studente, Staff, Collaboratore esterno, Cittadino autenticato con SPID o CIE. Questa classificazione può essere utile per associare un ruolo ad tipo di utente evitando l'assegnazione dei singoli utenti e semplificando la gestione dei ruoli e dei permessi negli applicativi costruti a partire dallo Starter Kit.
 
 # Esempio di utilizzo di identità e permessi 
 
