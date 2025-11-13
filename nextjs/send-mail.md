@@ -13,11 +13,28 @@ In molti scenari risulta fondamentale poter notificare gli utenti in modo tempes
 
 L’email rappresenta ancora oggi il canale più diffuso e affidabile per raggiungere gli utenti. L'indirizzo email è attributo chiave nel framework SOUL. Proprio per questo, la notifica via mail è il mezzo più naturale per inviare comunicazioni, sfruttando dati già disponibili nel sistema.
 
-Lo Starter Kit SOUL è progettato per semplificare questa esigenza, offrendo un’integrazione pronta all’uso tra gli applicativi distribuiti negli ambienti cloud e il servizio di invio mail di Ateneo.
+Lo Starter Kit SOUL è progettato per semplificare questa esigenza, offrendo un’integrazione pronta all’uso tra gli applicativi distribuiti negli ambienti cloud e il servizio di invio mail di Ateneo. 
 
 È importante però considerare che l’invio delle email in questo contesto segue una logica **best effort**: ciò significa che il sistema si impegna a trasmettere i messaggi, ma non garantisce né la consegna né la lettura da parte del destinatario. Fattori esterni come errori temporanei del server di posta, filtri antispam o caselle piene possono impedire il recapito della notifica, senza che il sistema applicativo ne abbia un controllo diretto.
 
 Per questo motivo, lo sviluppatore è invitato a non basare logiche critiche o vincolanti esclusivamente sull’invio di email, ma a considerare canali alternativi o meccanismi di verifica dell’effettiva presa in carico dell’azione da parte dell’utente.
+
+## Test di invio mail in ambiente di sviluppo
+
+Per il test della funzionalità di invio delle email in ambiente di sviluppo è previsto l’utilizzo del servizio **Mailpit**, uno strumento leggero che intercetta e visualizza i messaggi inviati dall’applicazione senza recapitare email reali. Di seguito è riportata la configurazione da aggiungere o modificare nel file `docker-compose.yml` per avviare il servizio e accedere all’interfaccia web all’indirizzo http://localhost:8025
+
+```yaml
+  mailpit:
+    image: axllent/mailpit:v1.27
+    container_name: todo-mailpit
+    ports:
+      - 8025:8025 # Web UI
+      # - 1025:1025 # Using it from internal docker network
+    networks:
+      todo:
+```
+
+
 
 ## Workflow di integrazione
 
@@ -25,13 +42,13 @@ Per integrare correttamente il sistema, lo sviluppatore deve inviare ai gestori 
 
 Ricevuti i parametri lo sviluppatore crea un nuovo file `.env`, che contiene le configurazioni necessarie. Gli attributi da modificare sono:
 
-* **MAILER_FROM_ADDRESS**, `noreply.applicativi@unipd.it` è l'indirizzo mittente dei messaggi inviati agli utenti. Il mittente non è modificabile e il suo indirizzo deve suggerire all'utente finale che non è possibile rispondere alla mail inviata;
+* **MAILER_FROM_ADDRESS**, `noreply@ml.unipd.it` è l'indirizzo mittente dei messaggi inviati agli utenti. Il mittente non è modificabile e il suo indirizzo deve suggerire all'utente finale che non è possibile rispondere alla mail inviata;
 * **MAILER_TO_ADDRESS**, è l'indirizzo del destinatario quando dobbiamo simulare l'invio di messaggi. E' una buona pratica impostare l'indirizzo nella configurazione degli ambienti di test e sviluppo.;
-* **MAILER_HOST**, in ambiente di sviluppo è previsto l'utilizzo dell'SMTP `smtprelay-production.unipd.cloud`. Al momento del dispiegamento in staging e produzione, l'hostname viene modificato dai gestori dell'infrastruttura cloud;
-* **MAILER_SECURE**, di base è impostato a `true` e stà ad indicare che il canale di comunicazione tra applicativo e SMTP server e sicuro;
-* **MAILER_PORT**, la porta default in caso di SMTP server e sicuro è `465`
-* **MAILER_AUTH_USER**, l'utente comunicato dai gestori dell'infrastruttura cloud a fronte della richiesta di integrazione SMTP di un nuovo applicativo;
-* **MAILER_AUTH_PASSWORD**,la password comunicata dai gestori dell'infrastruttura cloud a fronte della richiesta di integrazione SMTP di un nuovo applicativo.
+* **MAILER_HOST**, in ambiente di sviluppo è previsto l'invio al container SMTP locale **mailpit**, in questo caso l'hostname è `mailpit`.   Al momento del dispiegamento in staging e produzione, l'hostname viene modificato dai gestori dell'infrastruttura cloud;
+* **MAILER_SECURE**, in ambiente di sviluppo è impostato a `false`. Al momento del dispiegamento in staging e produzione, il valore viene impostato a `true` dai gestori dell'infrastruttura cloud ad indicare che la comunicazione tra applicativo e SMTP server avviene in modo sicuro;
+* **MAILER_PORT**, in ambiente di sviluppo è impostato a `1025` (default per mailpit). Tipicamente la porta default in caso di SMTP server e sicuro è `465`
+* **MAILER_AUTH_USER**, in ambiente di sviluppo non è necessario. Al momento del dispiegamento in staging e produzione, l'utente viene modificato dai gestori dell'infrastruttura cloud;
+* **MAILER_AUTH_PASSWORD**, in ambiente di sviluppo non è necessaria. Al momento del dispiegamento in staging e produzione, la password viene modificata dai gestori dell'infrastruttura cloud;
 
 All'interno dello [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) è disponibile un'interfaccia utente che semplifica la generazione del  file di configurazione. L'interfaccia utente è raggiungibile  nell'applicazione al path `/configuration/new`.
 
