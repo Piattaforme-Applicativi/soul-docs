@@ -30,7 +30,7 @@ Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. I
 - Progetti per i quali serve velocità di sviluppo e facilità di deploy;
 - Se il dominio non è ancora ben definito (adottando l'architettura monolitica, non è necessario prevedere e implementare forme di astrazione per accettare nuovi cambiamenti).
 
-Gli applicativi web sviluppati con il framework NextJS versione 14 (App Router), permettono di costruire applicativi con design pattern architetturale di tipo **client-server e multi tier**. 
+Gli applicativi web sviluppati con il framework NextJS versione 16 (App Router), permettono di costruire applicativi con design pattern architetturale di tipo **client-server e multi tier**. 
 
 Il framework eredita le funzionalità di React, pertanto è possibile utilizzare i componenti React lato client e lato server. Gli applicativi web sviluppati con questa tecnologia sono di tipo client-server e prevedono che l'utente interagisca con l'applicazione dispiegata nel server Node/NextJS attraverso il browser.
 

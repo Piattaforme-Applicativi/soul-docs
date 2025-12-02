@@ -64,7 +64,7 @@ Dovendo aggiungere nuovi permessi per la raccolta delle domande degli utenti pos
 
 ```bash
 # Accedo all'istanza nextjs
-docker exec -it todo-nextjs sh
+docker exec -it soul-nextjs sh
 
 # Aggiornamento istanza RDBMS 
 npx prisma migrate dev --create-only --name request-permissions
@@ -77,10 +77,11 @@ Una volta creato il file .sql, aggiorniamo il contenuto con le modifiche da ripo
 -- Edit: nextjs/prisma/migrations/20250605100000_request-permissions/migration.sql
 
 -- Aggiornamento dell'ENUM che elenca tutti i possibili permessi dell'applicazione
-ALTER TYPE permission_type ADD VALUE 'request_create';
-ALTER TYPE permission_type ADD VALUE 'request_read';
-ALTER TYPE permission_type ADD VALUE 'request_update';
-ALTER TYPE permission_type ADD VALUE 'request_delete';
+ALTER TYPE permission_type ADD VALUE 'REQUEST_CREATE';
+ALTER TYPE permission_type ADD VALUE 'REQUEST_READ';
+ALTER TYPE permission_type ADD VALUE 'REQUEST_UPDATE';
+ALTER TYPE permission_type ADD VALUE 'REQUEST_DELETE';
+ALTER TYPE permission_type ADD VALUE 'REQUEST_ALL';
 ```
 
 Dopo che ho definito quali sono i DDL che devono essere eseguiti in PostgresSQL per aggiornare l'istanza del database, posso usare il client prisma per aggiornare il database dell'ambiente di sviluppo (locale) e posso poi riportare le differenze generate dalla migrazione nello schema.prisma.
@@ -99,31 +100,13 @@ Segue la porzione di schema prisma che descrive il nuovo modulo applicativo
 # nextjs/schema.prisma
 
 enum permissionType {
-  all        @map("all")
-  roleManage @map("role_manage")
-  request_create
-  request_read
-  request_update
-  request_delete
-  request_all
-
-  @@map("permission_type")
-}
-```
-
-Una volta estratti i descrittori nel file schema.prima devo aggiornare il contenuto per adegure [lo stile del codice](/stile-codice). A seguito dell'adeguamento lo schema.prisma riporterà i nomi dei campi e delle tabelle in **camelCase**
-
-```sql
-# nextjs/schema.prisma
-
-enum permissionType {
-  all           @map("all")
-  roleManage    @map("role_manage")
-  requestCreate @map("request_create")
-  requestRead   @map("request_read")
-  requestUpdate @map("request_update")
-  requestDelete @map("request_delete")
-  requestAll    @map("request_all")
+  ALL       
+  ROLE_MANAGE 
+  REQUEST_CREATE
+  REQUEST_READ
+  REQUEST_UPDATE
+  REQUEST_DELETE
+  REQUEST_ALL
 
   @@map("permission_type")
 }
@@ -145,7 +128,8 @@ Il file che permette di registrare i permessi e le loro traduzioni è *nextjs/ty
 ```typescript
 // nextjs/types/role.ts
 
-export const appPermissions = (): AppPermissionsType => {
+export const useAppPermissions = (): AppPermissionsType => {  
+  const { t } = useLingui();
   return {
     role: {
       label: t`Role management`,
@@ -194,12 +178,12 @@ INSERT INTO "role" (id, "role", deletable) VALUES(nextval('role_id_seq'::regclas
 INSERT INTO "role" (id, "role", deletable) VALUES(nextval('role_id_seq'::regclass), 'Gestore delle prenotazioni', FALSE); -- 2
 
 -- Aggiunta dei permessi al ruolo "Utente finale"
-INSERT INTO role_permission (role_id, permission) VALUES(1,'request_create');
-INSERT INTO role_permission (role_id, permission) VALUES(1,'request_read');
-INSERT INTO role_permission (role_id, permission) VALUES(1,'request_update');
-INSERT INTO role_permission (role_id, permission) VALUES(1,'request_delete');
+INSERT INTO role_permission (role_id, permission) VALUES(1,'REQUEST_CREATE');
+INSERT INTO role_permission (role_id, permission) VALUES(1,'REQUEST_READ');
+INSERT INTO role_permission (role_id, permission) VALUES(1,'REQUEST_UPDATE');
+INSERT INTO role_permission (role_id, permission) VALUES(1,'REQUEST_DELETE');
 
 -- Aggiunta dei permessi al ruolo "Gestore delle prenotazioni"
-INSERT INTO role_permission (role_id, permission) VALUES(2,'request_all');
+INSERT INTO role_permission (role_id, permission) VALUES(2,'REQUEST_ALL');
 ```
 

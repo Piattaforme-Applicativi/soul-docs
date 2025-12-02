@@ -10,7 +10,7 @@ dateCreated: 2025-03-12T17:56:48.046Z
 
 # Linee guida per la scrittura del codice sorgente
 
-I file e le directory dell'applicazione sviluppata con NextJS versione 14, sono organizzate in modo da ospitare i tre strati dell'architettura three-tier:
+I file e le directory dell'applicazione sviluppata con NextJS versione 16, sono organizzate in modo da ospitare i tre strati dell'architettura three-tier:
 
 * **Navigazione**: la cartella *nextjs/app/* contiene gli elementi struttura di interfaccia utente per la navigazione. Gli elementi a questo livello sono gli unici a poter essere elencati in una sitemap (§UNAV, §DNAV);
 * **Componenti React (Client e Server)** (riusabili): la cartella *nextjs/components/* contiene lo strato di interfaccia per l'iterazione con l'utente finale;
@@ -21,13 +21,14 @@ Il codice sorgente del sistema è scritto in **lingua inglese**. E' pertanto nec
 
 Si adottano le convezioni a seguire per lo stile di nomi dei file e delle cartelle nel sorgente del microservizio NextJS. 
 
-| Elemento                       | Stile      | Estensione | Esempio                                                      |
-| ------------------------------ | ---------- | ---------- | ------------------------------------------------------------ |
-| Cartella                       | Kebab case | N/A        | Anagrafica studenti **diventa** students/                    |
-| Componente (React client)      | Kebab case | .tsx       | Elenco nuove matricole **diventa** new-students.tsx          |
-| Classe e Interfaccia di classe | Kebab case | .ts        | Studente triennale **diventa** bachelor-student.ts           |
-| Libreria                       | Kebab case | .ts        | Utilità api **diventa** network-utils.ts                     |
-| Script di migrazione           | Snake case | .sql       | Schema per gli studenti **diventa** 20240327000607_init/migrate.sql |
+| Elemento                       | Stile                | Estensione | Esempio                                                      |
+| ------------------------------ | -------------------- | ---------- | ------------------------------------------------------------ |
+| Cartella                       | Kebab case           | N/A        | Anagrafica studenti **diventa** students/                    |
+| Componente (React client)      | Kebab case           | .tsx       | Elenco nuove matricole **diventa** new-students.tsx          |
+| Classe e Interfaccia di classe | Kebab case           | .ts        | Studente triennale **diventa** bachelor-student.ts           |
+| Libreria                       | Kebab case           | .ts        | Utilità api **diventa** network-utils.ts                     |
+| Script di migrazione           | Snake case           | .sql       | Schema per gli studenti **diventa** 20240327000607_init/migrate.sql |
+| Enumerabili                    | Screaming snake case | .sql, .ts  | Nel caso dei permessi dei ruoli: ALTER TYPE permission_type ADD VALUE '**REQUEST_CREATE**'; |
 
 ```
 nextjs
@@ -65,6 +66,27 @@ CREATE TABLE "student" (
     "codice_fiscale" CHARACTER VARYING(16) NOT NULL,
     CONSTRAINT "student_pkey" PRIMARY KEY ("id")
 );
+```
+
+### Tipi dato enumarabile (lato server e lato client)
+
+Quando definiti gli enumerabili devono essere in **SCREAMING_SNAKE_CASE** nello schema del database
+
+```sql
+CREATE TYPE "user_auth_type" AS ENUM (
+  'STAFF',
+  'STUDENT');
+```
+
+e nei tipi typescript/javascript
+
+```typescript
+enum DocumentStatus {
+  DRAFT,
+  SENT,
+  APPROVED,
+  DONE
+}
 ```
 
 ### Schema prisma
@@ -114,7 +136,7 @@ export default function NewStudent({ notify }: NewProps) {
 
 ### Backend for frontend
 
-La versione 14 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). Convenzione per la scrittura del codice sorgente del backend è utilizzare le server-actions. Cercheremo di illustrare brevemente i vantagggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
+La versione 16 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). Convenzione per la scrittura del codice sorgente del backend è utilizzare le server-actions. Cercheremo di illustrare brevemente i vantaggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
 
 * **Endpoint HTTP** - semplificano la scrittura del codice che descrive l'interazione dele richieste fatte componenti React di tipo client verso il server NextJS (trasmissione dati in formato JSON);
 * **Funzioni di recupero dati** - eseguono il recupero dei dati lato server, possono essere riutilizzate nelle componenti React di tipo server per recuperare i dati in modo efficiente (eg. in modo simultaneo sfruttando [l'esecuzione concorrente](https://en.wikipedia.org/wiki/Concurrent_computing))
@@ -127,7 +149,7 @@ L'utilizzo delle **server actions** lato server semplifica l'attività di sicron
 
 Lato server NextJS può eseguire le server actions in modo concorrente (sono di default async) migliorando le performance. Lato client l'utente non è in grado di scatenare eventi in modo simultaneo, pertanto l'esecuzione simultanea delle server actions è meno frequente. E' pertanto preferibile evitare l'esecuzione simultanea delle server actions per non incorrere in scenari che riducono la leggibilità del codice sorgente (necessità di sicncronizzare risposte simultanee).
 
-Come convenzione scegliamo di salvare le server actions in un file **actions.ts** che raccoglie le funzioni di lettura e scrittura per tutte le componenti di uno stesso tipo
+Come convenzione scegliamo di salvare le server actions in un file **actions.ts** che raccoglie le funzioni di lettura e scrittura per tutte le componenti di uno stesso tipo.  
 
 ```typescript
 // component/student/actions.ts
@@ -144,19 +166,45 @@ export async function save(formData: Partial<Student>): Promise<Student> {
 }
 ```
 
+Tra i comportamenti noti delle server actions NextJs è utile citare che a seguito del build dell'applicazione, per ragioni di sicurezza NextJs nasconde gli errori emessi dalle server actions. Le classi e i metodi appartenenti alla libreria `@/lins/server-action` hanno lo scopo di modificare questo comportamento.
+
+```typescript
+// component/student/actions.ts
+import { Err, Ok, Result } from "@/libs/server-action";
+export async function listBenefits(): Promise<Result<Benefit[]>> {
+  try {
+    return Ok(await prisma.benefit.findMany());
+  }
+  catch(e) {
+    return Err(`${e}`);
+  }
+}
+```
+
 Le pagine utilizzate per la navigazione dell'utente (§LP) deveono obbligatoriamente essere dei React Server Components (§RSC) per ragioni di sicurezza. Inoltre quando possibile è preferibile caricare i dati durante il **primo caricamento** della pagina per le ragioni illustrate in precedenza. 
 
 ```jsx
 // app/student/page.tsx
 import { NewStudent } from "@/components/student/new";
 import { listCourses, listBenefits } from "@/components/student/actions";
+import { withResult } from "@/libs/server-action";
 
 export default async function Page() {
   // Utilizzo delle server-action in modo simultaneo per migliorare le performance
   const [courses, benefits] = await Promise.all([listCourses(), listBenefits()]);
+  let _benefits = [];
+  try {
+    _benefits = withResult(benefits);
+  } catch(e) {
+    setNotifyOpen({
+      status: "error",
+      title: t`Operazione fallita`,
+      message: `${e}`,
+    });
+  }
   return <>
     <h1>A new student</h1>
-    <NewStudent courses={courses} benefits={benefits} />
+    <NewStudent courses={courses} benefits={_benefits} />
    </>
 }
 ```

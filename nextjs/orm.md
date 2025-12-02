@@ -33,7 +33,7 @@ Shell dei comandi da eseguire nel microservizio NextJS:
 ```bash
 # Formalizzato il nuovo ER
 # Accedo all'istanza nextjs
-docker exec -it todo-nextjs sh
+docker exec -it soul-nextjs sh
 
 # S2 - Aggiornamento istanza RDBMS 
 npx prisma migrate dev --create-only --name nuova-parte-db
@@ -66,7 +66,7 @@ Dovendo aggiungere una nuova funzionalità per la raccolta delle domande degli u
 
 ```bash
 # Accedo all'istanza nextjs
-docker exec -it todo-nextjs sh
+docker exec -it soul-nextjs sh
 
 # S2 - Aggiornamento istanza RDBMS 
 npx prisma migrate dev --create-only --name request
@@ -79,7 +79,7 @@ Una volta creato il file .sql, aggiorniamo il contenuto con le modifiche da ripo
 -- Edit: nextjs/prisma/migrations/20250501100000_request/migration.sql
 
 -- Tipologia risorsa: enum
-CREATE TYPE resource_type AS ENUM ('car', 'bike', 'electric_scooter');
+CREATE TYPE resource_type AS ENUM ('CAR', 'BIKE', 'ELECTRIC_SCOOTER');
 
 -- Tabella delle richieste
 CREATE TABLE request (
@@ -110,9 +110,9 @@ Segue la porzione di schema prisma che descrive il nuovo modulo applicativo
 # nextjs/schema.prisma
 
 enum ResourceType {
-  car
-  bike
-  electric_scooter
+  CAR
+  BIKE
+  ELECTRIC_SCOOTER
 }
 
 model Request {
@@ -134,9 +134,9 @@ Una volta estratti i descrittori nel file schema.prima devo aggiornare il conten
 # nextjs/schema.prisma
 
 enum resourceType {
-  car
-  bike
-  electricScooter @map("electric_scooter")
+  CAR
+  BIKE
+  ELECTRIC_SCOOTER
 
   @@map("resource_type")
 }

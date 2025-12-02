@@ -24,7 +24,7 @@ La comunità SOUL mette a disposizione uno [Starter Kit](https://github.com/Piat
 
 * 16 GB RAM (consigliato)
 * 4 GB di spazio libero su disco (circa 800 MB per l'applicazione)
-* Sistema operativo con supporto per Docker v27 (MacOS, GNU/Linux, Windows)
+* Sistema operativo con supporto per Docker v29 o superiore (MacOS, GNU/Linux, Windows)
 
 ## Requisiti software
 
@@ -70,7 +70,7 @@ Per fare questo è sufficiente modificare i file(s):
 * nextjs/package.json
 * nextjs/package-lock.json
 
-modificando la stringa "todo" che identifica il nome dell'applicazione presente nello starter kit, con il nome della tua nuova applicazione (eg. $myapp).
+modificando la stringa "soul" che identifica il nome dell'applicazione presente nello starter kit, con il nome della tua nuova applicazione (eg. $myapp).
 
 Per comodità riportiamo i comandi da eseguire a terminale nelle piattaforme GNU/Linux e MacOS.
 
@@ -78,15 +78,13 @@ Per comodità riportiamo i comandi da eseguire a terminale nelle piattaforme GNU
 cd $myapp
 
 # Principale file dell'ambiente
-sed s/todo/$myapp/g docker-compose.yml > docker-compose.yml.new
-sed s/todo/$myapp/g docker-coolify.yml > docker-coolify.yml.new
-rm docker-compose.yml docker-coolify.yml
+sed s/soul/$myapp/g docker-compose.yml > docker-compose.yml.new
+rm docker-compose.yml
 mv docker-compose.yml.new docker-compose.yml
-mv docker-coolify.yml.new docker-coolify.yml
 
 # Ambiente NextJS
-sed s/todo/$myapp/g nextjs/package.json > nextjs/package.json.new
-sed s/todo/$myapp/g nextjs/package-lock.json > nextjs/package-lock.json.new
+sed s/soul/$myapp/g nextjs/package.json > nextjs/package.json.new
+sed s/soul/$myapp/g nextjs/package-lock.json > nextjs/package-lock.json.new
 rm nextjs/package.json nextjs/package-lock.json
 mv nextjs/package.json.new nextjs/package.json
 mv nextjs/package-lock.json.new nextjs/package-lock.json
@@ -115,23 +113,9 @@ docker compose up
 Il primo avvio si può considerare concluso quando nel terminale compare questa sequenza di istruzioni
 
 ```bash
-npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-myapp-nextjs    |
-added 617 packages, and audited 618 packages in 14s
-myapp-nextjs    |
-163 packages are looking for funding
-  run `npm fund` for details
-myapp-nextjs    |
-9 vulnerabilities (6 moderate, 3 high)
-myapp-nextjs    |
-To address issues that do not require attention, run:
-  npm audit fix
-myapp-nextjs    |
-To address all issues (including breaking changes), run:
-  npm audit fix --force
-myapp-nextjs    |
-Run `npm audit` for details.
-myapp-nextjs    |
+...
+> npm install && next dev -p 80
+...  |
  ✓ Ready in 15.7s
 ```
 
