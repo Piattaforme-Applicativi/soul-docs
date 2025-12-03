@@ -17,7 +17,7 @@ Il sistema di autenticazione di **SOUL** è progettato in conformità con le lin
 Le applicazioni sviluppate con SOUL devono utilizzare l'IdP di Ateneo.  Il flusso di autenticazione e autorizzazione si  articola in più fasi, orchestrate tra applicazione lato client (Browser), applicazione lato server Next.js (SP) e server che contiene le identità degli utenti (IdP). Autenticazione e autorizzazione in SOUL si declinano rispetto alle [linee guida di autenticazione di NextJS](https://nextjs.org/docs/pages/guides/authentication#stateless-sessions) come segue:
 
 * **Authentication**: la verifica dell'identità dell'utente è demandata all'IdP di Ateneo;
-* **Session management**: è **stateless**. I dati della sessione e l'identità dell'utente sono salvati in un cookie. Mantenere la sessione stateless è conveniente in caso di dispiegamento negli ambienti cloud di Ateneo (ovvero con architettura PaaS e contenitori ephimeral);
+* **Session management**: è **stateless**. I dati della sessione e l'identità dell'utente sono salvati in un cookie. Mantenere la sessione stateless è conveniente in caso di dispiegamento negli ambienti cloud di Ateneo (ovvero con architettura PaaS e contenitori immutabili );
 * **Authorization**: l'autorizzazione è di tipo **secure**. In ogni pagina dell'applicazione vengono eseguiti dei controlli sulla base dei permessi memorizzati nella sessione utente. Il cookie di sessione contiene l'elenco dei permessi dell'utente autenticato. A partire da questi permessi, è possibile implementare controlli mirati nelle pagine che necessitano di autorizzazione (React Server Components) .
 
 Per entrare nel dettaglio del **flusso di autenticazione**, quando un utente tenta di accedere ad una rotta protetta (es. `/secure/request`), viene reindirizzato all’IdP per effettuare il login. L’IdP verifica le credenziali dell’utente e restituisce un token SAML 2.0 all’applicazione. Questo token viene poi convertito in formato  JWT firmato. Il JWT aiuta a trasportare i dati di identità dell’utente in modo sicuro e compatto. Il JWT viene memorizzato in un cookie di sessione, con gli attributi `HttpOnly`, `Secure` e `SameSite` per mitigare rischi come XSS e CSRF.
@@ -33,6 +33,8 @@ Il riconoscimento dell'utente è delegato all'IdP. L’uso di cookie di sessione
 Il processo di autenticazione SSO all’Università degli Studi di Padova si basa su un IdP conforme a SAML 2.0. A seguito dell'autenticazione l'IdP di Ateneo fornisce gli attributi dell'utente. Gli utenti possono essere **interni**  (studenti, alunni, dipendenti, collaboratori esterni) oppure **esterni** (autenticati tramite: SPID; CIE; IDEM). 
 
 Gli utenti interni si autenticano all’IdP locale e ricevono un insieme di attributi che includono: identificatori (`shib_extid`, `shib_id`); codice fiscale (`shib_codicefiscale`); nome e cognome (`shib_givenname`, `shib_sn`); l’indirizzo email (`shib_mail`). L'affiliazione all'Ateneo (`shib_edupersonscopedaffiliation`)  è opzionale e multivalore. L'affiliazione all'Ateneo può assumere uno o più valori dell'insieme `[ 'member@unipd.it', 'staff@unipd.it', 'alum@unipd.it' ]`.  
+
+L'IdP comunica per il personale strutturato dell'Ateneo (`STAFF`) gli attributi: codice sede lavorativa (`shib_codsedeserviziodip`); nome esteso della sede lavorativa (`shib_sedeserviziodip`).
 
 Gli attributi `shib_mail`e `shib_id` hanno come valore l'indirizzo email dell'utente autenticato. Per distinguere tra studenti e dipendenti, è necessario analizzare il  dominio dell’indirizzo email: gli studenti hanno email che terminano con `@studenti.unipd.it`, mentre i dipendenti usano `@unipd.it`. Questo permette di classificare correttamente l’utente e applicare le relative regole di accesso.
 
@@ -81,7 +83,11 @@ Segue il riferimento agli attributi restituiti dall'IdP via protocollo SAML per 
   	<!-- .... -->
   	<Attribute name="www.cca.unipd.it/sso/attributes/externalid" id="shib_extid"/>   <!-- SOUL: externalId -->
   	<!-- .... -->
-  	
+  
+    <Attribute name="www.cca.unipd.it/sso/attributes/codsedeserviziodip" id="shib_codsedeserviziodip"/>   <!-- SOUL: workplace.code -->
+    <Attribute name="www.cca.unipd.it/sso/attributes/sedeserviziodip" id="shib_sedeserviziodip"/>   <!-- SOUL: workplace.description -->
+  <!-- .... -->
+  
   <!-- shib_id: evitarne l'uso se possibile, perche' dipende dal metodo di autenticazione: nel tempo può cambiare -->
     <Attribute name="https://www.cca.unipd.it/shib_id" id="shib_id"/>
   	<!-- .... -->
@@ -210,7 +216,7 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 
 * **Invitation Code**: ottenuto al passo S2;
 * **Metadata SP**: è il file XML che può essere scaricato dal path `/saml/metadata`  dell'istanza dell'applicazione;
-* **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`;
+* **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`, `shib_codsedeserviziodip`, `shib_sedeserviziodip`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
 
 # Esempio di utilizzo di identità e permessi 
@@ -238,7 +244,7 @@ I permessi vengono utilizzati per limitare l'accesso ai dati. I permessi vengono
 
 import { getSessionPayload } from "@/components/user/actions";
 import { AuthUser } from "@/types/auth-user";
-import { permissionType } from "@prisma/client";
+import { permissionType } from "@/prisma/client/enums";
 import { isAuthorized } from "@/components/common/utils";
 // ...
 
@@ -248,7 +254,7 @@ export default async function Page() {
   return (
     <>
       <!-- <meta /> ... -->
-      {!isAuthorized(user, permissionType.requestRead) ? (
+      {!isAuthorized(user, permissionType.REQUEST_READ) ? (
           <UserNotAuthorized />
         ) : (
           <MyRequests requests={myRequests()} / >
@@ -266,7 +272,7 @@ Lato client  il metodo `isAuthorized()` è messo a disposizione dal componente `
 // ...
 import React, { useContext } from "react";
 import AuthContext from "@/components/context/auth-context";
-import { permissionType } from "@prisma/client";
+import { permissionType } from "@/prisma/client/enums";
 // ...
 
 export default function RequestListItem(props: { request: Request }) {
@@ -276,7 +282,7 @@ export default function RequestListItem(props: { request: Request }) {
             <!--
 
             -->
-            {isAuthorized(permissionType.requestList) && (
+            {isAuthorized(permissionType.REQUEST_LIST) && (
                    <li className="nav-item dropdown">
             <!--
 

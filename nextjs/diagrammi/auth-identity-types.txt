@@ -28,6 +28,8 @@ direction LR
     }
     class Staff {
         +shib_edupersonscopedaffiliation: String[] = ['member@unipd.it', 'staff@unipd.it']
+        +shib_codsedeserviziodip: String 
+        +shib_sedeserviziodip: String 
     }
     class External {}
 
