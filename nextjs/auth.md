@@ -38,16 +38,12 @@ L'IdP comunica per il personale strutturato dell'Ateneo (`STAFF`) gli attributi:
 
 Gli attributi `shib_mail`e `shib_id` hanno come valore l'indirizzo email dell'utente autenticato. Per distinguere tra studenti e dipendenti, è necessario analizzare il  dominio dell’indirizzo email: gli studenti hanno email che terminano con `@studenti.unipd.it`, mentre i dipendenti usano `@unipd.it`. Questo permette di classificare correttamente l’utente e applicare le relative regole di accesso.
 
-Un attributo utile a distinguere il tipo di di utente è `shib_authsource`, che ha valore `LOCAL` quando l'utente è registrato nella banche dati dell'Ateneo.  
-
 Gli utenti esterni si autenticano tramite sistemi federati con l'Ateneo come: SPID; CIE; Idem. In questi casi, l’IdP del sistema federato trasmette il set di attributi dell'utente autenticato. 
-Per fare un esempio, nel caso di federazione con SPID, l'IdP SPID include: il codice identificativo SPID (`spid_spidCode`); il codice fiscale (`spid_fiscalNumber`); un eventuale codice IVA (`spid_ivaCode`); l’indirizzo email (`spid_email`). L’attributo `shib_authsource` assume il valore `SPID`.  Quando l'utente è registrato sia SPID che in Ateneo, l'IdP di Ateneo **aggiunge** gli attributi personali di Unipd.
-
-Dal punto di vista dello sviluppatore, è fondamentale implementare  controlli robusti sugli attributi ricevuti dall' IdP. In particolare, è necessario verificare il valore di `shib_authsource` per determinare la provenienza dell'utente e classificare l’utente come interno o esterno.  Questo approccio consente di gestire in modo sicuro e  coerente l’accesso ai servizi digitali dell’Ateneo, garantendo al  contempo flessibilità nell’integrazione con fonti di identità esterne.
+Per fare un esempio, nel caso di federazione con SPID, l'IdP SPID include: il codice identificativo SPID (`spid_spidCode`); il codice fiscale (`spid_fiscalNumber`); un eventuale codice IVA (`spid_ivaCode`); l’indirizzo email (`spid_email`). L’attributo `shib_authsource` assume il valore `SPID`. L'IdP tenta di aggiungere gli attributi del profilo utente di Ateneo, quando riconosce che il codice fiscale (`shib_codicefiscale`) trasmesso via SPID/CIE è presente nelle banche dati di Unipd (eg. PTA che accede come cittadino).
 
 Alcune regole per classificare le diverse tipologie di utente:
 
-* Studenti che frequentano e personale: sono considerati affiliati all'Ateneo; hanno una casella di posta @unipd.it oppure @studenti.unipd.it;
+* **Studenti che frequentano** e **personale**: sono considerati affiliati all'Ateneo; hanno una casella di posta @unipd.it oppure @studenti.unipd.it;
 * Quando gli **alumni** non fanno più parte dell'organizzazione non hanno più diritto al **servizio di posta**, tuttavia conservano l'accesso con il loro account (nome.cognome@studenti.unipd.it);
 * I collaboratori esterni hanno una casella mail che ha indirizzo nome.cognome@unipd.it ma non hanno affiliazione con l'organizzazione Ateneo.
 
@@ -92,6 +88,9 @@ Segue il riferimento agli attributi restituiti dall'IdP via protocollo SAML per 
     <Attribute name="https://www.cca.unipd.it/shib_id" id="shib_id"/>
   	<!-- .... -->
   
+    <!-- shib_authsource: CIE | SPID, può essere vuoto quando si tratta di identità locale -->
+    <Attribute name="https://www.cca.unipd.it/sso/attributes/authSource" id="shib_authsource"/>
+  
  </Attributes>
 ```
 
@@ -126,7 +125,7 @@ INIZIO
   FINE FUNZIONE
 
 
-  FUNZIONE tipo_utente(mail = NON DEFINITO, id = NON DEFINITO, tipo_utente = NON DEFINITO, sorgente = "LOCAL")
+  FUNZIONE tipo_utente(mail = NON DEFINITO, id = NON DEFINITO, tipo_utente = NON DEFINITO, sorgente = NON DEFINITO)
 
       // Se l'utente non compare tra gli utenti dell'Ateneo può essere una federazione SPID o CIE
       SE sorgente E' UGUALE a "CIE" ALLORA
@@ -135,11 +134,6 @@ INIZIO
       
       SE sorgente E' UGUALE a "SPID" ALLORA
           RITORNA SPID
-      FINE SE
-
-      // Altro tipo di federazione per il momento non gestita
-      SE sorgente E' DIVERSO da "LOCAL" ALLORA
-          RITORNA NON DEFINITO
       FINE SE
 
       // Se non conosco il dominio di provenienza dell'utente non posso dire nulla

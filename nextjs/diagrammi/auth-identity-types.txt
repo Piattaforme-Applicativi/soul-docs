@@ -3,18 +3,13 @@ title: Tipi di identità
 ---
 classDiagram
 direction LR
-    class AuthUser {
-        <<Interface>>
-        +shib_authsource: String 
-    } 
     class UnipdUser {
         <<Abstract>>
         +shib_extid: String 
         +shib_id: String ~~ PKEY ~~
         +shib_codicefiscale: String 
         +shib_givenname: String 
-        +shib_sn: String 
-        +shib_authsource: String = 'LOCAL'      
+        +shib_sn: String      
     }
     class ActiveUser {
         <<Abstract>>
@@ -58,11 +53,10 @@ direction LR
     note for External "shib_id and shib_mail must match /^[\\w.-]+\@unipd.it$/"
     note for Idem "?????"
 
-    AuthUser <|.. UnipdUser
+    SPID "1" --> "0" UnipdUser
+    CIE "1" --> "0" UnipdUser
 
 
-    AuthUser <|.. SPID
-    AuthUser <|.. CIE
 
 
     UnipdUser <|-- Alumni
