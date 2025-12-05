@@ -208,7 +208,7 @@ Segue l'elenco delle attività che lo sviluppatore deve portare a termine per in
 
 Al momento dell'invio della [richiesta di accreditamento Single Sign On di Ateneo](https://registrazionisp.ict.unipd.it/form/richiestesso) è necessario porre attenzione a queste informazioni richieste nella form:
 
-* **Invitation Code**: ottenuto al passo S2;
+* **Invitation Code**: ottenuto al passo A1;
 * **Metadata SP**: è il file XML che può essere scaricato dal path `/saml/metadata`  dell'istanza dell'applicazione;
 * **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`, `shib_codsedeserviziodip`, `shib_sedeserviziodip`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
