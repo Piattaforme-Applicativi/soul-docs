@@ -198,11 +198,11 @@ Un possibile messaggio per chiedere l'Invitation Code nella coda ticket _Single 
 
 Segue l'elenco delle attività che lo sviluppatore deve portare a termine per integrare i nuovi applicativi con l'IdP di Ateneo.
 
-| Codice | Nome del compito                                             | Descrizione del compito                                      |
-| :----: | ------------------------------------------------------------ | ------------------------------------------------------------ |
-|   S1   | Dispiegamento applicativo in ambiente di staging e produzione | Lo sviluppatore crea un nuovo file  `.env`  per gli ambienti di produzione o di staging. Lo sviluppatore dispiega il nuovo applicativo negli ambienti di staging o di produzione. |
-|   A1   | Nuovo ticket registrazione SP                                | Il personale ASIT richiede un **Invitation Code** per completare la richiesta di accreditamento Single Sign On di Ateneo nella **coda ticket _Single Sign On** dell'Ateneo. |
-|   S3   | Registrazione nuovo SP                                       | Lo sviluppatore scarica dal nuovo applicativo dispiegato in staging o produzione il file `/saml/metadata` che identifica l' applicativo come SP.  Lo sviluppatore in possesso di **Invitation Code** e del file XML che identifica il nuovo applicativo / SP, invia una nuova  richiesta di accreditamento. |
+| Codice | Nome del compito                              | Descrizione del compito                                      |
+| :----: | --------------------------------------------- | ------------------------------------------------------------ |
+|   S1   | Preparazione al rilascio staging o produzione | Lo sviluppatore crea un nuovo file  `.env`  per gli ambienti di produzione o di staging. Lo sviluppatore può rilasciare il nuovo applicativo negli ambienti di staging o di produzione. **ATTENZIONE**: Completato il compito il sistema sarà raggiungibile ma l'utente finale non potrà autenticarsi nel sistema. |
+|   A1   | Nuovo ticket registrazione SP                 | Il personale ASIT richiede un **Invitation Code** per completare la richiesta di accreditamento Single Sign On di Ateneo nella **coda ticket _Single Sign On** dell'Ateneo. |
+|   S3   | Registrazione nuovo SP                        | Lo sviluppatore scarica dal nuovo applicativo dispiegato in staging o produzione il file dalla rotta `/saml/metadata` che identifica l' applicativo come SP.  Lo sviluppatore in possesso di **Invitation Code** e del file XML che identifica il nuovo applicativo / SP, invia una nuova  richiesta di accreditamento. Infase di richiesta devono essere dichiarati gli attributi utente che l'IdP deve comunicare all'SP a seguito dell'autenticazzione dell'utente. |
 
 #### S3 - Registrazione di un nuovo SP
 
