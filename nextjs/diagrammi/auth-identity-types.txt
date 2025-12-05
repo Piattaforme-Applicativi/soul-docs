@@ -2,7 +2,7 @@
 title: Tipi di identità
 ---
 classDiagram
-direction LR
+direction TD
     class UnipdUser {
         <<Abstract>>
         +shib_extid: String 
@@ -32,18 +32,17 @@ direction LR
         +shib_esi: String
         +shib_mail: String
     }
-    class SPID {        
+    class Citizen {
+        <<Abstract>>
         +spid_spidCode: String ~~ PKEY ~~
         +spid_email: String 
         +spid_fiscalNumber: String
-        +spid_ivaCode: String
+        +spid_ivaCode: String     
+    }
+    class SPID {
         +shib_authsource:String = 'SPID'
     }
     class CIE {
-        +spid_spidCode: String ~~ PKEY ~~
-        +spid_email: String 
-        +spid_fiscalNumber: String
-        +spid_ivaCode: String
         +shib_authsource:String = 'CIE'
     }
 
@@ -64,6 +63,8 @@ direction LR
     ActiveUser <|-- Student
     ActiveUser <|-- Staff
     ActiveUser <|-- External
+    Citizen <|-- SPID
+    Citizen <|-- CIE
 
 
     class Alumni:::Rose
