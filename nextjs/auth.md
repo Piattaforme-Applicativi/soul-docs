@@ -215,11 +215,11 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 
 # L'interfaccia AuthUser
 
-Lo Starter Kit offre i metodi `getSessionPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components per accedere in maniera semplificata agli attributi dell'utente. I due metodi ritornano un dato che implementa il contratto dell'interfaccia `AuthUser` (`nextjs/types/auth-user.ts`).
+Lo Starter Kit mette a disposizione `getSessionPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components per accedere in maniera semplificata agli attributi dell'utente. I due metodi ritornano un dato che implementa il contratto dell'interfaccia `AuthUser` (`nextjs/types/auth-user.ts`).
 
 Segue le descrizione delle proprietà di AuthUser. Proprietà di base sono:
 
-* **id**: è identificatore univoco per l'utente autenticato. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it, nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+* **id**: è identificatore univoco per l'utente autenticato. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
 * **firstName**: nome dell'utente (eg. Alessandro);
 * **familyName**: cognome dell'utente (eg. Volta);
 * **codiceFiscale**: codice fiscale dell'utente (eg. VLTLSN27C05C933E);
