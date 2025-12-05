@@ -223,7 +223,7 @@ Segue le descrizione delle proprietà di AuthUser. Proprietà di base sono:
 * **firstName**: nome dell'utente (eg. Alessandro);
 * **familyName**: cognome dell'utente (eg. Volta);
 * **codiceFiscale**: codice fiscale dell'utente (eg. VLTLSN27C05C933E);
-* **userType**: uno tra i tipi (STAFF: personale strutturato Uniod, EXTERNAL: collaboratore esterno all'organizzazione Unipd; STUDENT: studente che frequenta i corsi; ALUMNI: ex-studente; SIPID o CIE: cittadino in possesso di SPID o CIE);
+* **userType**: uno tra i tipi (STAFF: personale strutturato Unipd, EXTERNAL: collaboratore esterno all'organizzazione Unipd; STUDENT: studente che frequenta i corsi; ALUMNI: ex-studente; SIPID o CIE: cittadino autenticato con SPID o CIE);
 * **roles**: I ruoli dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 * **permissions**: I permessi dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 
@@ -233,7 +233,7 @@ Proprietà condizionali (variabili a seconda del tipo di utente autenticato):
 * **externalId**: è il codice utilizzato da Unipd per identificare un utente registrato nei sistemi di Ateneo (**STAFF**, **EXTERNAL**, **STUDENT**, **ALUMNI**);
 * **mail**: è sempre presente, fatta eccezione per gli ex-studenti che hanno effettuato l'accesso con le credenziali fornite dall'Ateneo (**ALUMNI**);
 * **affiliation**: è sempre presente per: **STUDENTI**, **ALUMNI** e **STAFF**;
-* **workplace**: presente per lo **STAFF**, riporta le informazioni del gruppo di lavoro del quale fanno parte (eg. code: DXXXX, description: Ufficio relazioni con il pubblico).
+* **workplace**: presente per lo **STAFF**, riporta le informazioni del gruppo di lavoro (di solito settore o ufficio) dell'utente (eg. code: DXXXX, description: Ufficio relazioni con il pubblico).
 
 ```typescript
 export interface AuthUser {
