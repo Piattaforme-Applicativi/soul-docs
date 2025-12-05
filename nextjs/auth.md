@@ -213,6 +213,51 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 * **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`, `shib_codsedeserviziodip`, `shib_sedeserviziodip`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
 
+# L'interfaccia AuthUser
+
+Lo Starter Kit offre i metodi `getSessionPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components per accedere in maniera semplificata agli attributi dell'utente. I due metodi ritornano un dato che implementa il contratto dell'interfaccia `AuthUser` (`nextjs/types/auth-user.ts`).
+
+Segue le descrizione delle proprietà di AuthUser. Proprietà di base sono:
+
+* **id**: è identificatore univoco per l'utente autenticato. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it, nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+* **firstName**: nome dell'utente (eg. Alessandro);
+* **familyName**: cognome dell'utente (eg. Volta);
+* **codiceFiscale**: codice fiscale dell'utente (eg. VLTLSN27C05C933E);
+* **userType**: uno tra i tipi (STAFF: personale strutturato Uniod, EXTERNAL: collaboratore esterno all'organizzazione Unipd; STUDENT: studente che frequenta i corsi; ALUMNI: ex-studente; SIPID o CIE: cittadino in possesso di SPID o CIE);
+* **roles**: I ruoli dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
+* **permissions**: I permessi dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
+
+Proprietà condizionali (variabili a seconda del tipo di utente autenticato):
+
+* **authSource**: è presente solo se l'utente si è autenticato con SPID o CIE;
+* **externalId**: è il codice utilizzato da Unipd per identificare un utente registrato nei sistemi di Ateneo (**STAFF**, **EXTERNAL**, **STUDENT**, **ALUMNI**);
+* **mail**: è sempre presente, fatta eccezione per gli ex-studenti che hanno effettuato l'accesso con le credenziali fornite dall'Ateneo (**ALUMNI**);
+* **affiliation**: è sempre presente per: **STUDENTI**, **ALUMNI** e **STAFF**;
+* **workplace**: presente per lo **STAFF**, riporta le informazioni del gruppo di lavoro del quale fanno parte (eg. code: DXXXX, description: Ufficio relazioni con il pubblico).
+
+```typescript
+export interface AuthUser {
+  id: string; // (mail address (Unipd) | codice fiscale)
+  firstName: string; // user first name (eg. Alessandro)
+  familyName: string; // user family name (eg. Volta)
+  codiceFiscale: string; // user codice fiscale
+  userType: userType; // ( CIE | SPID | STAFf | STUDENT | ALUMNI | EXTERNAL )
+  roles: string[]; // roles assigned to the user with the roles and permissions management module (Starter Kits)
+  permissions: string[]; // permissions assigned to the user with the roles and permissions management module (Starter Kits)
+  
+  // Conditional fields (may not be present in all user types)
+  authSource?: "SPID" | "CIE"; // if the user authenticated with SPID or CIE
+  externalId?: string | null; // if the user authenticated with Unipd account
+  mail?: string; // not present if the user type is ALUMNI
+  affiliation?: string[]; // if the user type is in  ( STAFf | STUDENT | ALUMNI )
+  workplace?: {
+    code: string;
+    description: string;
+  }; // if the user type is in (STAFF)
+}
+
+```
+
 # Esempio di utilizzo di identità e permessi 
 
 L'identità dell'utente è utile in quegli scenari nei quali è necessario limitare l'acesso ai dati all'utente che stà utilizzando il sistema. I dati all'identità dell'utente sono custoditi in sessione. La funzione `payload()` ritorna i dati utente che vengono memorizzati nella rotta `/saml/post-response`, a seguito della verifica delle credenziali dell'utente nell'IdP. I dati dell'identità sono memorizzati nel cookie di sessione e possono essere recuperati dallo stesso solo lato server.
