@@ -134,6 +134,17 @@ export default function NewStudent({ notify }: NewProps) {
 // <NewStudent notify={() => console.log('New student ...')}>
 ```
 
+### CSS
+
+I nomi delle classi e degli id deve essere in **kebab-case**
+
+```css
+#student-list { background-color: green }
+.student-avatar { border: 1px solid black }
+```
+
+
+
 ### Backend for frontend
 
 La versione 16 di NextJS ha consolidato l'utilizzo delle [server actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations). Convenzione per la scrittura del codice sorgente del backend è utilizzare le server-actions. Cercheremo di illustrare brevemente i vantaggi di questo tipo di approccio. Le server-actions in ambiente NextJS possono svolgere una doppia funzione:
@@ -240,15 +251,6 @@ export default function NewStudent({ students }: NewProps) {
 ```
 
 E' importante far notare che, per le componenti React NextJS non strettamente utilizzate per la navigazione (§LP), è necessario marcare la componente con la direttiva **'use client'** quando ci sono istruzioni che devono essere eseguite lato client (§RCC, §RSP).
-
-### CSS
-
-I nomi delle classi e degli id deve essere in **kebab-case**
-
-```css
-#student-list { background-color: green }
-.student-avatar { border: 1px solid black }
-```
 
 # Librerie da utilizzare
 
