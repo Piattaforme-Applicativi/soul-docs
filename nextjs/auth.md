@@ -241,15 +241,15 @@ export interface AuthUser {
   firstName: string; // user first name (eg. Alessandro)
   familyName: string; // user family name (eg. Volta)
   codiceFiscale: string; // user codice fiscale
-  userType: userType; // ( CIE | SPID | STAFf | STUDENT | ALUMNI | EXTERNAL )
-  roles: string[]; // roles assigned to the user with the roles and permissions management module (Starter Kits)
-  permissions: string[]; // permissions assigned to the user with the roles and permissions management module (Starter Kits)
+  userType: userType; // ( CIE | SPID | STAFF | STUDENT | ALUMNI | EXTERNAL )
+  roles: string[]; // roles assigned to the user with the roles and permissions management module (Starter Kit)
+  permissions: string[]; // permissions assigned to the user with the roles and permissions management module (Starter Kit)
   
   // Conditional fields (may not be present in all user types)
   authSource?: "SPID" | "CIE"; // if the user authenticated with SPID or CIE
   externalId?: string | null; // if the user authenticated with Unipd account
   mail?: string; // not present if the user type is ALUMNI
-  affiliation?: string[]; // if the user type is in  ( STAFf | STUDENT | ALUMNI )
+  affiliation?: string[]; // if the user type is in  ( STAFF | STUDENT | ALUMNI )
   workplace?: {
     code: string;
     description: string;
