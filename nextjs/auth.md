@@ -10,7 +10,9 @@ dateCreated: 2025-06-30T07:20:00.495Z
 
 # Autenticazione e autorizzazione
 
-Il sistema di autenticazione di **SOUL** è progettato in conformità con le linee guida ufficiali fornite da **NextJS**, seguendo le best practice presenti nella documentazione alla voce [`Guide > Autentication`](https://nextjs.org/docs/pages/guides/authentication). In particolare, per garantire la sicurezza e l'interoperabilità dei sistemi, l'infrastruttura prevede l'integrazione con il **Single Sign-On (SSO) di Ateneo**, quale meccanismo centrale per la gestione delle identità e in parte delle sessioni utente. L'integrazione viene attivata al momento del rilascio delle nuove applicazioni in ambienti differenti da quello di sviluppo, assicurando così che tutte le nuove istanze dell'applicazione siano vincolate al sistema di autenticazione istituzionale. E' prevista una procedura formale di accreditamento del nuovo sistema presso il team che gestisce l'Identity Provider SAML (da ora IdP). La registrazione è necessaria per completare il processo di integrazione dei nuovi applicativi. Nel linguaggio SAML, le nuove applicazioni vengono chiamate  Service Provider (da ora SP). Per agevolare le attività di sviluppo e test, l'ambiente di sviluppo di SOUL mette a disposizione un **IdP di Mockup**, che consente di simulare il comportamento del sistema di autenticazione senza dover procedere immediatamente alla registrazione ufficiale nell'IdP. Questo approccio consente ai team di sviluppo di lavorare in modo autonomo e flessibile, garantendo al contempo compatibilità in fase di rilascio.
+Lo Starter Kit è progettato secondo i principi di Privacy by Design. In aderenza all'Art. 5(1)(c), implementa la minimizzazione dei dati, limitando la raccolta al solo indispensabile per l’erogazione del servizio. La sicurezza è garantita da protocolli di pseudonimizzazione (Art. 4(5)), che isolano e segregano i dati utente dagli archivi operativi.
+
+Il sistema di autenticazione dello Starter Kit è progettato in conformità con le linee guida ufficiali fornite da **NextJS**, seguendo le best practice presenti nella documentazione alla voce [`Guide > Autentication`](https://nextjs.org/docs/pages/guides/authentication). In particolare, per garantire la sicurezza e l'interoperabilità dei sistemi, l'infrastruttura prevede l'integrazione con il **Single Sign-On (SSO) di Ateneo**, quale meccanismo centrale per la gestione delle identità e in parte delle sessioni utente. L'integrazione viene attivata al momento del rilascio delle nuove applicazioni in ambienti differenti da quello di sviluppo, assicurando così che tutte le nuove istanze dell'applicazione siano vincolate al sistema di autenticazione istituzionale. E' prevista una procedura formale di accreditamento del nuovo sistema presso il team che gestisce l'Identity Provider SAML (da ora IdP). La registrazione è necessaria per completare il processo di integrazione dei nuovi applicativi. Nel linguaggio SAML, le nuove applicazioni vengono chiamate  Service Provider (da ora SP). Per agevolare le attività di sviluppo e test, l'ambiente di sviluppo di SOUL mette a disposizione un **IdP di Mockup**, che consente di simulare il comportamento del sistema di autenticazione senza dover procedere immediatamente alla registrazione ufficiale nell'IdP. Questo approccio consente ai team di sviluppo di lavorare in modo autonomo e flessibile, garantendo al contempo compatibilità in fase di rilascio.
 
 ## Identità dell'utente e gestione della sessione
 
@@ -20,9 +22,9 @@ Le applicazioni sviluppate con SOUL devono utilizzare l'IdP di Ateneo.  Il fluss
 * **Session management**: è **stateless**. I dati della sessione e l'identità dell'utente sono salvati in un cookie. Mantenere la sessione stateless è conveniente in caso di dispiegamento negli ambienti cloud di Ateneo (ovvero con architettura PaaS e contenitori immutabili );
 * **Authorization**: l'autorizzazione è di tipo **secure**. In ogni pagina dell'applicazione vengono eseguiti dei controlli sulla base dei permessi memorizzati nella sessione utente. Il cookie di sessione contiene l'elenco dei permessi dell'utente autenticato. A partire da questi permessi, è possibile implementare controlli mirati nelle pagine che necessitano di autorizzazione (React Server Components) .
 
-Per entrare nel dettaglio del **flusso di autenticazione**, quando un utente tenta di accedere ad una rotta protetta (es. `/secure/request`), viene reindirizzato all’IdP per effettuare il login. L’IdP verifica le credenziali dell’utente e restituisce un token SAML 2.0 all’applicazione. Questo token viene poi convertito in formato  JWT firmato. Il JWT aiuta a trasportare i dati di identità dell’utente in modo sicuro e compatto. Il JWT viene memorizzato in un cookie di sessione, con gli attributi `HttpOnly`, `Secure` e `SameSite` per mitigare rischi come XSS e CSRF.
+Per entrare nel dettaglio del **flusso di autenticazione**, quando un utente tenta di accedere ad una rotta protetta (es. `/secure/request`), viene reindirizzato all’IdP per effettuare il login. L’IdP verifica le credenziali dell’utente e restituisce un token SAML 2.0 cifrato. Le informazioni estratte dal token SAML vengono decifrate. Gli attributi di identità dell'utente vengono memorizzati in una cache lato server. L'attributo identificativo dell'utente viene offuscato e convertito in un token Paseto che include anche i relativi ruoli e permessi. Il Paseto token aiuta a trasportare i dati di sessione in modo sicuro e compatto. Il Paseto token viene cifrato e memorizzato in un cookie di sessione, con gli attributi `HttpOnly`, `Secure` e `SameSite` per mitigare rischi come XSS e CSRF.
 
-A ogni richiesta verso una rotta protetta, il middleware lato server di Next.js `proxy.ts` intercetta la richiesta, estrae il JWT dal cookie e ne verifica la firma. Se la firma nel token è valida, il middleware consente l’accesso alla  risorsa. Quando la firma nel token è assente, scaduta o non valida, l’utente viene  reindirizzato ad una pagina di errore o al login. Lato client il cookie di sessione non può essere manipolato via Javascript (`HttpOnly`) . Di conseguenza le informazioni utente possono essere recuperate unicamente lato server. Le informazioni conservate nel JWT consentono di personalizzare l'interfaccia utente utilizzando i permessi.
+A ogni richiesta verso una rotta protetta, il middleware lato server di Next.js `proxy.ts` intercetta la richiesta, estrae il Paseto token  dal cookie e tenta di decifrarlo. Se il token viene decifrato con successo, il middleware consente l’accesso alla  risorsa. Quando non è possibile decifrare il token, l’utente viene  reindirizzato ad una pagina di errore o al login. Lato client il cookie di sessione non può essere manipolato via Javascript (`HttpOnly`) . Le informazioni utente possono essere recuperate unicamente lato server. Le informazioni conservate nel token consentono di personalizzare l'interfaccia utente utilizzando i permessi.
 
 Il riconoscimento dell'utente è delegato all'IdP. L’uso di cookie di sessione è prerequisito per un’architettura stateless, scalabile e facilmente integrabile con altri servizi (sopratutto con infrastrutture basate su container di tipo effimero). L’intero  flusso è compatibile con lo standard SAML e può essere esteso per supportare OAuth2 o OpenID Connect. Questo modello è  particolarmente adatto per applicazioni moderne che richiedono  sicurezza, modularità e interoperabilità con sistemi di identità aziendali.
 
@@ -213,19 +215,23 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 * **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`, `shib_codsedeserviziodip`, `shib_sedeserviziodip`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
 
-# L'interfaccia AuthUser
+# Ruoli, permessi e dati dell'utente
 
-Lo Starter Kit mette a disposizione `getSessionPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components per accedere in maniera semplificata agli attributi dell'utente. I due metodi ritornano un dato che implementa il contratto dell'interfaccia `AuthUser` (`nextjs/types/auth-user.ts`).
+Lo Starter Kit mette a disposizione `getSessionPayload()` per accedere a ruoli e permessi.  Per ragioni di sicurezza Il metodo può essere utilizzato solo lato server per recuperare ruoli e permessi. Il metodo ritorna un oggetto che risponde all'interfaccia **UserSession**. Gli attributi della sessione utente (**UserSession**) sono:
 
-Segue le descrizione delle proprietà di AuthUser. Proprietà di base sono:
+* **sub**: è l'identificatore univoco per l'utente autenticato, offuscato con HMAC. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+* **roles**: I ruoli dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
+* **permissions**: I permessi dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 
-* **id**: è identificatore univoco per l'utente autenticato. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+Il metodo `getPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components, viene utilizzato per accedere in maniera semplificata: agli attributi dell'utente, ai ruoli e ai permessi . I due metodi ritornano un dato che implementa il contratto dell'interfaccia `Payload` (`nextjs/types/session.ts`). Il Payload della sessione è la combinazione dei dati sessione (**UserSession**) e dell'identità dell'utente (**AuthUser**)
+
+Segue le descrizione delle proprietà di **AuthUser**. Proprietà di base sono:
+
+* **id**: coincide con UserSession.id;
 * **firstName**: nome dell'utente (eg. Alessandro);
 * **familyName**: cognome dell'utente (eg. Volta);
 * **codiceFiscale**: codice fiscale dell'utente (eg. VLTLSN27C05C933E);
 * **userType**: uno tra i tipi (STAFF: personale strutturato Unipd, EXTERNAL: collaboratore esterno all'organizzazione Unipd; STUDENT: studente che frequenta i corsi; ALUMNI: ex-studente; SIPID o CIE: cittadino autenticato con SPID o CIE);
-* **roles**: I ruoli dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
-* **permissions**: I permessi dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 
 Proprietà condizionali (variabili a seconda del tipo di utente autenticato):
 
@@ -242,8 +248,6 @@ export interface AuthUser {
   familyName: string; // user family name (eg. Volta)
   codiceFiscale: string; // user codice fiscale
   userType: userType; // ( CIE | SPID | STAFF | STUDENT | ALUMNI | EXTERNAL )
-  roles: string[]; // roles assigned to the user with the roles and permissions management module (Starter Kit)
-  permissions: string[]; // permissions assigned to the user with the roles and permissions management module (Starter Kit)
   
   // Conditional fields (may not be present in all user types)
   authSource?: "SPID" | "CIE"; // if the user authenticated with SPID or CIE
@@ -260,17 +264,19 @@ export interface AuthUser {
 
 # Esempio di utilizzo di identità e permessi 
 
-L'identità dell'utente è utile in quegli scenari nei quali è necessario limitare l'acesso ai dati all'utente che stà utilizzando il sistema. I dati all'identità dell'utente sono custoditi in sessione. La funzione `payload()` ritorna i dati utente che vengono memorizzati nella rotta `/saml/post-response`, a seguito della verifica delle credenziali dell'utente nell'IdP. I dati dell'identità sono memorizzati nel cookie di sessione e possono essere recuperati dallo stesso solo lato server.
+I permessi e i ruoli utente sono utili in scenari nei quali è necessario limitare l'acesso ai dati all'utente che stà utilizzando il sistema. I dati all'identità dell'utente sono custoditi in sessione. La funzione `getSessionPayload()` ritorna i dati di sessione memorizzati nella rotta `/saml/post-response`, a seguito della verifica delle credenziali dell'utente nell'IdP. I dati di autorizzazione all'accesso (ruoles, permissions) sono memorizzati nel cookie di sessione e possono essere recuperati solo lato server.
 
 ```jsx
 "use server";
 // ....
-import { Session } from "@/types/session";
-import { AuthUser } from "@/types/auth-user";
+
+import { UserSession } from "@/types/session";
+import { getSessionPayload } from "@/components/user/actions";
+
 // ....
 
 // ....
-const user: AuthUser = await Session.payload();
+const user: UserSession = await getSessionPayload();
 // ....
 ```
 
@@ -282,13 +288,13 @@ I permessi vengono utilizzati per limitare l'accesso ai dati. I permessi vengono
 "use server";
 
 import { getSessionPayload } from "@/components/user/actions";
-import { AuthUser } from "@/types/auth-user";
+import { UserSession } from "@/types/session";
 import { permissionType } from "@/prisma/client/enums";
 import { isAuthorized } from "@/components/common/utils";
 // ...
 
 export default async function Page() {
-  const user: AuthUser | null = await getSessionPayload();
+  const user: UserSession | null = await getSessionPayload();
   // ...
   return (
     <>
@@ -327,6 +333,41 @@ export default function RequestListItem(props: { request: Request }) {
 
             -->
     </>);
+} 
+```
+
+Il metodo `getPayload()`è necessario accedere ai dati dell'utente. Uno scenario comune per l'utilizzo del metodo è l'invio di notifiche all'utente. La notifica all'utente è utile quando vogliamo rassicurare l'utente dell'esito di un'operazione utilizzando l'indirizzo email dell'utente (eg. esito del salvataggio di una richiesta/domanda inviata dall'utente).
+
+```ts
+"use server";
+
+// ...
+import { getPayload } from "@/components/user/actions";
+import { Payload } from "@/types/session";
+import { Err, Ok, Result } from "@/libs/server-action";
+import { getI18nInstance } from "@/components/common/i18n/server";
+import { t } from "@lingui/core/macro";
+
+// ...
+
+export async function notify(): <Result<boolean>> {
+  	const payload: Payload = await getPayload();
+  	if(!payload.mail) {
+      return Err(i18n._(t`Email is missing`));
+    }
+    const mailMessage: MailMessage = {
+    from: Global.config.mailerFromAddress as string, // noreply.applicativi@unipd.it
+    to: payload.mail,
+    subject: i18n._(t`You request was accepted`)),
+    message: i18n._(t`We are taking care of your request`)),
+        };
+  return sendEmail(mailMessage).then((result) => {
+    return Ok(true);
+  })
+  .catch((error) => {
+    console.error("Error sending email:", error);
+    return Ok(false);
+  });
 }
 ```
 
