@@ -344,13 +344,12 @@ Il metodo `getPayload()`è necessario accedere ai dati dell'utente. Uno scenario
 // ...
 import { getPayload } from "@/components/user/actions";
 import { Payload } from "@/types/session";
-import { Err, Ok, Result } from "@/libs/server-action";
 import { getI18nInstance } from "@/components/common/i18n/server";
 import { t } from "@lingui/core/macro";
 
 // ...
 
-export async function notify(): <Result<boolean>> {
+export async function notify(): Promise<boolean> {
   	const payload: Payload = await getPayload();
   	if(!payload.mail) {
       return Err(i18n._(t`Email is missing`));
@@ -362,11 +361,11 @@ export async function notify(): <Result<boolean>> {
     message: i18n._(t`We are taking care of your request`)),
         };
   return sendEmail(mailMessage).then((result) => {
-    return Ok(true);
+    return true;
   })
   .catch((error) => {
     console.error("Error sending email:", error);
-    return Ok(false);
+    return false;
   });
 }
 ```
