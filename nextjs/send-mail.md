@@ -45,8 +45,8 @@ In vista della messa in produzione, lo sviluppatore si coordina con i gestori de
 Per consentire ai referenti dell’infrastruttura cloud di configurare l'invio dei messaggi via SMTP, l' `.env`file dell'applicazione deve contenere i seguenti attributi:
 
 * **MAILER_FROM_ADDRESS**, `noreply@ml.unipd.it` è l'indirizzo mittente dei messaggi inviati agli utenti. Il mittente non è modificabile e il suo indirizzo deve suggerire all'utente finale che non è possibile rispondere alla mail inviata;
-* **MAILER_HOST**, in ambiente di sviluppo è previsto l'invio al container SMTP locale **mailpit**, in questo caso l'hostname è `mailpit`.   Al momento del dispiegamento in staging e produzione, l'hostname viene modificato dai gestori dell'infrastruttura cloud;
-* **MAILER_SECURE**, in ambiente di sviluppo è impostato a `false`. Al momento del dispiegamento in staging e produzione, il valore viene impostato a `true` dai gestori dell'infrastruttura cloud ad indicare che la comunicazione tra applicativo e SMTP server avviene in modo sicuro;
+* **MAILER_HOST**, in ambiente di sviluppo e di staging è previsto l'invio al container SMTP locale **mailpit**, in questo caso l'hostname è `mailpit`.   Al momento del dispiegamento in produzione, l'hostname viene modificato dai gestori dell'infrastruttura cloud;
+* **MAILER_SECURE**, in ambiente di sviluppo è impostato a `false`. Al momento del dispiegamento in staging e produzione, il valore può essere impostato a `true` dai gestori dell'infrastruttura cloud ad indicare che la comunicazione tra applicativo e SMTP server avviene in modo sicuro;
 * **MAILER_PORT**, in ambiente di sviluppo è impostato a `1025` (default per mailpit). Tipicamente la porta default in caso di SMTP server e sicuro è `465`
 * **MAILER_AUTH_USER**, in ambiente di sviluppo non è necessario. Al momento del dispiegamento in staging e produzione, l'utente viene modificato dai gestori dell'infrastruttura cloud;
 * **MAILER_AUTH_PASSWORD**, in ambiente di sviluppo non è necessaria. Al momento del dispiegamento in staging e produzione, la password viene modificata dai gestori dell'infrastruttura cloud;
