@@ -2,7 +2,7 @@
 title: Stile del codice
 description: Linee guida per la scrittura del codice sorgente degli applicativi
 published: true
-date: 2025-09-22T07:27:40.686Z
+date: 2026-02-26T12:39:35.605Z
 tags: 
 editor: markdown
 dateCreated: 2025-03-12T17:56:48.046Z
@@ -177,7 +177,7 @@ export async function save(formData: Partial<Student>): Promise<Student> {
 }
 ```
 
-Tra i comportamenti noti delle server actions NextJs è utile citare che a seguito del build dell'applicazione, per ragioni di sicurezza NextJs nasconde gli errori emessi dalle server actions. Le classi e i metodi appartenenti alla libreria `@/lins/server-action` hanno lo scopo di modificare questo comportamento.
+Tra i comportamenti noti delle server actions NextJs è utile citare che a seguito del build dell'applicazione, per ragioni di sicurezza NextJs nasconde gli errori emessi dalle server actions. Le classi e i metodi appartenenti alla libreria `@/libs/server-action` hanno lo scopo di modificare questo comportamento.
 
 ```typescript
 // component/student/actions.ts
