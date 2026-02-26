@@ -17,6 +17,7 @@ Le applicazioni SOUL create a partire dallo [Starter Kit](https://github.com/Pia
 * **SimpleSAMLphp** -  Un Identity Provider SAML 2.0 per simulare l'autenticazione degli utenti nell'ambiente di sviluppo;
 * **NextJS** - Applicazione web per l'interazione con l'utente finale;
 * **PostgreSQL** - Database relazionale per la persistenza dei dati;
+* **Mailpit** - Microservizio per il collaudo della notifica via mail  (opzionale).
 * **Cronjob** - Sistema batch per il download programmato dei dati da fonti esterne (opzionale).
 
 ![Componenti pila software SOUL](diagrammi/componenti-architettura.svg)
