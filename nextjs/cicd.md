@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2026-02-26T12:34:23.345Z
+date: 2026-02-26T12:34:45.786Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -22,8 +22,8 @@ Il processo di sviluppo ha inizio con la richiesta del team di sviluppo. Il team
 
 Nella fase iniziale del progetto di sviluppo è necessario scegliere il nome del repository GIT e dei nomi a dominio per raggiungere via browser gli ambienti di staging e di produzione. E' una convezione interna scegliere il nome del repository GIT secondo il formato [Kebab case](/nextjs/stile-codice#glossario). Per quanto riguarda i nomi a dominio vanno rispettate le [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini). Per ragioni di gestione è conveniente scegliere i nomi a dominio per gli ambienti di staging in produzione in questo modo:
 
-* **staging** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/stile-codice#glossario) deve essere seguito dal suffisso *-staging.ict.unipd.it*  (eg. {nuovo-software}-staging.ict.unipd.it)
-* **produzione** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/stile-codice#glossario) deve essere seguito dal suffisso *.ict.unipd.it*  (eg. {nuovo-software}.ict.unipd.it)
+* **staging** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/nextjs/stile-codice#glossario) deve essere seguito dal suffisso *-staging.ict.unipd.it*  (eg. {nuovo-software}-staging.ict.unipd.it)
+* **produzione** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/nextjs/stile-codice#glossario) deve essere seguito dal suffisso *.ict.unipd.it*  (eg. {nuovo-software}.ict.unipd.it)
 
 La scelta dei nomi a dominio è rilevante per la fase di integrazione dell'applicativo con l'Identity Provider di Ateneo.
 
