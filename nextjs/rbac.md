@@ -2,7 +2,7 @@
 title: Ruoli e permessi
 description: Aggiunta di nuovi ruoli e permessi per un nuovo modulo
 published: true
-date: 2025-09-22T07:28:12.110Z
+date: 2026-02-26T11:39:23.100Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-09T12:48:00.843Z
@@ -56,7 +56,7 @@ Dopo aver definito i permessi nel backend, è necessario aggiornarli anche nella
 
 # Esempio di registrazione di nuovi permessi per un modulo
 
-L'esempio di registrazione dei permessi per nuovo modulo viene fatta a partire dalla modellazione dei dati già presentata alla sezione [esempio di modellazione della base dati](/orm#esempio-di-modellazione). Il nuovo modulo dell'applicativo tratterà una domanda di prenotazione di un mezzo. La nuova domanda di prenotazione di risorsa presentata da un utente conterrà: l'indirizzo email dell'utente; la tipologia di risorsa che deve essere prenotata  (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa.
+L'esempio di registrazione dei permessi per nuovo modulo viene fatta a partire dalla modellazione dei dati già presentata alla sezione [esempio di modellazione della base dati](/nextjs/orm#esempio-di-modellazione). Il nuovo modulo dell'applicativo tratterà una domanda di prenotazione di un mezzo. La nuova domanda di prenotazione di risorsa presentata da un utente conterrà: l'indirizzo email dell'utente; la tipologia di risorsa che deve essere prenotata  (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa.
 
 ## Creazione del file di migrazione con i nuovi permessi
 
@@ -132,26 +132,26 @@ export const useAppPermissions = (): AppPermissionsType => {
   const { t } = useLingui();
   return {
     role: {
-      label: t`Role management`,
+      label: t`Gestione di ruoli e permessi`,
       permissions: [
         {
           permission: permissionType.roleManage,
-          description: t`Manage role, permissions for users`,
+          description: t`Gestisci ruoli e permessi per gli utenti`,
         },
       ],
     },
     // .....
     // Dichiarazionne dei permessi per il nuovo modulo request
     request: {
-    	label: t`Requests`,
+    	label: t`Richieste`,
       permissions: [
         {
           permission: permissionType.requestCreate,
-          description: t`Create new request`,
+          description: t`Crea una nuova richiesta`,
         },
         {
           permission: permissionType.requestRead,
-          description: t`Read all request`,
+          description: t`Vedi tutte le richieste`,
         },
         // ..... requestUpdate, requestDelete
       ],
