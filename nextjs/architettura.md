@@ -10,7 +10,7 @@ dateCreated: 2025-03-31T07:59:50.309Z
 
 # Architettura dei sistemi
 
-Le applicazioni SOUL hanno un stile architetturale a **microservizi** e sono realizzate con i container Docker.  Le applicazioni SOUL devono essere progettate per il dispiegamento in ambienti cloud moderni che adottano modelli PaaS (Platform as a Service) e infrastrutture ephemeral, ovvero temporanee e ricreate a ogni deploy. Questo approccio semplifica l'integrazione continua (CI) e la distribuzione continua (CD) negli ambienti di staging e produzione.
+Le applicazioni SOUL hanno un stile architetturale a **microservizi** e sono realizzate con i container Docker.  Le applicazioni SOUL devono essere progettate per il dispiegamento in ambienti cloud moderni che adottano modelli PaaS (Platform as a Service) e infrastrutture effimere, ovvero temporanee e ricreate a ogni deploy. Questo approccio semplifica l'integrazione continua (CI) e la distribuzione continua (CD) negli ambienti di staging e produzione.
 
 Le applicazioni SOUL create a partire dallo [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) prevedono l'impiego di quattro container:
 
@@ -23,7 +23,7 @@ Le applicazioni SOUL create a partire dallo [Starter Kit](https://github.com/Pia
 
 ## NextJS
 
-Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto del suo tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS, in configurazione [App Router](https://nextjs.org/docs/app), ha uno stile architetturale **monolitico**, ovvero con un minor disaccoppiamento tra UI e business logic al fine di semplificare l'attività di sviluppo. Questo approccio è particolarmente indicato per progetti che presentano le seguenti caratteristiche:
+Gli applicativi SOUL hanno l'obbiettivo di gestire l'interazione con l'utente. In questo tipo di progetti lo sviluppatore spende molto tempo nella modellazione delle interfacce utente.  NextJS è il microservizio nel quale lo sviluppatore dopo aver studiato e progettato l'interazione l'utente, costruisce le interfacce grafiche. NextJS, in configurazione [App Router](https://nextjs.org/docs/app), ha uno stile architetturale **monolitico**, ovvero con un minor disaccoppiamento tra UI e business logic al fine di semplificare l'attività di sviluppo. Questo approccio è particolarmente indicato per progetti che presentano le seguenti caratteristiche:
 
 - MVP (Minimum Viable Product), prototipi o app sviluppate da team di piccole dimensioni;
 - Progetti interni, CRUD semplici, gestionali;
