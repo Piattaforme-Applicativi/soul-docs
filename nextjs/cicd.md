@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2025-09-22T07:27:09.862Z
+date: 2026-02-26T12:34:23.345Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -20,7 +20,7 @@ Il processo di sviluppo ha inizio con la richiesta del team di sviluppo. Il team
 
 ### Scelta dei nomi dei domini e dei repository
 
-Nella fase iniziale del progetto di sviluppo è necessario scegliere il nome del repository GIT e dei nomi a dominio per raggiungere via browser gli ambienti di staging e di produzione. E' una convezione interna scegliere il nome del repository GIT secondo il formato [Kebab case](/stile-codice#glossario). Per quanto riguarda i nomi a dominio vanno rispettate le [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini). Per ragioni di gestione è conveniente scegliere i nomi a dominio per gli ambienti di staging in produzione in questo modo:
+Nella fase iniziale del progetto di sviluppo è necessario scegliere il nome del repository GIT e dei nomi a dominio per raggiungere via browser gli ambienti di staging e di produzione. E' una convezione interna scegliere il nome del repository GIT secondo il formato [Kebab case](/nextjs/stile-codice#glossario). Per quanto riguarda i nomi a dominio vanno rispettate le [linee guida per la registrazione dei nomi a dominio dell'Ateneo](https://www.unipd.it/domini). Per ragioni di gestione è conveniente scegliere i nomi a dominio per gli ambienti di staging in produzione in questo modo:
 
 * **staging** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/stile-codice#glossario) deve essere seguito dal suffisso *-staging.ict.unipd.it*  (eg. {nuovo-software}-staging.ict.unipd.it)
 * **produzione** - deve essere registrato un nome a dominio di 4° livello,  il nome dell'applicativo in formato [Kebab case](/stile-codice#glossario) deve essere seguito dal suffisso *.ict.unipd.it*  (eg. {nuovo-software}.ict.unipd.it)
@@ -34,7 +34,7 @@ Segue l'elenco dei compiti che lo sviluppatore deve svolgere per rilasciare un n
 | Codice | Nome del compito                                 | Descrizione del compito                                     |
 | :----: | ------------------------------------------------- | ------------------------------------------------------------ |
 |   S1   | Richiesta nuovo repository                        | Lo sviluppatore deve inviare una comunicazione all'indirizzo helpdesk@donq.io ( il gestore dei repository ), chiedendo di creare un repository per il nuovo progetto/prodotto software. All'interno della comunicazione vanno riportati anche i nomi dei domini per l'ambiente di staging e produzione, come riportato nella sezione [scelta dei nomi dei domini e dei repository](#scelta-dei-nomi-dei-domini-e-dei-repository) |
-|   S2   | Preparazione ambiente locale di sviluppo          | A seguito della ricezione della **comunicazione di conferma di crezione del nuovo repository** da parte del gestore dei repository, lo sviluppatore può [installare e configurare l'ambiente di lavoro locale](/installazione) |
+|   S2   | Preparazione ambiente locale di sviluppo          | A seguito della ricezione della **comunicazione di conferma di crezione del nuovo repository** da parte del gestore dei repository, lo sviluppatore può [installare e configurare l'ambiente di lavoro locale](/nextjs/installazione) |
 |   S3   | Sviluppo software                                 | Lo sviluppatore implementa una [nuova versione del sistema](#annotazione-nuova-versione) per rispondere ai requisiti o per correggere dei difetti del prodotto software |
 |   S4   | Rilascio nuova versione in ambiente di test       | Lo sviluppatore esegue il GIT PUSH dei COMMIT nel **branch sviluppo**. Se tutte le modificano superano i test automatici di verifica e validazione, la [nuova versione](#annotazione-nuova-versione) del prodotto software viene dispiegata nell'ambiente di **staging** |
 |   S5   | Beta testing                                      | Lo sviluppatore esegue una verifica della nuova versione dell'applicativo Insieme agli utenti finali e raccoglie feedback |
@@ -49,7 +49,7 @@ Gli sviluppatori che fanno parte dello staff di Ateneo, possono decidere di crea
 
 Prima di ogni rilascio delle applicazioni basate su [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL è necessario:
 
-* Tradurre i messaggi di sistema in lingua italiana, come riportatato nelle [linee guida alla localizzazione linguistica](/localizzazione);
+* Tradurre i messaggi di sistema in lingua italiana, come riportatato nelle [linee guida alla localizzazione linguistica](/nextjs/localizzazione);
 * Eseguire il pre-build delle sorgenti NextJS nel proprio computer per minimizzare o eliminare gli errori di CI/CD;
 * Annotare la nuova versione del sistema, semplificando l'attività di verifica di aggiornamenti degli ambienti di staging e produzione.
 
