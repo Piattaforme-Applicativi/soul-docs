@@ -87,10 +87,10 @@ export async function notify(): Promise<boolean> {
 	const mailMessage: MailMessage = {
     from: Global.config.mailerFromAddress as string, // noreply.applicativi@unipd.it
     to: 'mario.rossi@company.com', // invia a MAILER_TO_ADDRESS di default quando impostato nella configurazione
-    subject: i18n._(t`Approval is required`),
-    message: `${i18n._(t`Dear`)} Mario Rossi, ${i18n._(t`your approval is required`)}<br/>
-${i18n._(t`For the request to be valid you need to approve it.`)}<br/><br/>
-${i18n._(t`Please`)} <a href="${Global.config.baseUrl}/request/${request.id}">${i18n._(t`check the request for approval`)}</a>`,
+    subject: i18n._(t`E' richiesta l'approvazione`),
+    message: `${i18n._(t`Caro`)} Mario Rossi, ${i18n._(t`è richiesta la tua approvazione`)}<br/>
+${i18n._(t`L'utente ha bisogno della tua approvazione per completare la richiesta.`)}<br/><br/>
+${i18n._(t`Per favore`)} <a href="${Global.config.baseUrl}/request/${request.id}">${i18n._(t`controlla la richiesta`)}</a>`,
         };
   return sendEmail(mailMessage).then((result) => {
     return true;
