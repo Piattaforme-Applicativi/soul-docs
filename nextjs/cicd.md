@@ -2,7 +2,7 @@
 title: Sviluppo, versionamento e dispiegamento
 description: Sviluppo, versionamento e dispiegamento continuo degli applicativi nell'ambiente cloud di Ateneo
 published: true
-date: 2026-02-26T12:34:45.786Z
+date: 2026-02-26T12:43:57.231Z
 tags: 
 editor: markdown
 dateCreated: 2025-04-30T07:00:29.308Z
@@ -49,7 +49,7 @@ Gli sviluppatori che fanno parte dello staff di Ateneo, possono decidere di crea
 
 Prima di ogni rilascio delle applicazioni basate su [Starter Kit](https://github.com/Piattaforme-Applicativi/soul-starter-kit) SOUL è necessario:
 
-* Tradurre i messaggi di sistema in lingua italiana, come riportatato nelle [linee guida alla localizzazione linguistica](/nextjs/localizzazione);
+* Tradurre i messaggi di sistema in lingua italiana, come riportatato nelle [linee guida alla localizzazione linguistica](/nextjs/i18n);
 * Eseguire il pre-build delle sorgenti NextJS nel proprio computer per minimizzare o eliminare gli errori di CI/CD;
 * Annotare la nuova versione del sistema, semplificando l'attività di verifica di aggiornamenti degli ambienti di staging e produzione.
 
