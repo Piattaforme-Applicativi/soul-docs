@@ -2,7 +2,7 @@
 title: Prima app CRUD
 description: Creare una prima applicazione CRUD
 published: true
-date: 2025-09-22T07:28:32.196Z
+date: 2026-02-26T11:31:07.024Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-08T09:59:51.833Z
@@ -37,7 +37,7 @@ Definite le rotte è necessario modificare il menu di navigazione dell'applicati
 
 ![Nuovo modulo di un applicativo SOUL](diagrammi/crud.svg)
 
-Un nuovo modulo CRUD prevede la creazione di nuovi componenti e rotte NextJS, con forma e struttura presentate nelle [linee guida per la scrittura del codice](/stile-codice). E' importante sottolineare che attenersi alle linee guida di scrittura del codice è fondamentale nello sviluppo di applicazioni SOUL (NextJS). Uno degli obiettivi principali dello stile di sviluppo adottato è minimizzare il numero di interazioni necessarie tra utente e sistema, ottimizzando così l’esperienza utente e le prestazioni complessive. In particolare, è essenziale **limitare le richieste al server** esclusivamente nei **momenti in cui l’utente ha bisogno di nuovi dati**, evitando richieste superflue. Quando possibile, è buona pratica restituire più dati in un’unica risposta per massimizzare il throughput lato server. Inoltre, durante il **primo caricamento della pagina** (server-side), è importante **prelevare il maggior numero di informazioni utili**, in modo da ridurre al minimo le successive interazioni con il backend e, di conseguenza, il carico complessivo sul sistema.
+Un nuovo modulo CRUD prevede la creazione di nuovi componenti e rotte NextJS, con forma e struttura presentate nelle [linee guida per la scrittura del codice](/nextjs/stile-codice). E' importante sottolineare che attenersi alle linee guida di scrittura del codice è fondamentale nello sviluppo di applicazioni SOUL (NextJS). Uno degli obiettivi principali dello stile di sviluppo adottato è minimizzare il numero di interazioni necessarie tra utente e sistema, ottimizzando così l’esperienza utente e le prestazioni complessive. In particolare, è essenziale **limitare le richieste al server** esclusivamente nei **momenti in cui l’utente ha bisogno di nuovi dati**, evitando richieste superflue. Quando possibile, è buona pratica restituire più dati in un’unica risposta per massimizzare il throughput lato server. Inoltre, durante il **primo caricamento della pagina** (server-side), è importante **prelevare il maggior numero di informazioni utili**, in modo da ridurre al minimo le successive interazioni con il backend e, di conseguenza, il carico complessivo sul sistema.
 
 ## Compiti dello sviluppatore
 
@@ -57,7 +57,7 @@ Segue l'elenco delle attività che lo sviluppatore deve completare per implement
 
 # Esempio di implementazione di un nuovo modulo
 
-L'esempio di creazione del nuovo modulo CRUD viene fatta a partire dalla modellazione dei dati già presentata alla sezione [esempio di modellazione della base dati](/orm#esempio-di-modellazione) . Il nuovo modulo dell'applicativo tratterà una domanda di prenotazione di un mezzo. La nuova domanda di prenotazione di risorsa presentata da un utente conterrà: l' indirizzo email dell'utente; la tipologia di risorsa che deve essere prenotata  (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa.
+L'esempio di creazione del nuovo modulo CRUD viene fatta a partire dalla modellazione dei dati già presentata alla sezione [esempio di modellazione della base dati](/nextjs/orm#esempio-di-modellazione) . Il nuovo modulo dell'applicativo tratterà una domanda di prenotazione di un mezzo. La nuova domanda di prenotazione di risorsa presentata da un utente conterrà: l' indirizzo email dell'utente; la tipologia di risorsa che deve essere prenotata  (auto, bicicletta, monopattino), il tempo di utilizzo della risorsa.
 
 ## Tipi e interfacce di classe
 
