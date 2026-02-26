@@ -2,7 +2,7 @@
 title: Dati dell'applicazione
 description: Modellazione dell'ER, accesso ai dati via ORM e versionamento della banca dati
 published: true
-date: 2025-09-22T07:27:55.130Z
+date: 2026-02-26T11:32:16.842Z
 tags: 
 editor: markdown
 dateCreated: 2025-05-06T10:14:03.822Z
@@ -25,7 +25,7 @@ Segue l'elenco delle attività che derivano dalla raccolta di nuovi requisiti fu
 | :----: | ------------------------------------------ | ------------------------------------------------------------ |
 |   S1   | Analisi del dominio e modellazione dell'ER | Lo sviluppatore formalizza il modello ER che descrive il dominio |
 |   S2   | Aggiornamento istanza RDBMS                | Lo sviluppatore genera uno script .sql vuoto *nextjs/prisma/migrations/{timestamp}-{nuova-parte-db}*. All'interno dello script vuoto lo sviluppatore trascrive gli statement DDL e SQL per aggiornare l'istanza del database, con le modifiche nella nuova versione dell'ER al passo precedente. |
-|   S3   | Aggiornamento schema Prisma ORM            | Lo sviluppatore aggiorna l'istanza del database per eseguendo lo script .sql creato in precedenza. A seguito dell'aggiornamento dell'istanza lo sviluppatore aggiorna lo schema Prisma ORM in *nextjs/prisma/schema.prisma* adeguando i nomi dei campi da Snake case a Camel case per rispettare [linee guida per la scrittura del codice sorgente](/stile-codice)) |
+|   S3   | Aggiornamento schema Prisma ORM            | Lo sviluppatore aggiorna l'istanza del database per eseguendo lo script .sql creato in precedenza. A seguito dell'aggiornamento dell'istanza lo sviluppatore aggiorna lo schema Prisma ORM in *nextjs/prisma/schema.prisma* adeguando i nomi dei campi da Snake case a Camel case per rispettare [linee guida per la scrittura del codice sorgente](/nextjs/stile-codice)) |
 |   S4   | Generazione prisma client                  | Lo sviluppatore genera il client/driver prisma a partire dallo schema. Il file schema.prisma è un metadescrittore va pertanto generata la versione  in formato .js eseguibile dall'interprete javascript. |
 
 Shell dei comandi da eseguire nel microservizio NextJS:
@@ -128,7 +128,7 @@ model Request {
 }
 ```
 
-Una volta estratti i descrittori nel file schema.prima devo aggiornare il contenuto per adegure [lo stile del codice](/stile-codice). A seguito dell'adeguamento lo schema.prisma riporterà i nomi dei campi e delle tabelle in **camelCase**
+Una volta estratti i descrittori nel file schema.prima devo aggiornare il contenuto per adegure [lo stile del codice](/nextjs/stile-codice). A seguito dell'adeguamento lo schema.prisma riporterà i nomi dei campi e delle tabelle in **camelCase**
 
 ```sql
 # nextjs/schema.prisma
