@@ -217,9 +217,10 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 
 # Ruoli, permessi e dati dell'utente
 
-Lo Starter Kit mette a disposizione `getSessionPayload()` per accedere a ruoli e permessi.  Per ragioni di sicurezza Il metodo può essere utilizzato solo lato server per recuperare ruoli e permessi. Il metodo ritorna un oggetto che risponde all'interfaccia **UserSession**. Gli attributi della sessione utente (**UserSession**) sono:
+Lo Starter Kit mette a disposizione `getSessionPayload()` per accedere a ruoli e permessi.  Per ragioni di sicurezza Il metodo può essere utilizzato solo lato server per recuperare ruoli e permessi. Il metodo ritorna un oggetto che risponde all'interfaccia **UserSession & UserSessionPersonalData**. Gli attributi della sessione utente (**UserSession & UserSessionPersonalData**) sono:
 
 * **sub**: è l'identificatore univoco per l'utente autenticato, offuscato con HMAC. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+* **uid**: è l'attributo che identifica l'utente autenticato. E' in "chiaro" solo se consultato utilizzando la funzione `getSessionPayload()`. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
 * **roles**: I ruoli dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 * **permissions**: I permessi dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 
