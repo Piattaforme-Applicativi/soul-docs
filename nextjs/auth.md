@@ -47,7 +47,7 @@ Alcune regole per classificare le diverse tipologie di utente:
 
 * **Studenti che frequentano** e **personale**: sono considerati affiliati all'Ateneo; hanno una casella di posta @unipd.it oppure @studenti.unipd.it;
 * Quando gli **alumni** non fanno più parte dell'organizzazione non hanno più diritto al **servizio di posta**, tuttavia conservano l'accesso con il loro account (nome.cognome@studenti.unipd.it);
-* I collaboratori esterni hanno una casella mail che ha indirizzo nome.cognome@unipd.it ma non hanno affiliazione con l'organizzazione Ateneo.
+* I collaboratori esterni hanno una casella mail che ha indirizzo nome.cognome@unipd.it ma non hanno affiliazione con l'organizzazione Ateneo. Nel caso in cui ci sia affiliazione non è di tipo **staff@unipd.it** (prerogativa dei collaboratori)
 
 ![Tiplogie di identità di utenti restituite dal SSO](diagrammi/auth-identity-types.svg)
 
@@ -154,10 +154,10 @@ INIZIO
 
       // Se il dominio è unipd.it
       ALTRIMENTI SE dominio E' UGUALE A 'unipd.it' ALLORA
-          SE tipo_utente E' NON DEFINITO ALLORA
-              RITORNA EXTERNAL
-          ALTRIMENTI SE 'staff@unipd.it' E' IN tipo_utente ALLORA
+          SE 'staff@unipd.it' E' IN tipo_utente ALLORA
               RITORNA STAFF
+          ALTRIMENTI
+              RITORNA EXTERNAL
           FINE SE
       FINE SE
 
