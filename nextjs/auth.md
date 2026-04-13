@@ -212,7 +212,7 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 
 * **Invitation Code**: ottenuto al passo A1;
 * **Metadata SP**: è il file XML che può essere scaricato dal path `/saml/metadata`  dell'istanza dell'applicazione;
-* **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`, `shib_codsedeserviziodip`, `shib_sedeserviziodip`;
+* **Attributi richiesti**: sono gli attributi necessari a creare il JWT nel cookie di sessione. Gli attributi che devono essere obbligatoriamente richiesti sono: `shib_id`, `shib_codicefiscale`,`shib_extid` , `shib_sn`, `shib_givenname`, `shib_mail`, `shib_edupersonscopedaffiliation`, `shib_codsedeserviziodip`, `shib_sedeserviziodip`;
 * **Note eventuali**: deve essere utilizzato nel caso in cui è necessario abilitare l'autenticazione con il sistema nazionale di identità digitale italiano.
 
 # Ruoli, permessi e dati dell'utente
@@ -220,26 +220,37 @@ Al momento dell'invio della [richiesta di accreditamento Single Sign On di Atene
 Lo Starter Kit mette a disposizione `getSessionPayload()` per accedere a ruoli e permessi.  Per ragioni di sicurezza Il metodo può essere utilizzato solo lato server per recuperare ruoli e permessi. Il metodo ritorna un oggetto che risponde all'interfaccia **UserSession & UserSessionPersonalData**. Gli attributi della sessione utente (**UserSession & UserSessionPersonalData**) sono:
 
 * **sub**: è l'identificatore univoco per l'utente autenticato, offuscato con HMAC. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+
 * **uid**: è l'attributo che identifica l'utente autenticato. E' in "chiaro" solo se consultato utilizzando la funzione `getSessionPayload()`. Per gli utenti registrati in Unipd è l'indirizzo email assegnato dall'Ateneo (nome.cognome@unipd.it oppure nome.cognome@studenti.unipd.it). Per i cittadino che ha fatto l'accesso con SPID e CIE è il codice fiscale (questo per gestire in casi nei quali il cittadino ha più profili SPID);
+
 * **roles**: I ruoli dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
+
 * **permissions**: I permessi dell'utente assegnati con il modulo ruoli e permessi dello Starter Kit;
 
-Il metodo `getPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components, viene utilizzato per accedere in maniera semplificata: agli attributi dell'utente, ai ruoli e ai permessi . I due metodi ritornano un dato che implementa il contratto dell'interfaccia `Payload` (`nextjs/types/session.ts`). Il Payload della sessione è la combinazione dei dati sessione (**UserSession**) e dell'identità dell'utente (**AuthUser**)
+  Il metodo `getPayload()` nei React Server Components e `const { user } = useContext(AuthContext)` nei React Client Components, viene utilizzato per accedere in maniera semplificata: agli attributi dell'utente, ai ruoli e ai permessi . I due metodi ritornano un dato che implementa il contratto dell'interfaccia `Payload` (`nextjs/types/session.ts`). Il Payload della sessione è la combinazione dei dati sessione (**UserSession**) e dell'identità dell'utente (**AuthUser**).
 
 Segue le descrizione delle proprietà di **AuthUser**. Proprietà di base sono:
 
 * **id**: coincide con UserSession.id;
+
 * **firstName**: nome dell'utente (eg. Alessandro);
+
 * **familyName**: cognome dell'utente (eg. Volta);
+
 * **codiceFiscale**: codice fiscale dell'utente (eg. VLTLSN27C05C933E);
+
 * **userType**: uno tra i tipi (STAFF: personale strutturato Unipd, EXTERNAL: collaboratore esterno all'organizzazione Unipd; STUDENT: studente che frequenta i corsi; ALUMNI: ex-studente; SIPID o CIE: cittadino autenticato con SPID o CIE);
 
 Proprietà condizionali (variabili a seconda del tipo di utente autenticato):
 
 * **authSource**: è presente solo se l'utente si è autenticato con SPID o CIE;
+
 * **externalId**: è il codice utilizzato da Unipd per identificare un utente registrato nei sistemi di Ateneo (**STAFF**, **EXTERNAL**, **STUDENT**, **ALUMNI**);
+
 * **mail**: è sempre presente, fatta eccezione per gli ex-studenti che hanno effettuato l'accesso con le credenziali fornite dall'Ateneo (**ALUMNI**);
+
 * **affiliation**: è sempre presente per: **STUDENTI**, **ALUMNI** e **STAFF**;
+
 * **workplace**: presente per lo **STAFF**, riporta le informazioni del gruppo di lavoro (di solito settore o ufficio) dell'utente (eg. code: DXXXX, description: Ufficio relazioni con il pubblico).
 
 ```typescript
