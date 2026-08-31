@@ -52,6 +52,9 @@ Ad esempio, puoi verificare l'endpoint di stato del servizio con:
 curl -H "apikey: <API_KEY>" https://apigw-production.ict.unipd.it/mfd/health
 ```
 
+La documentazione API completa è disponibile in formato OpenAPI (OAS) tramite Swagger UI all'indirizzo:
+[https://apigw-production.ict.unipd.it/mfd/docs/](https://apigw-production.ict.unipd.it/mfd/docs/).
+
 ## Caricare i documenti e creare un flusso di firma
 
 ### 1. Caricare i file
