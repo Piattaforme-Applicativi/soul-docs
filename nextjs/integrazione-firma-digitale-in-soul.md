@@ -2,10 +2,10 @@
 title: Integrazione firma digitale in SOUL
 description: Come integrare i servizi di firma digitale nelle applicazioni create con framework SOUL (e non solo), utilizzando il Middleware di Firma Digitale (MFD) dell'Università di Padova.
 published: true
-date: 2026-08-31T11:49:00.000Z
+date: 2026-08-12:09:00.000+02:00
 tags: [mfd, firma-digitale]
 editor: markdown
-dateCreated: 2026-08-31T11:00:00.000Z
+dateCreated: 2026-08-31T11:00:00.000+02:00
 ---
 
 # Integrazione della firma digitale in SOUL
