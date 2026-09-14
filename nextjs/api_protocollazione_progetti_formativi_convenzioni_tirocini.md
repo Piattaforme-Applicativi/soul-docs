@@ -1,13 +1,3 @@
----
-title: Guida API di Protocollazione - Use Case: Progetti formativi e convenzioni di tirocinio.
-description: 
-published: true
-date: 2026-09-14T16:17:10.287Z
-tags: 
-editor: markdown
-dateCreated: 2026-09-14T16:13:19.502Z
----
-
 # Guida API di Protocollazione
 
 ## Use Case: Progetti formativi e convenzioni di tirocinio.
@@ -111,7 +101,7 @@ Richieste e risposte sono in JSON (Content-Type: application/json).
 
 # 4. Endpoint Anagrafica
 
-## 4.1 GET /api/career/anagrafica/persona-esterna
+## 4.1 GET /career/api/anagrafica/persona-esterna
 
 ### Cosa fa
 Cerca una persona esterna all'Ateneo (ad esempio uno studente) in Titulus tramite codice fiscale.
@@ -161,7 +151,7 @@ restituito un array vuoto).
 > Il campo `recapito` consolida automaticamente i dati di recapito presenti in Titulus;
 `telefono` è sempre un array.
 
-## 4.2 POST /api/career/anagrafica/persona-esterna
+## 4.2 POST /career/api/anagrafica/persona-esterna
 
 ### Cosa fa:
 
@@ -229,7 +219,7 @@ Crea una nuova persona esterna all'Ateneo (ad esempio uno studente) in Titulus. 
 ### Risposta 201
 `data` contiene l'oggetto persona creato (stesso formato della ricerca), incluso `id`.
 
-## 4.3 GET /api/career/anagrafica/struttura-esterna
+## 4.3 GET /career/api/anagrafica/struttura-esterna
 
 ### Cosa fa:
 Ricerca una struttura esterna (azienda/ente esterno all'Ateneo) per codice fiscale o partita IVA.
@@ -286,7 +276,7 @@ stesso CF/partita IVA.
 }
 ```
 
-## 4.4 POST /api/career/anagrafica/struttura-esterna
+## 4.4 POST /career/api/anagrafica/struttura-esterna
 
 ### Cosa fa: 
 Crea una nuova struttura esterna (ente/azienda esterna all'Ateneo) in Titulus. L' id (`physdoc`) restituito va usato
@@ -362,7 +352,7 @@ Entrambi gli endpoint:
 > **Prerequisito:** struttura esterna (ente) e persona esterna (studente) devono **esistere già** in Titulus. È necessario quindi recuperare il loro `id` con
 gli endpoint di anagrafica prima di protocollare.
 
-## 5.1 POST /api/career/protocolla/convenzione-tirocinio
+## 5.1 POST /career/api/protocolla/convenzione-tirocinio
 
 
 ### Cosa fa:
@@ -400,7 +390,7 @@ Protocolla una convenzione di tirocinio.
 }
 ```
 
-## 5.2 POST /api/career/protocolla/progetto-formativo-tirocinio
+## 5.2 POST /career/api/protocolla/progetto-formativo-tirocinio
 
 ### Cosa fa:
 Protocolla un progetto formativo.
@@ -560,7 +550,7 @@ Creazione anagrafica persona esterna (studente) in Titulus.
 | `telefono[].tipo` uguale a `fisso` o `mobile`; `telefono[].num` in formato valido | 400 |
 
 
-## 7.2 POST /api/career/anagrafica/struttura-esterna
+## 7.2 POST /career/api/anagrafica/struttura-esterna
 
 ### Cosa fa:
 Creazione anagrafica struttura esterna in Titulus.
