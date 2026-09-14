@@ -1,3 +1,13 @@
+---
+title: Guida API di Protocollazione - Use Case: Progetti formativi e convenzioni di tirocinio.
+description: 
+published: true
+date: 2026-09-14T16:17:10.287Z
+tags: 
+editor: markdown
+dateCreated: 2026-09-14T16:13:19.502Z
+---
+
 # Guida API di Protocollazione
 
 ## Use Case: Progetti formativi e convenzioni di tirocinio.
