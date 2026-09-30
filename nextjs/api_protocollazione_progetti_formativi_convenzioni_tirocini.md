@@ -1,14 +1,3 @@
----
-title: Guida API di Protocollazione - Use Case: Progetti formativi e convenzioni di tirocinio.
-description: 
-published: true
-date: 2026-09-14T16:36:24.631Z
-tags: 
-editor: markdown
-dateCreated: 2026-09-14T16:13:19.502Z
----
-
-
 # Guida API di Protocollazione
 
 ## Use Case: Progetti formativi e convenzioni di tirocinio.
@@ -18,7 +7,7 @@ dateCreated: 2026-09-14T16:13:19.502Z
 - DonQ.
 
 ## Ultimo aggiornamento:
-2026-09-14
+2026-09-30
 
 ---
 
@@ -26,6 +15,8 @@ dateCreated: 2026-09-14T16:13:19.502Z
 
 Il servizio di **Protocollazione** espone delle API REST/JSON che fanno da ponte verso il
 protocollo informatico (Titulus) di UNIPD.
+
+La documentazione tecnica completa, in formato Swagger UI, è disponibile al seguente link: https://apigw-staging.ict.unipd.it/protocollazione/docs/.
 
 Vengono fornite le API per le seguenti finalità:
 
@@ -48,10 +39,16 @@ protocollazione passando gli stessi id.
 
 ## 2.1 Base URL e percorsi
 
-Gli endpoint sono esposti sotto il prefisso `/career/api`:
+Gli endpoint sono esposti sotto il prefisso `/protocollazione/career/api`:
 ```text
-https://<host-del-servizio>/career/api/...
+https://<host-del-servizio>/protocollazione/career/api/...
 ```
+
+L'host nell'URL precedente assume uno dei seguenti valori:
+-  Ambiente di **staging**: `apigw-staging.ict.unipd.it`.
+-  Ambiente di **produzione** (in fase di attivazione): `apigw-production.ict.unipd.it`;
+
+**NB**: l'host `apigw-staging.unipd.cloud` rimane attivo solo per uso interno, non deve quindi essere utilizzato dall'applicativo client.  
 
 **NB**: in precedenza gli stessi endpoint (eventualmente con diverso nome) erano disponibili anche sotto il prefisso `/api` (es.
 `/api/anagrafica/ente`), ma sono stati deprecati e rimossi come anticipato nella precedente versione della presente documentazione.
@@ -112,7 +109,7 @@ Richieste e risposte sono in JSON (Content-Type: application/json).
 
 # 4. Endpoint Anagrafica
 
-## 4.1 GET /career/api/anagrafica/persona-esterna
+## 4.1 GET /protocollazione/career/api/anagrafica/persona-esterna
 
 ### Cosa fa
 Cerca una persona esterna all'Ateneo (ad esempio uno studente) in Titulus tramite codice fiscale.
@@ -162,7 +159,7 @@ restituito un array vuoto).
 > Il campo `recapito` consolida automaticamente i dati di recapito presenti in Titulus;
 `telefono` è sempre un array.
 
-## 4.2 POST /career/api/anagrafica/persona-esterna
+## 4.2 POST /protocollazione/career/api/anagrafica/persona-esterna
 
 ### Cosa fa:
 
@@ -230,7 +227,7 @@ Crea una nuova persona esterna all'Ateneo (ad esempio uno studente) in Titulus. 
 ### Risposta 201
 `data` contiene l'oggetto persona creato (stesso formato della ricerca), incluso `id`.
 
-## 4.3 GET /career/api/anagrafica/struttura-esterna
+## 4.3 GET /protocollazione/career/api/anagrafica/struttura-esterna
 
 ### Cosa fa:
 Ricerca una struttura esterna (azienda/ente esterno all'Ateneo) per codice fiscale o partita IVA.
@@ -287,7 +284,7 @@ stesso CF/partita IVA.
 }
 ```
 
-## 4.4 POST /career/api/anagrafica/struttura-esterna
+## 4.4 POST /protocollazione/career/api/anagrafica/struttura-esterna
 
 ### Cosa fa: 
 Crea una nuova struttura esterna (ente/azienda esterna all'Ateneo) in Titulus. L' id (`physdoc`) restituito va usato
@@ -363,7 +360,7 @@ Entrambi gli endpoint:
 > **Prerequisito:** struttura esterna (ente) e persona esterna (studente) devono **esistere già** in Titulus. È necessario quindi recuperare il loro `id` con
 gli endpoint di anagrafica prima di protocollare.
 
-## 5.1 POST /career/api/protocolla/convenzione-tirocinio
+## 5.1 POST /protocollazione/career/api/protocolla/convenzione-tirocinio
 
 
 ### Cosa fa:
@@ -401,7 +398,7 @@ Protocolla una convenzione di tirocinio.
 }
 ```
 
-## 5.2 POST /career/api/protocolla/progetto-formativo-tirocinio
+## 5.2 POST /protocollazione/career/api/protocolla/progetto-formativo-tirocinio
 
 ### Cosa fa:
 Protocolla un progetto formativo.
@@ -561,7 +558,7 @@ Creazione anagrafica persona esterna (studente) in Titulus.
 | `telefono[].tipo` uguale a `fisso` o `mobile`; `telefono[].num` in formato valido | 400 |
 
 
-## 7.2 POST /career/api/anagrafica/struttura-esterna
+## 7.2 POST /protocollazione/career/api/anagrafica/struttura-esterna
 
 ### Cosa fa:
 Creazione anagrafica struttura esterna in Titulus.
@@ -615,5 +612,3 @@ Gli errori provenienti da Titulus mantengono lo stato e il messaggio restituiti 
 |---|---|---|
 | GET | `/health/live` | Liveness probe — risponde `200 { "message": "OK" }` |
 | GET | `/health/ready` | Readiness probe — risponde `200 { "message": "OK" }` |
-
-La documentazione interattiva (Swagger UI) è disponibile su https://apigw-staging.ict.unipd.it/protocollazione/docs/.
