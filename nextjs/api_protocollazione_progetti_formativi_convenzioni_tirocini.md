@@ -39,7 +39,7 @@ protocollazione passando gli stessi id.
 
 ## 2.1 Base URL e percorsi
 
-Gli endpoint sono esposti sotto il prefisso `/protocollazione/career/api`:
+Gli endpoint sono esposti sotto il prefisso `/protocollazione/career/api/`:
 ```text
 https://<host-del-servizio>/protocollazione/career/api/...
 ```
