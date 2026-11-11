@@ -36,12 +36,11 @@ Per ottenere queste credenziali, scrivi a
 [ufficio.applicativi@unipd.it](mailto:ufficio.applicativi@unipd.it), mettendo in copia
 [piattaforme.applicativi@unipd.it](mailto:piattaforme.applicativi@unipd.it).
 
-L'API Gateway espone endpoint distinti per staging e produzione:
+L'ambiente di produzione è raggiungibile tramite l'API Gateway dell'Università di Padova al seguente URL:
 
-| Ambiente | URL base |
-|-------------|----------|
-| Staging | https://apigw-staging.ict.unipd.it/mfd/ |
-| Produzione | https://apigw-production.ict.unipd.it/mfd/ |
+```
+https://apigw-production.ict.unipd.it/mfd/
+```
 
 Per autorizzare le richieste, includi l'header `apikey` con il valore `<API_KEY>` fornito
 dall'ufficio ICT UNIPD (Ufficio Applicativi, Area Servizi Informatici e Telematici — ASIT).
