@@ -171,27 +171,28 @@ Crea una nuova persona esterna all'Ateneo (ad esempio uno studente) in Titulus. 
 |-------------------------------|-----------------------------|-------------------------------------------------------------|
 |   nome                        |   Sì                        |   Stringa                                                   |
 |   cognome                     |   Sì                        |   Stringa                                                   |
-|   luogo_nascita               |   Sì                        |   Stringa                                                   |
-|   nazione_nascita             |   Sì                        |   Stringa                                                   |
+|   luogo_nascita               |   No                        |   Stringa                                                   |
+|   nazione_nascita             |   No                        |   Stringa                                                   |
 |   data_nascita                |   No                        |   Formato GG/MM/AAAA (es.31/01/1990)                        |
-|   sesso                       |   No                        |   M oppure F                                                |
-|   codice_fiscale              |   No                        |   Codice fiscale italiano valido (16caratteri)              |
+|   sesso                       |   Sì                        |   M oppure F                                                |
+|   codice_fiscale              |   Sì                        |   Codice fiscale italiano valido (16 caratteri)              |
 |   partita_iva                 |   No                        |   Stringa                                                   |
-|   recapito                    |   No                        |   Oggetto (vedi sotto)                                      |
-|   recapito.indirizzo          |   Sì (se recapitopresente)  |   { nazione, prov, comune,cap, value } — tutti obbligatori  |
-|   recapito.telefono           |   Sì (se recapitopresente)  |   Array di { num, tipo }                                    |
-|   recapito.email              |   Sì (se recapitopresente)  |   Email valida                                              |
-|   recapito.email_certificata  |   No                        |   Email valida                                              |
-|   appartenenza                |   No                        |   { cod_uff, qualifica } —entrambi obbligatori se presente  |
+|   recapito                    |   Sì                        |   Oggetto (vedi sotto)                                      |
+|   recapito.indirizzo          |   Sì                        |   nazione, cap e value obbligatori; prov e comune opzionali |
+|   recapito.telefono           |   Sì                        |   Array con almeno un elemento: num obbligatorio, tipo opzionale |
+|   recapito.email              |   Sì                        |   Email valida                                              |
+|   recapito.email_certificata  |   No                        |   Email valida; null e stringa vuota vengono ignorati        |
+|   appartenenza                |   No                        |   { cod_uff, qualifica } — entrambi opzionali                |
 |   competenze                  |   No                        |   Stringa                                                   |
 
 
 
 
 ### Formati dei sotto-campi:
-- `cap`: 1–10 caratteri (cifre/spazi/trattini);
+- `nome` e `cognome`: stringhe non vuote, con rimozione degli spazi iniziali e finali;
+- `recapito.indirizzo`: obbligatorio, con `nazione`, `cap` e `value` obbligatori di tipo stringa;
 - `telefono.num`: numero telefonico (prefisso internazionale opzionale, es. +39 049 1234567);
-- `telefono.tipo`: 'fisso' o 'mobile'.
+- `telefono.tipo`: opzionale, 'fisso' o 'mobile'.
 
 ### Esempio richiesta:
 
